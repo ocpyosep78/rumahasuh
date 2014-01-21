@@ -159,7 +159,8 @@ $news_category = get_category();
               <div class="col-xs-9">
                 <img class="m_b_10" src="<?php echo $prefix_img.$news['news_image'].'&h=300&w=705&q=100';?>">
                 <p class="m_b_10"><?php echo substr(preg_replace("/\n/","\n<br>",$news['news_content']),0,300);?></p>
-                <a class="read-more" href="<?php echo $prefix_url.cleanurl($news['category_name']).'/'.$news['news_alias'];?>">Read More</a>
+                <a class="read-more" href="<?php echo $prefix_url?>read">Read More</a>
+                <!--<a class="read-more" href="<?php echo $prefix_url.cleanurl($news['category_name']).'/'.$news['news_alias'];?>">Read More</a>-->
               </div>
 
             </div>

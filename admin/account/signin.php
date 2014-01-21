@@ -56,66 +56,66 @@ if($_POST['btn-admin-login'] == "Sign In"){
 
 <form method="post" enctype="multipart/form-data"> 
 
-<?php if(!empty($_SESSION['alert'])){?>
-<div class="alert <?php echo $_SESSION['alert'];?>" id="alert-msg-login">
-  <div class="container text-center">
-    <?php echo $_SESSION['msg'];?>
-  </div>
-</div>
-<?php }?>
+<?php 
+if(!empty($_SESSION['alert'])){
+   echo '<div class="alert '.$_SESSION['alert'].'" id="alert-msg-login">';
+   echo '<div class="container text-center">';
+   echo $_SESSION['msg'];
+   echo '</div>';
+   echo '</div>';
+}
 
-            <div class="container main">
-
-                <!--<div class="overlay over-signin <?php if(!empty($_SESSION['alert'])){ echo "error";}?>" id="overlay-error">-->
-
-                <div class="box row login">
-
-                    <div class="navbar-login clearfix">
-                      <div class="navbar-brand"><img src="<?php echo $prefix_url;?>files/common/logo.png" alt="logo"></div>
-                      <h1>Antikode Admin</h1>
-                    </div>
-
-                    <div class="content">
-                        
-                            <ul class="form-set clearfix">
-                                <li class="form-group row">
-                                    <label class="col-xs-3 control-label">Username</label>
-                                    <div class="col-xs-9">
-                                      <input type="text" class="form-control" autocomplete="off" name="username" id="id_username">
-                                    </div>
-                                </li>
-                                <li class="form-group row">
-                                    <label class="col-xs-3 control-label">Password</label>
-                                    <div class="col-xs-9">
-                                      <input type="password" class="form-control" autocomplete="off" name="password" id="id_password">
-                                    </div>
-                                </li>
-                                <li class="btn-placeholder m_b_15">
-                                
-                                <?php
-                                //if(isset($_SESSION['alert']) and $_SESSION['username'] != "error"){
-								   echo "<a class=\"m_r_15\" href=\"".$prefix_url."forgot-password\" id=\"ahref-forgot\">Forgotten your password?</a>";
-								//}
-								?>
-                                  
-                                  <input type="button" class="btn btn-success btn-sm" value="Sign In" onclick="validateLogin()" id="btn_login">
-                                  <input type="submit" class="btn btn-success btn-sm hidden" value="Sign In" name="btn-admin-login" id="btn-login">
-                              </li>
-                            </ul>
-                            
-                    </div><!--.content-->
-                
-                </div><!--.box.row-->
-
-            </div><!--.container.main-->           
-</form>
-
-<?php
 if($_POST['btn-admin-login'] == ""){
    unset($_SESSION['alert']);
    unset($_SESSION['msg']);
 }
 ?>
+
+            <div class="container main">
+              
+              <!--<div class="overlay over-signin <?php if(!empty($_SESSION['alert'])){ echo "error";}?>" id="overlay-error">-->
+              <div class="box row login">
+                <div class="navbar-login clearfix">
+                  <div class="navbar-brand"><img src="<?php echo $prefix_url;?>files/common/logo.png" alt="logo"></div>
+                  <h1>Propanraya Admin</h1>
+                </div>
+                
+                <div class="content">
+                  <ul class="form-set clearfix">
+                    <li class="form-group row">
+                      <label class="col-xs-3 control-label">Username</label>
+                      <div class="col-xs-9">
+                        <input type="text" class="form-control" autocomplete="off" name="username" id="id_username">
+                      </div>
+                    </li>
+                    
+                    <li class="form-group row">
+                      <label class="col-xs-3 control-label">Password</label>
+                      <div class="col-xs-9">
+                        <input type="password" class="form-control" autocomplete="off" name="password" id="id_password">
+                      </div>
+                    </li>
+                    
+                    <li class="btn-placeholder m_b_15">
+                    
+					  <?php
+					  //if(isset($_SESSION['alert']) and $_SESSION['username'] != "error"){
+					     echo "<a class=\"m_r_15\" href=\"".$prefix_url."forgot-password\" id=\"ahref-forgot\">Forgotten your password?</a>";
+					  //}
+					  ?>
+                      
+                      <input type="button" class="btn btn-success btn-sm" value="Sign In" onclick="validateLogin()" id="btn_login">
+                      <input type="submit" class="btn btn-success btn-sm hidden" value="Sign In" name="btn-admin-login" id="btn-login">
+                    </li>
+                  </ul>
+                  
+                </div><!--.content-->
+                
+              </div><!--.box.row-->
+              
+            </div><!--.container.main-->
+            
+          </form>
 
 <script type="text/javascript" src="<?php echo $prefix_url?>/script/login.js"></script>
 

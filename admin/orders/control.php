@@ -221,14 +221,4 @@ if(empty($search_parameter)){
 }else{
    $reset = "";
 }
-
-function order_disabling_search($variabel, $post_src){
-   
-   if($variabel == "$post_src"){ 
-      echo "value=\"".str_replace('\\', '/', $_REQUEST['srcval'])."\"";
-   }else if(!empty($variabel)){ 
-      echo "disabled";
-   }
-
-}
 ?>

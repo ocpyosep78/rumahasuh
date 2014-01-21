@@ -181,7 +181,7 @@ $objPHPExcel->getActiveSheet()->setTitle('Orders');
 //echo date('H:i:s') . " Write to Excel2007 format\n";
 $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
 
-$objWriter->save('reports/exports/'.$date_title.' Sales By Items (Orders).xlsx');
+$objWriter->save('custom/reports/exports/'.$date_title.' Sales By Items (Orders).xlsx');
 
 // Echo done
 //echo date('H:i:s') . " Done writing file.\r\n";

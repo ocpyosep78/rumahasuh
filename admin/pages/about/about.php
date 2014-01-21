@@ -1,6 +1,6 @@
-<?php include_once("xeditor/ckeditor.php");?>
+<?php 
+include_once("xeditor/ckeditor.php");
 
-<?php
 include("control.php");
 include("custom/pages/about/control.php");
 ?>
@@ -17,63 +17,105 @@ include("custom/pages/about/control.php");
     </div>
 
     <?php
-      if(!empty($_SESSION['alert'])){?>
-      
-        <div class="alert <?php echo $_SESSION['alert'];?>">
-        <div class="container"><?php echo $_SESSION['msg'];?></div>
-      </div>
-      <?php }?>
-
-    <!--belum ada alert nih sptnya disini-->
+	if(!empty($_SESSION['alert'])){
+	   echo '<div class="alert '.$_SESSION['alert'].'">';
+	   echo '<div class="container">'.$_SESSION['msg'].'</div>';
+	   echo '</div>';
+	}
+	
+	if($_POST['btn-about'] == ''){
+	   unset($_SESSION['alert']);
+	   unset($_SESSION['msg']);
+	}
+	?>
 
     <div class="container main">
 
       <div class="box row">
-        <div class="desc col-xs-3">
+        <div class="desc col-xs-3" id="custom_lang">
           <h3>Content</h3>
           <p>Descriptions about your company.</p>
+          
         </div>
         <div class="content col-xs-9">
           <ul class="form-set">
             <li class="form-group row underlined">
-              <label class="control-label col-xs-12">Vision &amp; Mission</label><br /><br />
+              <label class="control-label col-xs-12">History</label><br /><br />
               <div class="col-xs-12">
-                <?php
-  							$get_about = get_about('about');
-  							$path = get_dirname($_SERVER['PHP_SELF']);
-  							$CKEditor = new CKEditor();
-  							$CKEditor->basePath = $path.'/xeditor/';
-  							$initialValue = $get_about['fill'];
-  							$code = $CKEditor->editor("about", $initialValue);
-  							?>
+                
+				<?php
+				$get_about = get_about('about');
+				$path = get_dirname($_SERVER['PHP_SELF']);
+				$CKEditor = new CKEditor();
+				$CKEditor->basePath = $path.'/xeditor/';
+				$initialValue = $get_about['fill'];
+				$code = $CKEditor->editor("about", $initialValue);
+				?>
+                
               </div>
             </li>
                             
             <li class="form-group row underlined">
-              <label class="control-label col-xs-12">Production Facilities</label><br /><br />
+              <label class="control-label col-xs-12">Vision &amp; Mission</label><br /><br />
               <div class="col-xs-12">
-                <?php
-  							$get_facilities = get_about('facilities');
-  							$path = get_dirname($_SERVER['PHP_SELF']);
-  							$CKEditor = new CKEditor();
-  							$CKEditor->basePath = $path.'/xeditor/';
-  							$initialValue = $get_facilities['fill'];
-  							$code = $CKEditor->editor("facilities", $initialValue);
-  							?>
+                
+				<?php
+				$get_facilities = get_about('facilities');
+				$path = get_dirname($_SERVER['PHP_SELF']);
+				$CKEditor = new CKEditor();
+				$CKEditor->basePath = $path.'/xeditor/';
+				$initialValue = $get_facilities['fill'];
+				$code = $CKEditor->editor("facilities", $initialValue);
+				?>
+                
               </div>
             </li>
 
             <li class="form-group row">
-              <label class="control-label col-xs-12">Quality Management</label><br /><br />
+              <label class="control-label col-xs-12">Quality Policy</label><br /><br />
               <div class="col-xs-12">
+              
                 <?php
-  							$get_quality = get_about('quality');
-  							$path = get_dirname($_SERVER['PHP_SELF']);
-  							$CKEditor = new CKEditor();
-  							$CKEditor->basePath = $path.'/xeditor/';
-  							$initialValue = $get_quality['fill'];
-  							$code = $CKEditor->editor("quality", $initialValue);
-  							?>
+				$get_quality = get_about('quality');
+				$path = get_dirname($_SERVER['PHP_SELF']);
+				$CKEditor = new CKEditor();
+				$CKEditor->basePath = $path.'/xeditor/';
+				$initialValue = $get_quality['fill'];
+				$code = $CKEditor->editor("quality", $initialValue);
+				?>
+                
+              </div>
+            </li>
+
+            <li class="form-group row">
+              <label class="control-label col-xs-12">Activities</label><br /><br />
+              <div class="col-xs-12">
+              
+                <?php
+				$get_quality = get_about('description');
+				$path = get_dirname($_SERVER['PHP_SELF']);
+				$CKEditor = new CKEditor();
+				$CKEditor->basePath = $path.'/xeditor/';
+				$initialValue = $get_quality['fill'];
+				$code = $CKEditor->editor("description", $initialValue);
+				?>
+                
+              </div>
+            </li>
+
+            <li class="form-group row">
+              <label class="control-label col-xs-12">FAQ</label><br /><br />
+              <div class="col-xs-12">
+              
+                <?php
+				$get_quality = get_about('faq');
+				$path = get_dirname($_SERVER['PHP_SELF']);
+				$CKEditor = new CKEditor();
+				$CKEditor->basePath = $path.'/xeditor/';
+				$initialValue = $get_quality['fill'];
+				$code = $CKEditor->editor("faq", $initialValue);
+				?>
+                
               </div>
             </li>
           </ul>

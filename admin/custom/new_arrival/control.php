@@ -72,7 +72,7 @@ else if($_REQUEST['srt'] == "stock_quantity DESC"){
 
 
 // STORED VALUE
-echo "<input type=\"hidden\" name=\"url\" id=\"url\" class=\"hidden\" value=\"".$prefix_url."new-arrival-view\">\n";
+echo "<input type=\"hidden\" name=\"url\" id=\"url\" class=\"hidden\" value=\"".$prefix_url."new-arrivals-view\">\n";
 echo "<input type=\"hidden\" name=\"page\" id=\"page\" class=\"hidden\" value=\"".$page."\" /> \n";
 echo "<input type=\"hidden\" name=\"current_category\" id=\"current_category\" class=\"hidden\" value=\"";
 	if($cat=='top'){
@@ -130,7 +130,7 @@ if(empty($search_parameter)){
 
 if(isset($_POST['btn_submit_new_arrival'])){
    
-   if($_POST['btn_submit_new_arrival'] != "Remove All Discount"){
+   if($_POST['btn_submit_new_arrival'] != "Remove All Status"){
       //DEFINED VALUE 
       $promo_id      = $_POST['category'];
       $promo_type_id = $_POST['type_id'];
@@ -152,7 +152,7 @@ if(isset($_POST['btn_submit_new_arrival'])){
 	  $_SESSION['alert'] = "success";
 	  $_SESSION['msg']   = "Success add promo(s)";
 	  
-   }else if($_POST['btn_submit_new_arrival'] == "Remove All Discount"){
+   }else if($_POST['btn_submit_new_arrival'] == "Remove All Status"){
       //deleteAllSale();
 	  delete_all_new_arrivals(0);
 	  delete_all_new_arrival(0);

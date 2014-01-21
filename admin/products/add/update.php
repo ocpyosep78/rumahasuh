@@ -97,28 +97,21 @@ function insert_product(){
 			if ($type_id[$i]!=''){
 				//!delete - set the type_delete to 1
 				$type_id_ = $type_id[$i];
-				$sql = "
-					UPDATE tbl_product_type
-					SET type_delete = '1'
-					WHERE type_id = '$type_id_'
-					";
+				$sql = "UPDATE tbl_product_type SET type_delete = '1' WHERE type_id = '$type_id_'";
 			
 				mysql_query($sql, $conn);
 				
 				//!delete - remove all stock
-				mysql_query("
-					DELETE FROM tbl_product_stock
-					WHERE type_id = '$type_id_'
-					", $conn);
+				mysql_query("DELETE FROM tbl_product_stock WHERE type_id = '$type_id_'", $conn);
 			}
-		}
-		else{
+			
+		}else{
 		//!new product type
 		if ($type_id[$i]==''){
 			//!new product type - insert
 			$sql = "
 				INSERT INTO tbl_product_type(type_code,type_name,type_price,type_description,color_id,type_weight,product_id,type_order,page_title,page_description,type_alias)
-				VALUES ('$type_code[$i]','$type_name[$i]','$type_price[$i]','$type_description[$i]','$color_id[$i]','$type_weight[$i]','$product_id','$counter','$page_title','$page_description','$type_alias')
+				VALUES ('$type_code[$i]','$type_name[$i]','$type_price[$i]','".stripslashes($type_description[$i])."','$color_id[$i]','$type_weight[$i]','$product_id','$counter','$page_title','$page_description','$type_alias')
 			";
 			
 			mysql_query($sql, $conn);	
@@ -144,7 +137,7 @@ function insert_product(){
 			$type_id_ = $type_id[$i];
 			$sql = "
 				UPDATE tbl_product_type
-				SET type_code = '$type_code[$i]', type_name = '$type_name[$i]', type_price = '$type_price[$i]', type_description = '$type_description[$i]', color_id = '$color_id[$i]' , type_weight = '$type_weight[$i]',type_order='$counter', type_alias='$type_alias', page_title='$page_title', page_description='$page_description'
+				SET type_code = '$type_code[$i]', type_name = '$type_name[$i]', type_price = '$type_price[$i]', type_description = '".stripslashes($type_description[$i])."', color_id = '$color_id[$i]' , type_weight = '$type_weight[$i]',type_order='$counter', type_alias='$type_alias', page_title='$page_title', page_description='$page_description'
 				WHERE type_id = '$type_id_'
 			";
 			
@@ -162,30 +155,31 @@ function insert_product(){
 			
 				//!type image - new image, image existed
 				if ($_FILES["product_image"]["tmp_name"][$i][$k]!=null){
-				
+					
+					$file_type = substr($_FILES["product_image"]["name"][$i][$k],-4);
+					$file_name = substr($_FILES["product_image"]["name"][$i][$k], 0, -4);
+					
+					$tmp_type  = substr($_FILES["product_image"]["tmp_name"][$i][$k],-4);
+					$tmp_name  = substr($_FILES["product_image"]["tmp_name"][$i][$k], 0, -4);
 
-					$tmp_name = $_FILES["product_image"]["tmp_name"][$i][$k];
-					$name = cleanurl($product_name)."_".cleanurl($type_name[$i])."_".$date_only."_".cleanurl($_FILES["product_image"]["name"][$i][$k]);
-					$error = $_FILES["product_image"]["error"][$i][$k];
+					$tmp_name = $_FILES["product_image"]["tmp_name"][$i][$k];;
+					$name     = cleanurl($product_name)."_".cleanurl($type_name[$i])."_".$date_only."_".cleanurl($file_name).$file_type;
+					$error    = $_FILES["product_image"]["error"][$i][$k];
 					//$link = $_POST["type_image"mage_counter];
 				
 					if ($error == 0){
-					move_uploaded_file($tmp_name,"../files/uploads/product_image/$name");
-					$img_src="files/uploads/product_image/$name";
+					   move_uploaded_file($tmp_name,"../files/uploads/product_image/$name");
+					   $img_src="files/uploads/product_image/$name";
 					}
-				
 				
 					//!type image - new image create thumbnails
 					$tg = new thumbnailGenerator;
 					$tg->generate('../files/uploads/product_image/'.$name, 260, 195, '../files/uploads/product_image/thumb_260x195/'.$name);
 
-					mysql_query("
-					INSERT INTO tbl_product_image(type_id,img_src,image_order)
-					VALUES ('$type_id_','$img_src','$j')
-
-					",$conn);
+					mysql_query("INSERT INTO tbl_product_image(type_id,img_src,image_order) VALUES ('$type_id_','$img_src','$j')",$conn);
 		
-				} 	
+				} 
+					
 			}
 			
 			//!type image - update image
@@ -193,16 +187,22 @@ function insert_product(){
 
 				//!type image - update image, image existed
 				if ($_FILES["product_image"]["tmp_name"][$i][$k]!=null){
-				
 					
-					$tmp_name = $_FILES["product_image"]["tmp_name"][$i][$k];
-					$name = cleanurl($product_name)."_".cleanurl($type_name[$i])."_".$date_only."_".cleanurl($_FILES["product_image"]["name"][$i][$k]);
-					$error = $_FILES["product_image"]["error"][$i][$k];
+					$file_type = substr($_FILES["product_image"]["name"][$i][$k],-4);
+					$file_name = substr($_FILES["product_image"]["name"][$i][$k], 0, -4);
+					
+					$tmp_type  = substr($_FILES["product_image"]["tmp_name"][$i][$k],-4);
+					$tmp_name  = substr($_FILES["product_image"]["tmp_name"][$i][$k], 0, -4);
+					
+
+					$tmp_name = $_FILES["product_image"]["tmp_name"][$i][$k];;
+					$name     = cleanurl($product_name)."_".cleanurl($type_name[$i])."_".$date_only."_".cleanurl($file_name).$file_type;
+					$error    = $_FILES["product_image"]["error"][$i][$k];
 					//$link = $_POST["type_image"mage_counter];
 				
 					if ($error == 0){
-					move_uploaded_file($tmp_name,"../files/uploads/product_image/$name");
-					$img_src="files/uploads/product_image/$name";
+					   move_uploaded_file($tmp_name,"../files/uploads/product_image/$name");
+					   $img_src="files/uploads/product_image/$name";
 					}
 				
 				
@@ -210,59 +210,39 @@ function insert_product(){
 					$tg = new thumbnailGenerator;
 					$tg->generate('../files/uploads/product_image/'.$name, 240, 360, '../files/uploads/product_image/thumb_240x360/'.$name);
 
-					mysql_query("
-					UPDATE tbl_product_image
-					SET img_src='$img_src'
-					WHERE image_id='$image_id_'
-					",$conn);
+					mysql_query("UPDATE tbl_product_image SET img_src='$img_src' WHERE image_id='$image_id_'",$conn);
 		
 				}
 				
 				//!delete type image
 				if($image_delete[$i][$k]=='1'){
-					mysql_query("
-					DELETE FROM tbl_product_image
-					WHERE image_id='$image_id_'
-					",$conn);
+					mysql_query("DELETE FROM tbl_product_image WHERE image_id='$image_id_'",$conn);
 				}
 				
 				//!type image - update image, order
 				
-				mysql_query("
-				UPDATE tbl_product_image
-				SET image_order='$j'
-				WHERE image_id='$image_id'
-				",$conn);
-					
-					
+				mysql_query("UPDATE tbl_product_image SET image_order='$j' WHERE image_id='$image_id'",$conn);
 				
 			}
+			
 		}//type image
 		
 		//!type stock
 		//!type stock - delete all
-		mysql_query("
-					DELETE FROM tbl_product_stock
-					WHERE type_id='$type_id_'
-					",$conn);
+		mysql_query("DELETE FROM tbl_product_stock WHERE type_id='$type_id_'",$conn);
 		$stock_name_ = current($stock_name[$i]);
 		foreach ($stock_quantity[$i] as $stock_quantity_){
 			
 			if($stock_quantity_!=0){
-				$stock_sold_out=0;
+			   $stock_sold_out=0;
+			}else{
+			   $stock_sold_out=1;
 			}
-			else{
-				$stock_sold_out=1;
-			}
-			
-			
 			
 			//!type stock - insert
-			mysql_query("
-				INSERT INTO tbl_product_stock(type_id,stock_name,stock_quantity,stock_sold_out)
-				VALUES ('$type_id_','$stock_name_','$stock_quantity_','$stock_sold_out')
-
-			",$conn);
+			mysql_query("INSERT INTO tbl_product_stock(type_id,stock_name,stock_quantity,stock_sold_out)
+				                               VALUES ('$type_id_','$stock_name_','$stock_quantity_','$stock_sold_out')
+                        ",$conn);
 			
 			$stock_name_ = next($stock_name[$i]);
 		}
@@ -276,10 +256,7 @@ function check_sold_out($product_id){
 	$conn = connDB();
 	
 	
-	$get_type = mysql_query("
-		SELECT * from tbl_product_type
-		WHERE product_id='$product_id'	
-		",$conn);
+	$get_type = mysql_query("SELECT * from tbl_product_type WHERE product_id='$product_id'",$conn);
 	if (mysql_num_rows($get_type)!=null){
 		
 		for ($counter=1;$counter<=mysql_num_rows($get_type);$counter++){
@@ -289,50 +266,27 @@ function check_sold_out($product_id){
 		
 		
 		//!check stock sold out
-		$check = mysql_query("
-			SELECT * from tbl_product_stock AS stock INNER JOIN tbl_size AS size
-			ON stock.stock_name = size.size_name
-			WHERE type_id='$type_id_' AND stock_sold_out='0'
-
-			",$conn);
-			if (mysql_num_rows($check)==null){
-			mysql_query("
-				UPDATE tbl_product_type
-				SET type_sold_out = '1'
-				WHERE type_id = '$type_id_'
-			",$conn);
-			}
-			else{
-			mysql_query("
-				UPDATE tbl_product_type
-				SET type_sold_out = '0'
-				WHERE type_id = '$type_id_'
-			",$conn);	
-			}
+		$check = mysql_query("SELECT * from tbl_product_stock AS stock INNER JOIN tbl_size AS size ON stock.stock_name = size.size_name WHERE type_id='$type_id_' AND
+		                              																										  stock_sold_out='0'
+                             ",$conn);
+	    if (mysql_num_rows($check)==null){
+			mysql_query("UPDATE tbl_product_type SET type_sold_out = '1' WHERE type_id = '$type_id_'",$conn);
+		}else{
+			mysql_query("UPDATE tbl_product_type SET type_sold_out = '0' WHERE type_id = '$type_id_' ",$conn);	
+		}
 			
 		}
 	
 		//!check type sold out
-		$check2 = mysql_query("
-			SELECT * from tbl_product_type
-			WHERE product_id='$product_id' AND type_sold_out='0'	
-			",$conn);
+		$check2 = mysql_query("SELECT * from tbl_product_type WHERE product_id='$product_id' AND type_sold_out='0'",$conn);
 		
 		if (mysql_num_rows($check2)==null){
-			mysql_query("
-				UPDATE tbl_product
-				SET product_sold_out = '1'
-				WHERE id = '$product_id'
-				",$conn);
-		}
-		else{
-			mysql_query("
-				UPDATE tbl_product
-				SET product_sold_out = '0'
-				WHERE id = '$product_id'
-				",$conn);	
+			mysql_query("UPDATE tbl_product SET product_sold_out = '1'  id = '$product_id'",$conn);
+		}else{
+			mysql_query("UPDATE tbl_product SET product_sold_out = '0' WHERE id = '$product_id'",$conn);	
 		}
 
 	}
+	
 }
 ?>

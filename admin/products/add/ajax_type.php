@@ -47,13 +47,13 @@
             <li class="form-group row">
               <label class="col-xs-3 control-label" for="price">Price</label>
               <div class="col-xs-9">
-                <input type="text" class="form-control" id="type_price_<?php echo $i;?>" name="type_price[<?php echo $i;?>]">
+                <input type="text" class="form-control" id="type_price_<?php echo $i;?>" name="type_price[<?php echo $i;?>]" value="<?php echo $data['price'];?>">
               </div>
             </li>
             <li class="form-group row">
               <label class="col-xs-3 control-label" for="product-desc">Product Description</label>
               <div class="col-xs-9">
-                <textarea class="form-control" rows="5" id="type_description_<?php echo $i;?>" name="type_description[<?php echo $i;?>]"></textarea>
+                <textarea class="form-control" rows="5" id="type_description_<?php echo $i;?>" name="type_description[<?php echo $i;?>]"><?php echo $data['desc'];?></textarea>
               </div>
             </li>
             <li class="form-group row image-placeholder">
@@ -89,7 +89,7 @@
             <li class="form-group row">
               <label class="col-xs-3 control-label" for="weight">Weight <span class="info">(in kg)</span></label>
               <div class="col-xs-2">
-                <input type="text" class="form-control" id="type_weight_<?php echo $i;?>" name="type_weight[<?php echo $i;?>]" placeholder="0">
+                <input type="text" class="form-control" id="type_weight_<?php echo $i;?>" name="type_weight[<?php echo $i;?>]" placeholder="0" value="<?php echo $data['weight'];?>">
               </div>
             </li>
             <li class="form-group clearfix underlined">

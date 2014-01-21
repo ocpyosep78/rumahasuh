@@ -7,9 +7,13 @@ $prefix = '../';
 <form name="product-detail" method="post" enctype="multipart/form-data">
     <div class="subnav">
       <div class="container clearfix">
-        <h1><span class="glyphicon glyphicon-tag"></span> &nbsp; <a href="http://<?php echo $_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/product"?>">Products</a> <span class="info">/</span> Edit Product</h1>
+        <h1>
+          <span class="glyphicon glyphicon-tag"></span> &nbsp; 
+          <a href="<?php echo $prefix_url."product"?>">Products</a> 
+          <span class="info">/</span> Edit Product
+        </h1>
         <div class="btn-placeholder">
-          <a class="btn btn-default btn-sm" href="http://<?php echo $_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/product"?>">Cancel</a>
+          <a class="btn btn-default btn-sm" href="<?php echo $prefix_url."product"?>">Cancel</a>
           <input type="submit" class="btn btn-success btn-sm" name="btn-product-detail" value="Save Changes">
           <input type="submit" class="btn btn-danger btn-sm" name="btn-product-detail" value="Delete">
         </div>
@@ -25,7 +29,7 @@ $prefix = '../';
     <div class="container main" class="products">
 
       <div class="box row">
-        <div class="desc col-xs-3">
+        <div class="desc col-xs-3" id="custom_lang">
           <h3>Basic Details</h3>
           <p>Basic details of your product</p>
         </div>
@@ -57,7 +61,7 @@ $prefix = '../';
                 </select>
               </div>
             </li>
-            <li class="form-group row">
+            <li class="form-group row" id="lbl_size_type_id">
               <label class="col-xs-3 control-label" for="sizegroup">Size Group</label>
               <div class="col-xs-9">
                 <select class="form-control" id="size_type_id" name="size_type_id" onchange="changeSizeType()">
@@ -87,7 +91,7 @@ $prefix = '../';
 
           <?php for($i=1;$i<=$data['total_type'];$i++){?>
           <ul class="form-set" id="type_group_<?php echo $i;?>">
-            <li class="form-group row">
+            <li class="form-group row" id="lbl_color_id_<?php echo $i;?>">
               <label class="col-xs-3 control-label" for="color">Color Group</label>
               <div class="col-xs-9">
                 <select class="form-control" id="color_id_<?php echo $i;?>" name="color_id[<?php echo $i;?>]" onchange="changeColor(<?php echo $i;?>)">
@@ -105,7 +109,7 @@ $prefix = '../';
                 </select>
               </div>
             </li>
-            <li class="form-group row">
+            <li class="form-group row" id="lbl_color_name">
               <label class="col-xs-3 control-label" for="color-name">Color Name</label>
               <div class="col-xs-9">
                 <input type="text" class="form-control" id="type_name_<?php echo $i;?>" name="type_name[<?php echo $i;?>]" value="<?php echo $data['type_name'][$i];?>">
@@ -118,7 +122,7 @@ $prefix = '../';
                 <input type="text" class="form-control" id="type_code_<?php echo $i;?>" name="type_code[<?php echo $i;?>]" value="<?php echo $data['type_code'][$i];?>">
               </div>
             </li>
-            <li class="form-group row">
+            <li class="form-group row" id="lbl_color_price">
               <label class="col-xs-3 control-label" for="price">Price</label>
               <div class="col-xs-9">
                 <input type="text" class="form-control" id="type_price_<?php echo $i;?>" name="type_price[<?php echo $i;?>]" value="<?php echo $data['type_price'][$i];?>">
@@ -127,7 +131,18 @@ $prefix = '../';
             <li class="form-group row">
               <label class="col-xs-3 control-label" for="product-desc">Product Description</label>
               <div class="col-xs-9">
-                <textarea class="form-control" rows="5" id="type_description_<?php echo $i;?>" name="type_description[<?php echo $i;?>]"><?php echo $data['type_description'][$i];?></textarea>
+                <!--<textarea class="form-control" rows="5" id="type_description_<?php echo $i;?>" name="type_description[<?php echo $i;?>]"><?php echo $data['type_description'][$i];?>-->
+                
+				<?php
+				include_once("xeditor/ckeditor.php");
+				$path               = get_dirname($_SERVER['PHP_SELF']);
+				$CKEditor           = new CKEditor();
+				$CKEditor->basePath = $path.'/xeditor/';
+				$initialValue       = $data['type_description'][$i];
+				$code               = $CKEditor->editor("type_description[".$i."]", $initialValue);
+				?>
+                
+                <!--</textarea>-->
               </div>
             </li>
 
@@ -138,6 +153,32 @@ $prefix = '../';
               <div class="col-xs-9">
                 <div class="row">
                   <?php for($j=0;$j<5;$j++){?>
+					<div class="col-xs-2 image" onclick="openBrowser('<?php echo $i.'-'.$j;?>')" onmouseover="imageOver('<?php echo $i.'-'.$j;?>')" onMouseOut="imageOut('<?php echo $i.'-'.$j;?>')">
+	                    <div class="content img-prod-size"> 
+	                      <div>
+	                        <div class="image-delete hidden" id="image-<?php echo $i.'-'.$j;?>-delete" onclick="deleteImage('<?php echo $i.'-'.$j;?>','<?php echo $i;?>','<?php echo $j;?>'); event.preventDefault();" onmouseover="deleteOver()" onmouseout="deleteOut()"><span class="glyphicon glyphicon-remove"></span></div>
+	                        <div class="image-overlay"></div>
+	                      </div>
+						  	<?php if($data['product_image'][$i]['img_src_list'][$j]!=''){
+							?>
+							<img class="" id="upload-image-<?php echo $i.'-'.$j;?>" src="<?php echo 'http://'.$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF']).'/'.$prefix.$data['product_image'][$i]['img_src_list'][$j];?>">
+							<?php	 
+							 }
+							 else{
+							?>
+                           <img class="hidden" id="upload-image-<?php echo $i.'-'.$j;?>" src="<?php echo $prefix;?>files/common/img_product-1.jpg">
+                           
+                           <?php } ?>
+
+	                      
+	                      <div class="hidden" id="product-<?php echo $i.'-'.$j;?>-image-wrap">
+	                        <input type="file" name="product_image[<?php echo $i;?>][<?php echo $j;?>]" id="product-<?php echo $i.'-'.$j;?>-image" onchange="readURL(this,'<?php echo $i.'-'.$j;?>')" class="hidden"/>
+	                      </div>
+	                      <input type="hidden" name="image_id[<?php echo $i;?>][<?php echo $j;?>]" value="<?php echo $data['product_image'][$i]['image_id_list'][$j];?>" />
+	                      <input type="hidden" name="image_delete[<?php echo $i;?>][<?php echo $j;?>]" id="image-delete-<?php echo $i.'-'.$j;?>" value="0" />
+	                    </div>
+	                  </div>
+				  <!--
                   <div class="col-xs-2 image" onclick="openBrowser('<?php echo $i.'-'.$j;?>')" onmouseover="imageOver('<?php echo $i.'-'.$j;?>')" onMouseOut="imageOut('<?php echo $i.'-'.$j;?>')">
                     <div class="content img-prod-size">
                       <div>
@@ -160,6 +201,7 @@ $prefix = '../';
                       <input type="hidden" name="image_delete[<?php echo $i;?>][<?php echo $j;?>]" id="image-delete-<?php echo $i.'-'.$j;?>" value="0" />
                     </div>
                   </div>
+				  -->
                   <?php 
                   }
                   ?>
@@ -171,14 +213,14 @@ $prefix = '../';
             <div id="product_stock_list_<?php echo $i;?>">
             </div>
 
-            <li class="form-group row">
+            <li class="form-group row" id="lbl_type_weight_1">
               <label class="col-xs-3 control-label" for="weight">Weight <span class="info">(in kg)</span></label>
               <div class="col-xs-2">
                 <input type="text" class="form-control" id="type_weight_<?php echo $i;?>" name="type_weight[<?php echo $i;?>]" placeholder="0" value="<?php echo $data['type_weight'][$i];?>">
               </div>
             </li>
             <li class="form-group clearfix underlined">
-              <button type="button" class="btn btn-danger btn-sm pull-right" onclick="deleteType(<?php echo $i;?>)">Remove Variant</button>
+              <button type="button" class="btn btn-danger btn-sm pull-right" name="remove_variant" onclick="deleteType(<?php echo $i;?>)">Remove Variant</button>
             </li>
             <input type="hidden" name="type_delete[<?php echo $i;?>]" id="type_delete_<?php echo $i;?>" value='0'/>
             <?php for ($j=0;$j<5;$j++){?>
@@ -201,6 +243,30 @@ $prefix = '../';
           </ul>
 
         </div><!--content-->
+      </div><!--box-->
+
+      <div class="box row">
+        <div class="desc col-xs-3">
+          <h3>Visibility</h3>
+          <p>Set product visibility.</p>
+        </div>
+        <div class="content col-xs-9">
+          <ul class="form-set">
+            <li class="form-group row">
+              <label class="control-label col-xs-3">Visibility</label>
+              <div class="col-xs-9">
+                <label class="control-label radio-inline">
+                  <input type="radio" value="1" name="visibility_status" id="category_visibility_status_visible">
+                  Yes
+                </label>
+                <label class="control-label radio-inline">
+                  <input type="radio" value="0" name="visibility_status" id="category_visibility_status_invisible">
+                  No
+                </label>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div><!--box-->
 
       <div class="box row hidden">
@@ -238,6 +304,9 @@ $prefix = '../';
           </ul>
         </div>
       </div><!--box-->
+      
+      <div id="custom">
+      </div>
 
       <!--<div class="box row">
         <div class="desc col-xs-3">
@@ -522,6 +591,6 @@ $prefix = '../';
 
 
                             
-<script src="http://<?php echo $_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF']);?>/script/edit_product.js"></script>
+<script src="<?php echo $prefix_url.'script/edit_product.js';?>"></script>
 
-<?php include("custom/products/details/edit.php");?>
+<?php include("custom/products/details/index.php");?>

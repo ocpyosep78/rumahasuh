@@ -224,7 +224,7 @@ if(isset($_POST['btn-order-confirm'])){
 	     // SEND MAIL TO CUSTOMER
 		 $updated_detail = detail_order($order_number);
 	  
-	  if($detail['payment_status'] == "Paid"){
+	  //if($detail['payment_status'] == "Paid"){
 	  //send mail
 	  $name      = $general['website_title']; 
 	  $email     = $info['email']; 
@@ -429,7 +429,7 @@ if(isset($_POST['btn-order-confirm'])){
       $headers  .= "From: ".$general['website_title']." <" .$info['email']. ">\r\n"; //optional headerfields
   
       mail($recipient, $subject, $mail_body, $headers);
-	  }
+	  //}
 		 
          $_SESSION['alert'] = "success";
 	     $_SESSION['msg']   = "Successfully delivered item(s). An email has been sent to ".$detail['user_email'];

@@ -8,7 +8,7 @@ include("update.php");
 if(isset($_POST['btn-about'])){
    if($_POST['btn-about'] == "Save Changes"){
       
-	  $type_array = array('about', 'facilities', 'quality');
+	  $type_array = array('about', 'facilities', 'quality', 'description', 'faq');
 	  
 	  foreach($type_array as $type_array){
 	     $check_about = check_about($type_array);
@@ -22,6 +22,10 @@ if(isset($_POST['btn-about'])){
 	  
 	  }
 	  
+	  $_SESSION['alert'] = 'success';
+	  $_SESSION['msg']   = 'Changes successfully saved.';
+	  
    }
+   
 }
 ?>

@@ -24,9 +24,10 @@ function insertLinkBanner($post_banner_link, $post_banner_id){
    $query = mysql_query($sql, $conn);
 }
 
-
-
-
-
-
+function update_order($order, $slideshow_id){
+   $conn = connDB();
+	
+   $sql    = "UPDATE `tbl_slideshow` SET `order_` = '$order' WHERE `id` = '$slideshow_id'";
+   $query  = mysql_query($sql, $conn) or die(mysql_error());
+}
 ?>

@@ -1,5 +1,5 @@
 <script type="text/javascript">
-/*
+
 $(document).ready(function(){
 	$.ajax({
 		type: "POST",
@@ -13,7 +13,7 @@ $(document).ready(function(){
 			
 			
 		});
-		
+/*
 	$.ajax({
 			type: "POST",
 			url: "custom/pages/home/featured/index.php",
@@ -24,7 +24,7 @@ $(document).ready(function(){
 
 				$("#main-content").html($("#main-content").html()+msg2);
 	});
+*/
 	
-});
-*/		
+});	
 </script>

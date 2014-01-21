@@ -2,14 +2,14 @@
 include("custom/static/general.php");
 include("static/general.php");
 
+
 /* REQUIRED FOR REDIRECT PAGE */
 include ("static/redirect.php");
 include ("custom/static/redirect.php");
 
-session_start();
+
 $_SESSION['KCFINDER'] = array();
 $_SESSION['KCFINDER']['disabled'] = false;
-
 ?>
 
 <!DOCTYPE html>
@@ -20,8 +20,8 @@ $_SESSION['KCFINDER']['disabled'] = false;
  	<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Antikode Admin Demo</title>
-    <meta name="description" content="Antikode Admin Demo">
+    <title>Propan Admin</title>
+    <meta name="description" content="Propan Admin">
     <meta name="format-detection" content="telephone=no">
     <!--<link rel="stylesheet" href="<?php echo $prefix_url;?>css/normalize.css"> obsolete-->
     <link rel="stylesheet" href="<?php echo $prefix_url;?>css/bootstrap.css"> <!--old-->
@@ -37,6 +37,13 @@ $_SESSION['KCFINDER']['disabled'] = false;
     <script src="<?php echo $prefix_url;?>script/jquery-1.8.3.js"></script>
     <script src="<?php echo $prefix_url;?>script/javascript.js"></script>
     <script src="<?php echo $prefix_url;?>script/jQuery-UI.js"></script>
+    <script src="<?php echo $prefix_url;?>script/bootstrap.js"></script>
+    
+	<script src="<?php echo $prefix_url;?>script/plugins.js"></script> <!--old-->
+    <!--<script src="<?php echo $prefix_url;?>script/header.js"></script> obsolete -->
+    <script src="<?php echo $prefix_url;?>script/holder.js"></script>
+    <script src="<?php echo $prefix_url;?>script/main.js"></script>
+    <script src="<?php echo $prefix_url;?>script/dragtable.js"></script>
     </head>
     <body onLoad="initialization()" <?php if(empty($_SESSION['admin'])){ echo "class=\"signin\" ";}?>>
         <!--[if lt IE 7]>
@@ -49,17 +56,13 @@ $_SESSION['KCFINDER']['disabled'] = false;
 		   // SESSION
 		   if(!empty($_SESSION['admin'])){
 		      include("custom/static/header.php");
-		      //include("static/breadcrumbs.php");
 		   }
-		   ?>
-           
-		   <?php
+		   
 		   if(!empty($_SESSION['admin'])){
 			  
 			  if(empty($_REQUEST['act'])) {
 			  
 			  }else{
-				 //echo "<div class=\"container\"> \n";
 				 include(str_replace ('http','',$_REQUEST['act']).".php");
 			  }
 				
@@ -85,15 +88,12 @@ $_SESSION['KCFINDER']['disabled'] = false;
              
 
       <!--</div>-->
-		
-		<script src="<?php echo $prefix_url;?>script/plugins.js"></script> <!--old-->
-        <!--<script src="<?php echo $prefix_url;?>script/header.js"></script> obsolete -->
-        <script src="<?php echo $prefix_url;?>script/bootstrap.js"></script>
-		<script src="<?php echo $prefix_url;?>script/holder.js"></script>
-		<script src="<?php echo $prefix_url;?>script/main.js"></script>
 
   </body>
 </html>
 
 
-<?php disconnect();?>
+<?php 
+disconnect();
+include('static/bottom.php');
+?>

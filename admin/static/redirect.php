@@ -20,7 +20,7 @@ if(isset($_POST['index-order'])){
    header("Location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/product-details-".$_POST["product_alias"]);
    
 }else if(isset($_POST['btn-product-detail'])){
-   header("Location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/product");
+   header("Location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/product-details-".$_POST['product_alias']);
 
 
 // CUSTOMER
@@ -146,15 +146,40 @@ if(isset($_POST['index-order'])){
 // CATEGORY
 }else if(isset($_POST['btn-index-category'])){
    header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/category");
+}else if(isset($_POST['btn_add_category'])){
+   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/add-category");
+}else if($_POST['btn_detail_category']){
+   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/detail-category/".$_POST['hidden_category_id']."/".cleanurl($_POST['category_name']));
+}else if($_POST['btn_child_category']){
+   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/child-category/".$_POST['hidden_category_parent_id']."/".cleanurl($_POST['hidden_category_parent']));
 
 
 // COLOR MANAGER
 }else if(isset($_POST['btn-index-color'])){
    header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/color");
+}else if(isset($_POST['btn_add_color'])){
+   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/add-color");
+}else if(isset($_POST['btn_detail_color'])){
+	
+	if($_POST['btn_detail_color'] == 'Delete'){
+	   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/color");
+	}else if($_POST['btn_detail_color'] == 'Save Changes'){
+	   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/color-detail/".$_POST['hidden_color_id']."/".cleanurl($_POST['color_name']));
+	}
 
 // SIZE MANAGER
 }else if(isset($_POST['btn-size-index'])){
    header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/size");
+}else if(isset($_POST['btn_add_size'])){
+   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/add-size");
+}else if(isset($_POST['btn_detail_size'])){
+   
+   if($_POST['btn_detail_size'] == 'Save Changes'){
+	  header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/size-detail/".$_POST['hidden_size_id']."/".cleanurl($_POST['size_type_name']));
+   }else if($_POST['btn_detail_size'] == 'Delete'){
+	  header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/size");
+   }
+
 
 
 // SHIPPING
@@ -231,6 +256,21 @@ else if(isset($_POST['btn-infos'])){
 // ACCOUNTS
 else if(isset($_POST['btn-index-account'])){
    header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/accounts");
+}
+
+// NOTIFICATION
+else if(isset($_POST['btn_notification'])){
+   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/notifications");
+}
+
+// PAYMENT
+else if(isset($_POST['btn_payment'])){
+   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/payment");
+}
+
+// ORDER DETAIL
+else if(isset($_POST['btn-order-confirm'])){
+   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/order-detailing/".$_POST['redirect_order_number']);
 }
 
 

@@ -7,121 +7,105 @@ include("control.php");
 
 <form method="post">
 
-
-            <div class="sub-header clearfix">
-                <div class="content">
-
-                    <h2>New Arrival</h2>
-                    <select class="input-select" id="category_name_search" onchange="selectCategory()">
-                       <option value="top">All Category</option>
-                       <?php listCategory(0,'top');?>
-                    </select>
-                    <div class="btn-placeholder">
-                        <input type="submit" class="btn red main" value="Remove All Discount" name="btn_submit_new_arrival">
-                        <input type="button" class="btn green main" value="Apply Discount" onClick="validateNew()">
-                        <input type="submit" class="hidden" value="Apply Discount" id="id_btn_submit_new_arrival" name="btn_submit_new_arrival">
-                    </div>
+            <div class="subnav">
+              <div class="container clearfix">
+                <h1><span class="glyphicon glyphicon-asterisk"></span> &nbsp; New Arrivals</h1>
+                <select class="form-control" id="category_name_search" onchange="selectCategory()">
+                  <option value="top">All Category</option>
+                  <?php listCategory(0,'top');?>
+                </select>
+                <div class="btn-placeholder">
+                  <input type="submit" class="btn btn-danger btn-sm" value="Remove All Status" name="btn_submit_new_arrival">
+                  <input type="button" class="btn btn-success btn-sm" value="Apply Status" onClick="validateNew()">
+                  <input type="submit" class="btn btn-success btn-sm hidden" value="Apply Status" id="id_btn_submit_new_arrival" name="btn_submit_new_arrival">
                 </div>
+              </div>
             </div>
+            
+			<?php
+			if(!empty($_SESSION['alert'])){
+			   echo '<div class="alert '.$_SESSION['alert'].'"><div class="container">'.$_SESSION['msg'].'</div></div>';
+			}
+			
+			
+			if($_POST['btn_submit_new_arrival'] == ""){
+			   unset($_SESSION['alert']);
+			   unset($_SESSION['msg']);
+			}
+			?> 
 
-            <div id="main-content">
+            <div class="container main"> 
 
-                <?php
-                   if(!empty($_SESSION['alert'])){
-                    ?>
-                   <div class="alert-message <?php echo $_SESSION['alert'];?>"><?php echo $_SESSION['msg']?></div>
-                   <?php }?>  
-
-                <div class="box clearfix">
-                    <div class="desc">
+                <div class="box row">
+                    <div class="desc col-xs-3">
                         <h3>New Arrival</h3>
                         <p>Manage date range.</p>
                     </div>
-                    <div class="content">
-                        <ul class="field-set">
-                            <li class="field field-select hidden">
-                                <label for="category">Sale type <span>*</span></label>
-                                <select class="input-select" id="sale_option" name="category" onchange="textIDR()">
-                                    <option selected value="2">Discount by Amount</option>
-                                    <option value="1">Discount by Percentage</option>
-                                </select>
-                            </li>
-                            <li class="field hidden">
-                                <label for="brand" id="text_by">Discount (IDR) <span>*</span></label>
-                                <input type="text" class="input-text" style="width: 300px" id="id_amount_discount" onKeyUp="numbers()" name="promo_value">
-                            </li>
-                            <li class="field-divider hidden"></li>
-                            <li class="field clearfix" style="margin-bottom: 0">
-                                <label for="category">Date range <span>*</span></label>
-                                <div class="report-filter clearfix fl">
-                                    <input type="text" class="input-text fl" placeholder="Date from" style="width: 135px" id="id_date_from" name="date_from">
-                                    
-                                    <p class="fl" style="margin-right: 2px; margin-left: 3px">to</p>
-                                    <input type="text" class="input-text fl" placeholder="Date to" style="width: 135px" id="id_date_to" name="date_to">
-                                </div>
-                            </li>
+                    <div class="content col-xs-9">
+                        <ul class="form-set">
+                          <li class="form-group row">
+                            <label class="col-xs-3" for="category">Date range <span>*</span></label>
+                            <div class="col-xs-9 row">
+                              <div class="col-xs-3">
+                                <input type="text" class="form-control" placeholder="Date from" id="id_date_from" name="date_from">
+                              </div>
+                              <div class="col-xs-1 text-center" style="line-height: 30px;">to</div>
+                              <div class="col-xs-3">
+                                <input type="text" class="form-control" placeholder="Date to" id="id_date_to" name="date_to">
+                              </div>
+                            </div>
+                          </li>
                         </ul>
                     </div>
                     
                 </div><!--box-->
 
-                <div class="table-wrapper">
-                    <table cellpadding="0" cellspacing="0" class="actions">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="fl">
-                                    
-                                       <div class="custom-select-all" onclick="selectAllToggle()">
-                                          <input type="checkbox" id="select_all">
-                                       </div><!--custom-select-all-->
-                                       
-                                        <div class="divider"></div>
-                                        <div class="page">
-                                            <p>Page</p>
-                                            <select class="input-select" id="page-option" onchange="pageOption()">
-                                               
-                                               <?php
-                                               for($i=1;$i<=$total_page;$i++){
-											      echo "<option value=\"".$i."\">".$i."</option> \n";
-											   }
-											   ?>
-                                               
-                                            </select>
-                                            <p>of <strong><?php echo $total_page;?></strong> pages</p>
-                                        </div>
-                                        <div class="divider" style="margin-left: 10px"></div>
-                                        <div class="page">
-                                            <p>Show</p>
-                                            <select class="input-select" name="query_per_page" id="query_per_page_input" onchange="changeQueryPerPage()">
-                                                <option></option>
-                                                <option value="25"<?php if($query_per_page =="25"){ echo "selected=\"selected\"";}?>>25</option>
-                                                <option value="50" <?php if($query_per_page == "50"){ echo "selected=\"selected\"";}?>>50</option>
-                                                <option value="100" <?php if($query_per_page == "100"){ echo "selected=\"selected\"";}?>>100</option>
-                                            </select>
-                                            <p>of <strong><?php echo $total_query;?></strong> records</p>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table cellpadding="0" cellspacing="0">
+                <div class="box row">
+                  <div class="content">
+
+                    <div class="actions clearfix">
+                      <div class="pull-left">
+                        <div class="pull-left custom-select-all" onclick="selectAllToggle()">
+                          <input type="checkbox" id="select_all">
+                        </div>
+                        <div class="divider"></div>
+                        <p>Page</p>
+                        <select class="form-control" id="page-option" onchange="pageOption()">
+                          <?php
+                          for($i=1;$i<=$total_page;$i++){
+                          echo "<option value=\"".$i."\">".$i."</option> \n";
+                          }
+                          ?>
+                        </select>
+                        <p>of <strong><?php echo $total_page;?></strong> pages</p>
+                        <div class="divider"></div>
+                        <p>Show</p>
+                        <select class="form-control" name="query_per_page" id="query_per_page_input" onchange="changeQueryPerPage()">
+                          <option value="25"<?php if($query_per_page =="25"){ echo "selected=\"selected\"";}?>>25</option>
+                          <option value="50" <?php if($query_per_page == "50"){ echo "selected=\"selected\"";}?>>50</option>
+                          <option value="100" <?php if($query_per_page == "100"){ echo "selected=\"selected\"";}?>>100</option>
+                        </select>
+                        <p>of <strong><?php echo $total_query;?></strong> records</p>
+                      </div>
+                    </div><!--actions-->
+
+                    
+                    <table class="table">
                         <thead>
                             <tr class="headings">
-                                <th width="20"></th>
-                                <th class="sort" width="420" onclick="sortBy('product_name')">Item <?php echo $arr_product_name;?></th>
-                                <th class="sort" width="130" onclick="sortBy('type_name')">Variants <?php echo $arr_type_name;?></th>
-                                <th class="sort" width="100" onclick="sortBy('type_price')">Price <?php echo $arr_type_price;?></th>
-                                <th class="sort" width="290" onclick="sortBy('type_new_arrival')">New Arrival <?php echo $arr_promo_value;?></th>
+                                <th width="20"><span id="eyeopen" class="glyphicon glyphicon-eye-open" onclick="showEye()"></span></th>
+                                <th class="sort" width="30%" onclick="sortBy('product_name')">Item <?php echo $arr_product_name;?></th>
+                                <th class="sort" width="20%" onclick="sortBy('type_name')">Variants <?php echo $arr_type_name;?></th>
+                                <th class="sort" width="20%" onclick="sortBy('type_price')">Price <?php echo $arr_type_price;?></th>
+                                <th class="sort" width="30%" onclick="sortBy('type_new_arrival')">New Arrival <?php echo $arr_promo_value;?></th>
                             </tr>
                             <tr class="filter">
-                                <th><a href="<?php echo $prefix_url."new-arrival";?>"><input type="button" class="btn small reset <?php echo $reset;?>" value=""></a></th>
-                                <th><input type="text" class="input-text" id="product_name_search" onkeyup="searchQuery('product_name')" onkeypress="return disableEnterKey(event)" <?php if($_REQUEST['src'] == "product_name"){ echo "value=\"".str_replace('\\', '/', $_REQUEST['srcval'])."\"";}else if(!empty($_REQUEST['src'])){ echo "disabled";}?>></th>
-                                <th><input type="text" class="input-text" id="type_name_search" onkeyup="searchQuery('type_name')" onkeypress="return disableEnterKey(event)" <?php if($_REQUEST['src'] == "type_name"){ echo "value=\"".str_replace('\\', '/', $_REQUEST['srcval'])."\"";}else if(!empty($_REQUEST['src'])){ echo "disabled";}?>></th>
-                                <th><input type="text" class="input-text" id="type_price_search" onkeyup="searchQuery('type_price')" onkeypress="return disableEnterKey(event)" <?php if($_REQUEST['src'] == "type_price"){ echo "value=\"".str_replace('\\', '/', $_REQUEST['srcval'])."\"";}else if(!empty($_REQUEST['src'])){ echo "disabled";}?>></th>
+                                <th><a href="<?php echo $prefix_url."new-arrival";?>"><button type="button" style="width: 100%;" class="btn btn-danger btn-xs <?php echo $reset;?>" value=""><span class="glyphicon glyphicon-remove"></span></button></a></th>
+                                <th><input type="text" class="form-control" id="product_name_search" onkeyup="searchQuery('product_name')" onkeypress="return disableEnterKey(event)" <?php if($_REQUEST['src'] == "product_name"){ echo "value=\"".str_replace('\\', '/', $_REQUEST['srcval'])."\"";}else if(!empty($_REQUEST['src'])){ echo "disabled";}?>></th>
+                                <th><input type="text" class="form-control" id="type_name_search" onkeyup="searchQuery('type_name')" onkeypress="return disableEnterKey(event)" <?php if($_REQUEST['src'] == "type_name"){ echo "value=\"".str_replace('\\', '/', $_REQUEST['srcval'])."\"";}else if(!empty($_REQUEST['src'])){ echo "disabled";}?>></th>
+                                <th><input type="text" class="form-control" id="type_price_search" onkeyup="searchQuery('type_price')" onkeypress="return disableEnterKey(event)" <?php if($_REQUEST['src'] == "type_price"){ echo "value=\"".str_replace('\\', '/', $_REQUEST['srcval'])."\"";}else if(!empty($_REQUEST['src'])){ echo "disabled";}?>></th>
                                 <th>
-                                    <select class="input-select" id="type_new_arrival_search" onchange="searchQueryOption('type_new_arrival')" <?php if($_REQUEST['src'] == "type_new_arrival"){ echo "value=\"".$_REQUEST['srcval']."\"";}else if(!empty($_REQUEST['src'])){ echo "disabled=\"disabled\"";}?>>
+                                    <select class="form-control" id="type_new_arrival_search" onchange="searchQueryOption('type_new_arrival')" <?php if($_REQUEST['src'] == "type_new_arrival"){ echo "value=\"".$_REQUEST['srcval']."\"";}else if(!empty($_REQUEST['src'])){ echo "disabled=\"disabled\"";}?>>
                                         <option></option>
                                         <option value="1">New Arrival</option>
                                         <option value="0">Regular</option>
@@ -129,8 +113,7 @@ include("control.php");
                                 </th>
                             </tr>
                         </thead>
-                        <tbody onload="loading()">
-                            <!--<div id="loading" style="position: absolute; z-index: 2; background: #000; width: 940px; height: 200px"></div>-->
+                        <tbody>
                             <?php if($total_query < 1){?><tr><td class="no-record" colspan="8">No records found.</td></tr><?php }?>
                             <?php
 							$record = 1;
@@ -198,7 +181,7 @@ include("control.php");
                                    <b class="hidden"><?php echo $suffix;?> OFF</b>
                                    <p style="color: #999"><?php echo format_date_min($promotions['new_start'])." - ".format_date_min($promotions['new_end']);?></p>
                                    <p style="color: #cc0000"><?php echo $days_left;?></p>
-                                   <div class="btn red row" style="position: absolute; right: 5px; top: 20px" onclick="ajxRemoveSale(<?php echo $sale['type_id'];?>)">Remove</div>
+                                   <div class="btn btn-danger btn-sm" style="position: absolute; right: 5px; top: 15px" onclick="ajxRemoveSale('<?php echo $sale['type_id'];?>')">Remove</div>
                                    
                                 </div>
                                 
@@ -215,7 +198,9 @@ include("control.php");
 							?>
                         </tbody>
                     </table>
-                </div><!--table-wrapper-->
+
+                </div><!--.content-->
+              </div><!--.box.row-->
 
             </div><!--main-content-->
 
@@ -227,10 +212,8 @@ $(function() {
       altField:'#id_date_from',
 	  altFormat: "yy/mm/dd",
 	  onSelect: function () {
-	     //document.all ? $(this).get(0).fireEvent("onchange") : $(this).change();
-         //searchQueryOption('order_date');
-		 //$('#id_hidden_date_from').val('filled');
-      },
+		  
+                },
    });
    
    
@@ -239,6 +222,7 @@ $(function() {
 	  altFormat: "yy/mm/dd",
    });
 });
+
 
 function numbers(){
    var nonum  = /^\d*[0-9](|.\d*[0-9]|,\d*[0-9])?$/
@@ -251,6 +235,7 @@ function numbers(){
    }
    
 }
+
 
 $(document).ready(function(e) {
    var category = "<?php echo $_REQUEST['cat'];?>";
@@ -287,6 +272,7 @@ function validateNew(){
    }
 }
 
+
 function textIDR(){
    var param = $('#sale_option :selected').val();
    
@@ -297,6 +283,7 @@ function textIDR(){
    }
    
 }
+
 
 function ajxRemoveSale(i){
    var itemID = i;
@@ -318,12 +305,5 @@ function ajxRemoveSale(i){
 }
 
 </script>
-
-<?php
-if($_POST['btn_submit_new_arrival'] == ""){
-   unset($_SESSION['alert']);
-   unset($_SESSION['msg']);
-}
-?>
 
             

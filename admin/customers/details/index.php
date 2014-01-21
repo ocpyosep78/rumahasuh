@@ -117,13 +117,11 @@ include("custom/customers/details/control.php");
             <div class="pull-right">
               <p>Actions</p>
               <select class="form-control" name="option-action" onchange="changeOption()" id="order-action"> 
-                <option></option>
-                <option value="change">Set Status</option>
                 <option value="delete">Delete</option>
+                <option value="change">Set Status</option>
               </select>
               <p id="order-label" class="hidden">to</p>
               <select class="form-control hidden" name="option-status" id="order-option" disabled="disabled">
-                <option></option>
                 <option disabled>Payment</option>
                 <option value="Unpaid">&nbsp;Unpaid</option>
                 <option value="Confirmed" disabled="disabled">&nbsp;Confirmed</option>

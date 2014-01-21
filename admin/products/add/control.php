@@ -16,7 +16,10 @@ $all_color_group = get_all_color_group();
 /* function database */
 if(isset($_POST['add-product'])){
    if ($_POST["add-product"]=='Save Changes' || $_POST["add-product"]=='Save Changes & Exit'){
-	insert_product();
+	if ($_POST["product_name"]!=''){
+		insert_product();
+	}
+	
    }
 
 }

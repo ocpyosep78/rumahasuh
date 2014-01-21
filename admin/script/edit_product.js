@@ -207,7 +207,7 @@ $(document).ready(function(){
 										//make visible
 										$("#field_"+i).removeClass("hidden");
 										
-										var height = $("#type_group_"+i).height();
+										var height = $("#type_group_1").height();
 										$("#type_group_"+i).height(0);
 										
 										$("#type_group_"+i).animate({"height":height},800);
@@ -215,7 +215,7 @@ $(document).ready(function(){
 										changeSizeType(i);
 										//change the type
 										document.getElementById('next_type').innerHTML = i*1+1;
-										
+										customTypeField(i);
 										//alert(msg);
   									});
 								

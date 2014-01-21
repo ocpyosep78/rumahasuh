@@ -1,5 +1,5 @@
 <?php
-	include("../../custom/static/general.php");
+	include('../../custom/static/general.php');
 	include('../../static/general.php');
 	
 	$product_alias = $_POST["product_alias"];

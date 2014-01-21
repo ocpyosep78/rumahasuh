@@ -19,7 +19,7 @@ include('control.php');
 		                     type.type_id, type.type_name
 					  FROM tbl_product AS prod INNER JOIN tbl_product_type AS type
 					  ON prod.id = type.product_id
-					  GROUP BY type.type_id
+					  GROUP BY `id`
 					 ";
 		   $query  = mysql_query($sql, $conn);
 		   $row    = array();

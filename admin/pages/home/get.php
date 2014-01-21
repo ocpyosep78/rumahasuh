@@ -6,7 +6,7 @@
 function get_slideshows(){
    $conn = connDB();
 	
-   $sql    = "SELECT * FROM `tbl_slideshow`";
+   $sql    = "SELECT * FROM `tbl_slideshow` ORDER BY `order_`";
    $query  = mysql_query($sql, $conn);
    $row    = array();
    
@@ -30,7 +30,7 @@ function get_slideshow($slideshow_id){
 function count_slideshow(){
    $conn = connDB();
 	
-   $sql    = "SELECT COUNT(*) FROM `tbl_slideshow`";
+   $sql    = "SELECT COUNT(*) AS rows FROM `tbl_slideshow`";
    $query  = mysql_query($sql, $conn);
    $result = mysql_fetch_array($query);
    
@@ -59,7 +59,28 @@ function validate_slideshow($slideshow_id){
 }
 
 
+// MAX ID
+function get_new_id(){
+   $conn = connDB();
+	
+   $sql    = "SELECT MAX(id) AS new_id FROM `tbl_slideshow`";
+   $query  = mysql_query($sql, $conn);
+   $result = mysql_fetch_array($query);
+   
+   return $result;
+}
 
-
-
+function slideshow_get(){
+   $conn   = connDB();
+   
+   $sql    = "SELECT * FROM tbl_slideshow ORDER BY `order_` ASC";
+   $query  = mysql_query($sql, $conn);
+   $row    = array();
+   
+   while($result = mysql_fetch_array($query)){
+      array_push($row, $result);
+   }
+					 
+   return $row;
+}
 ?>

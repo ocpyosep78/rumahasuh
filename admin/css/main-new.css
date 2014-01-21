@@ -975,6 +975,20 @@ div.payment-notes {
   }
 }
 
+.image.img-about-size,
+.image.img-about-size img {
+  width: 170px;
+  height: 90px; /* variable */
+}
+
+@media (min-width: 1200px) {
+  .image.img-about-size,
+  .image.img-about-size img {
+    width: 198px;
+    height: 105px; /* variable */
+  }
+}
+
 .img-order-size,
 .img-order-size img {
   width: 75px;

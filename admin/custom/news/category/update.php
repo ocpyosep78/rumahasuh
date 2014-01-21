@@ -19,6 +19,13 @@ function delete_category($category_id){
    $conn = connDB();
    
    $sql   = "DELETE FROM tbl_news_category WHERE `category_id` = '$category_id'";
+   $query = mysql_query($sql, $conn) or die(mysql_error());
+}
+
+function update_visibility($category_visibility, $category_id){
+   $conn = connDB();
+   
+   $sql   = "UPDATE tbl_news_category SET `category_visibility` = '$category_visibility' WHERE `category_id` = '$category_id'";
    $query = mysql_query($sql, $conn);
 }
 ?>

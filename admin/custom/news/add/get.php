@@ -2,7 +2,7 @@
 function add_news_category(){
    $conn   = connDB();
    
-   $sql    = "SELECT * FROM tbl_news_category";
+   $sql    = "SELECT * FROM tbl_news_category ORDER BY `category_name`";
    $query  = mysql_query($sql, $conn);
    $row    = array();
    

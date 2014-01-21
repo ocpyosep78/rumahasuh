@@ -107,19 +107,28 @@ if(empty($act)){
       <div class="navbar-brand"><img src="<?php echo $prefix_url;?>files/common/logo.png" alt="logo"></div>
 
       <ul class="nav navbar-nav" role="navigation">
-        <li <?php echo $header_dashboard;?>><a href="#">Dashboard</a></li>
-        <li <?php echo $header_order;?>><a href="<?php echo $prefix_url;?>order">Orders</a></li>
-        <li <?php echo $header_customer;?>><a href="<?php echo $prefix_url;?>customer">Customers</a></li>
+        <li <?php echo $header_dashboard;?> class="hidden"><a href="#">Dashboard</a></li>
+        <!--<li <?php echo $header_order;?>><a href="<?php echo $prefix_url;?>order">Orders</a></li>-->
+        <!--<li <?php echo $header_customer;?>><a href="<?php echo $prefix_url;?>customer">Customers</a></li>-->
         <li <?php echo $header_products;?>><a data-toggle="dropdown" href="#">Products</a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
             <li><a href="<?php echo $prefix_url;?>product">Products</a></li>
-            <li><a href="<?php echo $prefix_url;?>stock-manager">Stock Control</a></li>
+            <!--<li><a href="<?php echo $prefix_url;?>stock-manager">Stock Control</a></li>-->
             <li class="disabled"><a>Attributes</a></li>
             <li><a href="<?php echo $prefix_url;?>category">Categories</a></li>
-            <li><a href="<?php echo $prefix_url;?>color">Color Groups</a></li>
-            <li><a href="<?php echo $prefix_url;?>size">Size Groups</a></li>
+            <!--<li><a href="<?php echo $prefix_url;?>size">Size Groups</a></li>-->
+            <li><a href="<?php echo $prefix_url;?>filter">Filters</a></li>
+            <li class="disabled"><a>Attributes (substrat)</a></li>
+            <li><a href="<?php echo $prefix_url;?>filter-substrat">Filters</a></li>
+            <li><a href="<?php echo $prefix_url;?>products-substrat">Products</a></li> 
+                       
+            <li class="disabled"><a>Color Groups</a></li>
+            <li><a href="<?php echo $prefix_url;?>tag">Solid Color</a></li>
+            <li><a href="<?php echo $prefix_url;?>tagging">Wood Colors</a></li>
           </ul>
         </li>
+        
+        <!--
         <li <?php echo $header_promotions;?>><a data-toggle="dropdown" href="#">Promotions</a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
             <li><a href="<?php echo $prefix_url;?>new-arrivals">New Arrivals</a></li>
@@ -127,31 +136,69 @@ if(empty($act)){
           </ul>
         </li>
         <li><a href="<?php echo $prefix;?>reporting">Reports</a></li>
+        -->
+         
+        <li <?php echo $header_servicecenter;?>><a data-toggle="dropdown" href="#">Service Center</a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <li><a href="<?php echo $prefix_url.'service-city';?>">City</a></li>
+            <li><a href="<?php echo $prefix_url.'service';?>">Service Center</a></li>
+          </ul>
+        </li>
+        
+        <li <?php echo $header_wheretobuy;?>><a data-toggle="dropdown" href="#">Where to Buy</a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <li><a href="<?php echo $prefix_url.'store-city';?>">City</a></li>
+            <li><a href="<?php echo $prefix_url.'store';?>">Store</a></li>
+          </ul>
+        </li>
+        
+        <li <?php echo $header_projects;?>><a data-toggle="dropdown" href="#">Projects</a>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            <li><a href="<?php echo $prefix_url.'project-category';?>">Categories</a></li>
+            <li><a href="<?php echo $prefix_url.'project';?>">Projects</a></li>
+          </ul>
+        </li>
+
         <li <?php echo $header_pages;?>><a data-toggle="dropdown" href="#">Pages</a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
             <li><a href="<?php echo $prefix_url;?>home">Home</a></li>
             <li><a href="<?php echo $prefix_url;?>about">About</a></li>
             <li><a href="<?php echo $prefix_url;?>contact">Contact</a></li>
+            <li class="hidden"><a href="<?php echo $prefix_url;?>faq">FAQ</a></li>
+            
+            <li class="disabled"><a>News &amp; Events</a></li>
+            <li><a href="<?php echo $prefix_url.'news-category';?>">Category</a></li>
+            <li><a href="<?php echo $prefix_url.'news';?>">News</a></li>
+
+            <li class="disabled"><a>Careers</a></li>
+            <li><a href="<?php echo $prefix_url.'career-department';?>">Department</a></li>
+            <li><a href="<?php echo $prefix_url.'career';?>">Career</a></li>
           </ul>
         </li>
+        
       </ul>
+      
+      
 
       <ul class="nav navbar-nav navbar-right" role="navigation">
         <li class=""><a data-toggle="dropdown" href="#" style="font-size: 18px; padding: 14px 6px 14px 10px"><span class="glyphicon glyphicon-cog"></span></a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
             <li><a href="<?php echo $prefix_url;?>general">General</a></li>
             <li><a href="<?php echo $prefix_url;?>accounts">Account</a></li>
-            <li><a href="<?php echo $prefix_url;?>notifications">Notifications</a></li>
+            <!--<li><a href="<?php echo $prefix_url;?>notifications">Notifications</a></li>
             <li><a href="<?php echo $prefix_url;?>payment">Payment</a></li>
-            <li><a href="<?php echo $prefix_url;?>shipping">Shipping Methods</a></li>
+            <li><a href="<?php echo $prefix_url;?>shipping">Shipping Methods</a></li>-->
             <li><a href="<?php echo $prefix_url;?>logout">Logout</a></li>
           </ul>
         </li>
       </ul>
     </div>
   </div>
-
-    <!--<div class="content">
+  
+  
+  <?php
+  /*
+  <div class="content">
         <div class="header-top clearfix">
             <div class="logo"></div>
             <h1>Antikode Admin</h1>
@@ -231,4 +278,6 @@ if(empty($act)){
             </ul>
         </nav>
     </div>-->
+	*/
+	?>
 </header>

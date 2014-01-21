@@ -126,4 +126,13 @@ function update_product_table_new(){
 		}
 	}
 }
+
+
+// ORDER
+function update_order($post_order, $post_product_id){
+   $conn = connDB();
+   
+   $sql    = "UPDATE tbl_product SET `product_order` = '$post_order' WHERE `id` = '$post_product_id'";
+   $query  = mysql_query($sql, $conn) or die(mysql_error());
+}
 ?>

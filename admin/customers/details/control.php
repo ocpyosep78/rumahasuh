@@ -107,13 +107,13 @@ if(isset($_POST['btn-detail-customer'])){
 	  
 	  if($delete_validation['rows'] > 0){
 		 $_SESSION['alert'] = "error";
-	     $_SESSION['msg']   = "Can't perform delete because ".$user_detail['user_fullname']." has been placed an order";
+	     $_SESSION['msg']   = "Can't delete because ".$user_detail['user_fullname']." has placed one or more order(s).";
 		 $_SESSION['page']  = $act;
 	  }else{
          delete_user($_POST['user_id']);
 	  
 	     $_SESSION['alert'] = "success";
-	     $_SESSION['msg']   = "Success delete customer(s)";
+	     $_SESSION['msg']   = "Successfully deleted customer(s).";
 		 $_SESSION['page']  = $act;
 	  }
 	  

@@ -189,10 +189,10 @@ $news_category = get_category();
               <p>Categories</p>
               <ul>
                 <?php
-        				foreach($news_category as $news_category){
-                           echo '<li><a href="'.$prefix_url.'blog-view/'.$news_category['category_id'].'/all">'.$news_category['category_name'].'</a></li>';
-        				}
-        				?>
+				foreach($news_category as $news_category){
+				   echo '<li><a href="'.$prefix_url.'blog-view/'.$news_category['category_id'].'/all">'.$news_category['category_name'].'</a></li>';
+				}
+				?>
               </ul>
             </div>
           </div>

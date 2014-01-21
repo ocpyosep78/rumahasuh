@@ -101,9 +101,11 @@ if(isset($_POST['btn-size-index'])){
 	  }
    }else if($_POST['btn-size-index'] == "GO"){
 	  
-	  if($_POST['size-action'] == "delete" and $_POST['size-option'] == "yes"){
-      
-	     foreach($_POST['size_type_id'] as $post_typeid){
+	  // DEFINED VARIABLE
+	  $size_type_id = $_POST['size_type_id'];
+	  
+      if($_POST['category-action'] == "delete"){
+	     foreach($size_type_id as $post_typeid){
 	        // CALL FUNCTION
 	        $check_delete = checkDelete($post_typeid);
 	  
@@ -118,9 +120,22 @@ if(isset($_POST['btn-size-index'])){
 		 
 	     }// FOREACH
 	  
+	  }else if($_POST['category-action'] == "change"){
+	     
+		 foreach($size_type_id as $post_typeid){
+		 
+		    if($_POST['category-option'] == 'yes'){
+		       update_visibility('Yes', $post_typeid);
+			}else if($_POST['category-option'] == 'no'){
+		       update_visibility('No', $post_typeid);
+			}
+			
+		 }
+		 
 	  }
 	  
    }
+   
 }
 
 ?>

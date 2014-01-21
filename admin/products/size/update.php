@@ -51,14 +51,14 @@ function deleteSizeType($size_type_id){
    $conn  = connDB();
    
    $sql   = "DELETE FROM tbl_size_type WHERE `size_type_id` = '$size_type_id'";
-   $query = mysql_query($sql, $conn);
+   $query = mysql_query($sql, $conn) or die(mysql_error());
 }
 
 function deleteSize($size_type_id){
    $conn  = connDB();
    
    $sql   = "DELETE FROM tbl_size WHERE `size_type_id` = '$size_type_id'";
-   $query = mysql_query($sql, $conn);
+   $query = mysql_query($sql, $conn) or die(mysql_error());
 }
 
 
@@ -135,4 +135,10 @@ function delete($edit_size_type_id){
 }
 
 
+function update_visibility($post_size_type_visibility, $post_size_type_id){
+   $conn  = connDB();
+   
+   $sql   = "UPDATE tbl_size_type SET `size_type_visibility` = '$post_size_type_visibility' WHERE `size_type_id` = '$post_size_type_id'";
+   $query = mysql_query($sql, $conn) or die(mysql_error());
+}
 ?>

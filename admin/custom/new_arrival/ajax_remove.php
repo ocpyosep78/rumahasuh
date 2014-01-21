@@ -32,7 +32,7 @@ function delete_new_arrivals($post_new_type_id){
 
 if(!empty($item_id)){
 	
-   $product = get_type_id($post_product_id);
+   $product = get_type_id($item_id);
    
    foreach($product as $product){
       delete_new_arrival(0, $product['type_id']);

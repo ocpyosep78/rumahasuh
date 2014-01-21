@@ -45,14 +45,16 @@ $conn = connDB();
 $sql    = "SELECT 
            cat.category_id, cat.category_name, cat.category_level, 
 		   car.relation_level, car.relation_id, 
-		   prod.id, prod.product_category, prod.product_name, prod.product_visibility, prod.product_delete, 
+		   prod.id, prod.product_category, prod.product_name, prod.product_visibility, prod.product_delete, prod.product_order,
 		   prot.type_id, type_name, type_price, type_visibility, type_delete, product_alias
 		   
 		   FROM tbl_category AS cat LEFT JOIN tbl_category_relation AS car ON cat.category_id = car.category_child
 		                            LEFT JOIN tbl_product AS prod ON cat.category_id = prod.product_category
 									LEFT JOIN tbl_product_type AS prot ON prod.id = prot.product_id
 		   WHERE ($search) AND type_delete != '1' AND (category_parent = '$cat' OR category_id = '$cat')
-		   ORDER BY $sort_by";
+		   GROUP BY prot.type_id
+		   ORDER BY $sort_by
+		   ";
 		  
 $query  = mysql_query($sql, $conn);
 
@@ -68,13 +70,15 @@ function get_all_product($search, $sort_by, $first_record, $query_per_page,$cat)
 $sql    = "SELECT 
            cat.category_id, cat.category_name, cat.category_level, 
 		   car.relation_level, car.relation_id, 
-		   prod.id, prod.product_category, prod.product_name, prod.product_visibility, prod.product_delete, 
-		   prot.type_id, type_name, type_price, type_visibility, type_delete, product_alias
+		   prod.id, prod.product_category, prod.product_name, prod.product_visibility, prod.product_delete, prod.product_order,
+		   prot.type_id, type_name, type_price, type_visibility, type_delete, product_alias, img_src
 		   
 		   FROM tbl_category AS cat LEFT JOIN tbl_category_relation AS car ON cat.category_id = car.category_child
 		                            LEFT JOIN tbl_product AS prod ON cat.category_id = prod.product_category
 									LEFT JOIN tbl_product_type AS prot ON prod.id = prot.product_id
+									LEFT JOIN tbl_product_image AS img_ ON prot.type_id = img_.type_id
 		   WHERE ($search) AND type_delete != '1'  AND (category_parent = '$cat' OR category_id = '$cat')
+		   GROUP BY prot.type_id
 		   ORDER BY $sort_by
 		   LIMIT $first_record , $query_per_page";		  
 

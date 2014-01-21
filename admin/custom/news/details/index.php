@@ -8,19 +8,20 @@ include("ajax.php");
 
 
             <div class="sub-header clearfix">
-                <div class="content">
-                
-                    <h2>News Title</h2>
-                    <div class="btn-placeholder">
-                        <a href="http://<?php echo $_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF']);?>/news">
-                        <input type="button" class="btn grey main" value="Cancel">
-                        </a>
-                        <a href="http://<?php echo $_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])?>/news-edit/<?php echo $news_detail['news_id']?>/<?php echo cleanurl($news_detail['news_title'])?>">
-                        <input type="button" class="btn orange main" value="Edit">
-                        </a>
-                        <input type="submit" class="btn red main" value="Delete" name="btn-edit-news">
-                    </div>
+              <div class="content">
+              
+                <h2>News Title</h2>
+                <div class="btn-placeholder">
+                  <a href="<?php echo $prefix_url.'news';?>">
+                    <input type="button" class="btn grey main" value="Cancel">
+                  </a>
+                  
+                  <a href="<?php echo $prefix_url.'news-edit/'.$news_detail['news_id'].cleanurl($news_detail['news_title'])?>">
+                    <input type="button" class="btn orange main" value="Edit">
+                  </a>
+                  <input type="submit" class="btn red main" value="Delete" name="btn-edit-news">
                 </div>
+              </div>
             </div>
 
             <div id="main-content">

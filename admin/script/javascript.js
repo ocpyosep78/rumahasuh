@@ -187,10 +187,10 @@ function selectRow(row){
 		document.getElementById("check_"+row).checked=false;
 		document.getElementById("product_check_"+row).checked=false;
 		if (row%2=="1"){
-			$("#row_"+row).css({"background-color":"#f6f6f6"});
+			//$("#row_"+row).css({"background-color":"#f6f6f6"});
 		}
 		else{
-			$("#row_"+row).css({"background-color":"#ffffff"});
+			//$("#row_"+row).css({"background-color":"#ffffff"});
 			
 		}
 		changeCounter();
@@ -272,7 +272,7 @@ function selectAll(){
 			document.getElementById("product_check_"+row).checked=true;
 		}
 		
-		$("#row_"+row).css({"background-color":"#e2f0cf"});
+		//$("#row_"+row).css({"background-color":"#e2f0cf"});
 	}
 	select_counter = row-1;
 	changeCounter();
@@ -290,10 +290,10 @@ function unselectAll(){
 		}
 		
 		if (row%2=="1"){
-			$("#row_"+row).css({"background-color":"#f6f6f6"});
+			//$("#row_"+row).css({"background-color":"#f6f6f6"});
 		}
 		else{
-			$("#row_"+row).css({"background-color":"#ffffff"});
+			//$("#row_"+row).css({"background-color":"#ffffff"});
 			
 		}
 	}

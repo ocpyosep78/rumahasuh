@@ -46,7 +46,7 @@ if(isset($_POST['btn-admin-forgot'])){
 	  // MAIL
 	  $name      = $general['website_title']; 
 	  $email     = $info['email']; 
-      $recipient = $retriver['email']; 
+      $recipient = $get_forgot['email']; 
 	  $mail_body = '<body style="font-family: Helvetica, Arial, sans-serif; color:#fff" topmargin="0" leftmargin="0">
 	                  <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="overflow: hidden; padding-top: 15px">
 					    <tbody>

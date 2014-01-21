@@ -7,18 +7,15 @@ include("custom/products/add/control.php");
 
     <div class="subnav">
       <div class="container clearfix">
-        <h1><span class="glyphicon glyphicon-tag"></span> &nbsp; <a href="http://<?php echo $_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/product"?>">Products</a> <span class="info">/</span> Add Product</h1>
+        <h1><span class="glyphicon glyphicon-tag"></span> &nbsp;
+          <a href="<?php echo $prefix_url."product"?>">Products</a> 
+          <span class="info">/</span> Add Product
+        </h1>
         <div class="btn-placeholder">
           <a class="btn btn-default btn-sm" href="http://<?php echo $_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/product"?>">Cancel</a>
-          <input type="submit" class="btn btn-success btn-sm" value="Save Changes" name="add-product" >
-          <input type="submit" class="btn btn-success btn-sm" value="Save Changes &amp; Exit" name="add-product">
+          <input type="submit" class="btn btn-success btn-sm submit-button" value="Save Changes" name="add-product">
+          <input type="submit" class="btn btn-success btn-sm submit-button hidden" value="Save Changes &amp; Exit" name="add-product" disabled>
         </div>
-      </div>
-    </div>
-
-    <div class="alert alert-success">
-      <div class="container">
-        <strong>Error!</strong> Best check yo self, you're not looking too good.
       </div>
     </div>
 
@@ -34,7 +31,7 @@ include("custom/products/add/control.php");
             <li class="form-group row underlined">
               <label class="col-xs-3 control-label" for="product_name">Product Name</label>
               <div class="col-xs-9">
-                <input type="text" class="form-control" id="product_name" name="product_name" onchange="getAlias()">
+                <input type="text" class="form-control" id="product_name" name="product_name" onchange="getAlias(),enableButton()">
                 <input type="hidden" id="product_id" name="product_id" value="<?php echo $product_id;?>">
               </div>
             </li>
@@ -51,7 +48,7 @@ include("custom/products/add/control.php");
                 </select>
               </div>
             </li>
-            <li class="form-group row">
+            <li class="form-group row" id="lbl_size_type_id">
               <label class="col-xs-3 control-label" for="sizegroup">Size Group</label>
               <div class="col-xs-9">
                 <select class="form-control" id="size_type_id" name="size_type_id" onchange="changeSizeType()">
@@ -76,21 +73,23 @@ include("custom/products/add/control.php");
         <div class="content col-xs-9">
           <?php for($i=1;$i<=1;$i++){?>
           <ul class="form-set" id="type_group_<?php echo $i;?>">
-            <li class="form-group row">
+            <li class="form-group row" id="lbl_color_id_<?php echo $i;?>">
               <label class="col-xs-3 control-label" for="color">Color Group</label>
               <div class="col-xs-9">
                 <select class="form-control" id="color_id_<?php echo $i;?>" name="color_id[<?php echo $i;?>]" onchange="changeColor(<?php echo $i;?>)">
                   <option value="No Color">-- Select Color Group --</option>
-                    <?php 
+                    
+					<?php 
                     foreach($all_color_group as $all_color_group){
                       echo "<option value=\"".$all_color_group['color_id']."\">".$all_color_group['color_name']."</option> \n";
                       echo "\n";
                     }                        
                     ?>
+                    
                 </select>
               </div>
             </li>
-            <li class="form-group row">
+            <li class="form-group row" id="lbl_color_name">
               <label class="col-xs-3 control-label" for="color-name">Color Name</label>
               <div class="col-xs-9">
                 <input type="text" class="form-control" id="type_name_<?php echo $i;?>" name="type_name[<?php echo $i;?>]">
@@ -103,16 +102,26 @@ include("custom/products/add/control.php");
                 <input type="text" class="form-control" id="type_code_<?php echo $i;?>" name="type_code[<?php echo $i;?>]">
               </div>
             </li>
-            <li class="form-group row">
+            <li class="form-group row hidden" id="lbl_color_price">
               <label class="col-xs-3 control-label" for="price">Price</label>
               <div class="col-xs-9">
-                <input type="text" class="form-control" id="type_price_<?php echo $i;?>" name="type_price[<?php echo $i;?>]">
+                <input type="text" class="form-control" id="type_price_<?php echo $i;?>" name="type_price[<?php echo $i;?>]"  value="1">
               </div>
             </li>
             <li class="form-group row">
               <label class="col-xs-3 control-label" for="product-desc">Product Description</label>
               <div class="col-xs-9">
-                <textarea class="form-control" rows="5" id="type_description_<?php echo $i;?>" name="type_description[<?php echo $i;?>]"></textarea>
+                <!--<textarea class="form-control" rows="5" id="type_description_<?php echo $i;?>" name="type_description[<?php echo $i;?>]"></textarea>-->
+                
+				<?php
+				include_once("xeditor/ckeditor.php");
+				$path               = get_dirname($_SERVER['PHP_SELF']);
+				$CKEditor           = new CKEditor();
+				$CKEditor->basePath = $path.'/xeditor/';
+				$initialValue       = $get_about['fill'];
+				$code               = $CKEditor->editor("type_description[".$i."]", $initialValue);
+				?>
+                
               </div>
             </li>
             <li class="form-group row image-placeholder input-file">
@@ -145,13 +154,13 @@ include("custom/products/add/control.php");
             <div id="product_stock_list_<?php echo $i;?>">
             </div>
 
-            <li class="form-group row">
+            <li class="form-group row hidden" id="lbl_type_weight_1">
               <label class="col-xs-3 control-label" for="weight">Weight <span class="info">(in kg)</span></label>
               <div class="col-xs-2">
                 <input type="text" class="form-control" id="type_weight_<?php echo $i;?>" name="type_weight[<?php echo $i;?>]" placeholder="0">
               </div>
             </li>
-            <li class="form-group clearfix underlined">
+            <li class="form-group clearfix underlined hidden">
               <button type="button" class="btn btn-danger btn-sm pull-right" onclick="deleteType(<?php echo $i;?>)">Remove Variant</button>
             </li>
             <input type="hidden" name="type_delete[<?php echo $i;?>]" id="type_delete_<?php echo $i;?>" value='0'/>
@@ -178,6 +187,30 @@ include("custom/products/add/control.php");
       </div><!--box-->
 
       <div class="box row">
+        <div class="desc col-xs-3">
+          <h3>Visibility</h3>
+          <p>Set product visibility.</p>
+        </div>
+        <div class="content col-xs-9">
+          <ul class="form-set">
+            <li class="form-group row">
+              <label class="control-label col-xs-3">Visibility</label>
+              <div class="col-xs-9">
+                <label class="control-label radio-inline">
+                  <input type="radio" value="1" name="visibility_status" id="category_visibility_status_visible">
+                  Yes
+                </label>
+                <label class="control-label radio-inline">
+                  <input type="radio" value="0" name="visibility_status" id="category_visibility_status_invisible">
+                  No
+                </label>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div><!--box-->
+
+      <div class="box row hidden">
         <div class="desc col-xs-3">
           <h3>SEO</h3>
           <p>Search engine optimization for the product.</p>
@@ -212,6 +245,9 @@ include("custom/products/add/control.php");
           </ul>
         </div>
       </div><!--box-->
+      
+      <div id="custom">
+      </div>
 
       <!--<div class="box row">
         <div class="desc col-xs-3">
@@ -453,7 +489,7 @@ include("custom/products/add/control.php");
             </div>-->
 </form>
 
-<script src="<?php echo $prefix_url;?>script/add_product.js"></script>
+<script src="<?php echo $prefix_url.'script/add_product.js';?>"></script>
 
 <?php
 include('custom/products/add/index.php');

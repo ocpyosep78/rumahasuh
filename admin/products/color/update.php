@@ -1,22 +1,24 @@
 <?php
-function insert_image($one, $two, $three, $four, $five){
+function delete_color($post_color_id){
    $conn = connDB();
    
-   $sql    = "INSERT INTO tbl_color (color_name, color_image, color_order, color_active_status, color_visibility_status) VALUES ('$one', '$two', '$three', '$four', '$five')";
-   $query  = mysql_query($sql, $conn);
+   $sql    = "DELETE FROM tbl_color WHERE `color_id` = '$post_color_id'";
+   $query  = mysql_query($sql, $conn) or die(mysql_error());
 }
 
-function edit_color($one, $two, $three, $four, $five, $six){
+
+function update_visibility($post_color_visibility_status, $post_color_id){
    $conn = connDB();
    
-   $sql    = "UPDATE tbl_color SET color_name = '$one', color_image = '$two', color_order = '$three', color_active_status = '$four', color_visibility_status = '$five' WHERE color_id = '$six'";
-   $query  = mysql_query($sql, $conn);
+   $sql    = "UPDATE tbl_color SET `color_visibility_status` = '$post_color_visibility_status' WHERE `color_id` = '$post_color_id'";
+   $query  = mysql_query($sql, $conn) or die(mysql_error());
 }
 
-function delete_color($post_color_delete, $post_color_id){
+
+function update_order($post_order, $post_color_id){
    $conn = connDB();
    
-   $sql    = "UPDATE tbl_color SET color_delete = '$post_color_delete' WHERE color_id = '$post_color_id'";
-   $query  = mysql_query($sql, $conn);
+   $sql    = "UPDATE tbl_color SET `color_order` = '$post_order' WHERE `color_id` = '$post_color_id'";
+   $query  = mysql_query($sql, $conn) or die(mysql_error());
 }
 ?>

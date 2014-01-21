@@ -59,7 +59,7 @@ include("ajax.php");
             <li class="form-group row">
               <label class="control-label col-xs-3" for="google">Google Analytics Code <span>*</span></label>
               <div class="col-xs-9">
-                <textarea class="form-control" rows="5" id="google" name="google_analytics"><?php echo $general['analytics_code'];?></textarea class="form-control"> 
+                <input type="text" class="form-control" id="google" name="google_analytics" value="<?php echo $general['analytics_code'];?>">
               </div>
             </li>
           </ul>
@@ -397,7 +397,7 @@ include("ajax.php");
         </div>
       </div><!--.box-->
 
-      <div class="box row">
+      <div class="box row hidden">
         <div class="desc col-xs-3">
           <h3>Other Details</h3>
           <p>Details such as currency. </p>

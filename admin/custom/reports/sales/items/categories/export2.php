@@ -3,7 +3,7 @@
 //error_reporting(E_ALL);
 
 if ($date_start=='0000-00-00 00:00:00'){
-	$date_title = 'Full'
+	$date_title = 'Full';
 }
 else{
 	$date_title = date('dm',strtotime($date_start)).' - '.date('dm',strtotime($date_end));
@@ -36,7 +36,7 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'Sales By Items (Categories)');
 $objPHPExcel->getActiveSheet()->mergeCells("A1:G1");
-$objPHPExcel->getActiveSheet()->SetCellValue('A2', '';
+$objPHPExcel->getActiveSheet()->SetCellValue('A2', '');
 $objPHPExcel->getActiveSheet()->mergeCells("A2:G2");
 $objPHPExcel->getActiveSheet()->SetCellValue('A3', date('j F Y'),strtotime($date_start).' - '.date('j F Y'),strtotime($date_end));
 $objPHPExcel->getActiveSheet()->mergeCells("A3:G3");
@@ -132,7 +132,7 @@ function print_category_xls($iteration,$parent,$i){
 						$objPHPExcel->getActiveSheet()->SetCellValueExplicit('D'.$rowxls, price($sales_item['item_price']),PHPExcel_Cell_DataType::TYPE_STRING);
 						
 						$objPHPExcel->getActiveSheet()->SetCellValueExplicit('E'.$rowxls, price($sales_item['subtotal']),PHPExcel_Cell_DataType::TYPE_STRING);
-						<td class="tr"><?php if($sales_item['discount']!=0){
+						if($sales_item['discount']!=0){
 						$objPHPExcel->getActiveSheet()->SetCellValueExplicit('F'.$rowxls, "-".price($sales_item['discount']),PHPExcel_Cell_DataType::TYPE_STRING);
 						}
 						$objPHPExcel->getActiveSheet()->SetCellValueExplicit('G'.$rowxls, price($sales_item['subtotal']-$sales_item['discount']),PHPExcel_Cell_DataType::TYPE_STRING);

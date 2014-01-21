@@ -20,9 +20,9 @@ include("control.php");
       </div>-->
 
       <ul class="subnav-link clearfix">
-        <li class="active"><a href="<?php echo $prefix;?>products/stock/single.php">Single</a></li> 
+        <li class="active"><a href="<?php echo $prefix_url;?>stock-manager">Single</a></li> 
         <li>/</li>
-        <li><a href="<?php echo $prefix;?>products/stock/grouped.php">Grouped</a></li>
+        <li><a href="<?php echo $prefix_url;?>stock-grouped">Grouped</a></li>
       </ul>
     </div>
   </div>
@@ -73,13 +73,8 @@ include("control.php");
           <div class="pull-right">
             <p>Actions</p>
             <select class="form-control" name="stock_action" id="id_stock_action" onchange="changeOption()"> 
-              <option value="delete">Delete</option>
+              <!--<option value="delete">Delete</option>-->
               <option value="save">Save Changes</option>
-            </select>
-            <p id="lbl_stock_option" class="hidden">to</p>
-            <select class="form-control" name="stock_option" id="id_stock_option" class="hidden">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
             </select>
             <input type="submit" class="btn btn-success pull-left" name="btn_index_stock" value="GO">
           </div>
@@ -117,16 +112,16 @@ include("control.php");
             <?php
             $row = 0;
             foreach($all_product as $product){
-               $row++
+               $row++;
             ?>
             <tr id="<?php echo "row_".$row?>" onclick="selectRow('<?php echo $row;?>')">
                 <td><input type="checkbox" name="prod_id[]" value="<?php echo $product['stock_id'];?>" id="<?php echo "check_".$row?>" onmouseover="downCheck()" onmouseout="upCheck()" onclick="selectRowCheck('<?php echo $row;?>')"></td>
-                <td><img class="table-image" src="<?php echo $prefix_url."static/thimthumb.php?src=..".$product['img_src']."&h=45&w=30&q=100";?>"></td>
+                <td><img class="table-image" src="<?php echo $prefix_url."static/thimthumb.php?src=../".$product['img_src']."&h=45&w=30&q=100";?>"></td>
                 <td><a href="<?php echo $prefix_url."product-details-".$product['product_alias'];?>"><?php echo $product['product_name']?></a></td>
                 <td><?php echo $product['type_name'];?></td>
                 <td class="tr"><?php echo price($product['type_price']);?></td>
                 <td class="tr"><?php echo $product['stock_name'];?></td>
-                <td class="tr"><input type="text" class="form-control" style="width: 50px" value="<?php echo $product['stock_quantity'];?>" name="stock_quantity_<?php echo $row;?>"></td>
+                <td class="tr"><input type="text" class="form-control" style="width: 50px" value="<?php echo $product['stock_quantity'];?>" name="stock_quantity_<?php echo $product['stock_id'];?>"></td>
             </tr>
             <?php
             }
@@ -155,9 +150,17 @@ $(document).ready(function(e) {
    $('#category_name_search option[value="'+cat+'"]').attr('selected',true);
    $('#page-option option[value=<?php echo $_REQUEST['pg'];?>]').attr('selected', true);
    
-   changeOption();
+   //changeOption();
+   selectAll();
 });
 
+function selectAll(){
+   $('input').click(function (){
+      $(this).select();
+   });
+}
+
+/*
 function changeOption(){
    var action = $('#id_stock_action option:selected').val();
    
@@ -170,6 +173,7 @@ function changeOption(){
    }
 									   
 }
+*/
 </script>
 
 <?php

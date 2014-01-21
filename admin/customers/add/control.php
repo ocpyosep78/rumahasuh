@@ -43,7 +43,7 @@ if($_POST['btn-add-customer'] == "Save Changes"){
       update_all($first_name, $last_name, $phone, $email, $password, $address, $city, $province, $country, $postal_code, $set_user_fullname, $post_user_created_date, $post_user_alias);
    
       $_SESSION['alert'] = "success";
-      $_SESSION['msg']   = "Customer has been successfully added";
+      $_SESSION['msg']   = "A customer has been successfully added.";
    }
    
 }

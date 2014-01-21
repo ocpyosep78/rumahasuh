@@ -18,6 +18,7 @@ function get_all_product($search, $cat, $sort_by, $first_record, $query_per_page
                                                INNER JOIN tbl_product_stock AS pstock ON ptype.type_id = pstock.type_id
 											   INNER JOIN tbl_category AS pcat ON prod.product_category = pcat.category_id
 											   INNER JOIN tbl_category_relation AS prel ON pcat.category_id = prel.category_child
+											   LEFT JOIN tbl_product_image AS img_ ON ptype.type_id = img_.type_id
 		     WHERE ($search) AND type_delete != '1' AND (category_parent = '$cat' OR category_id = '$cat')
 			 GROUP BY stock_id
 			 ORDER BY $sort_by
@@ -40,6 +41,7 @@ function get_full_product($search, $cat, $sort_by, $first_record, $query_per_pag
                                                INNER JOIN tbl_product_stock AS pstock ON ptype.type_id = pstock.type_id
 											   INNER JOIN tbl_category AS pcat ON prod.product_category = pcat.category_id
 											   INNER JOIN tbl_category_relation AS prel ON pcat.category_id = prel.category_child
+											   LEFT JOIN tbl_product_image AS img_ ON ptype.type_id = img_.type_id
 		     WHERE ($search) AND type_delete != '1' AND (category_parent = '$cat' OR category_id = '$cat')
 			 ORDER BY $sort_by
 			";

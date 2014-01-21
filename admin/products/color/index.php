@@ -5,78 +5,6 @@ include("control.php");
 ?>
 
 <form method="post" enctype="multipart/form-data">
-<?php //var_dump($_POST);?>
-<script>
-$(document).ready(function(){
-   $("#add-color-popup").hide();
-   $("#upload-image").hide();
-   
-   $("#btn-add-color").click(function(){
-      $("#add-color-popup").fadeIn("fast");
-	  $("#color-name").val("");
-	  $("#col-id").val("");
-   });
-   
-   $("#close-pop-up").click(function(){
-      $("#add-color-popup").fadeOut("fast");
-	  
-	  $("#color-inactive-status").removeAttr('checked');
-	  $("#color-active-status").removeAttr('checked');
-	  
-	  $("#color-invisible-status").removeAttr('checked');
-	  $("#color-visible-status").removeAttr('checked');
-	  
-	  $('#listing').find(':checked').each(function() {
-         $(this).removeAttr('checked');
-      });
-	  
-   });
-	  
-});
-</script>
-        
-        
-        <div class="" id="add-color-popup">
-            <div class="overlay over-color">
-                <div class="header">
-                        <h2 id="header-name">Add Color</h2> 
-                        <div class="btn-placeholder">
-                            <input type="button" class="btn grey main" value="Cancel" id="close-pop-up" name="btn-index-color" onclick="clearImage()">
-                            <input type="submit" class="btn red main" value="Delete" name="btn-index-color">
-                            <input type="submit" class="btn green main" value="Save Changes" name="btn-index-color">
-                        </div>
-                    </div>
-                <div class="content">
-                    <ul class="field-set">
-                        <li class="field hidden">
-                            <label class="">Change status</label>
-                            <input type="radio" class="input-radio" value="active" id="color-active-status" name="active_status" checked="checked" />&nbsp; Active
-                            <input type="radio" class="input-radio" value="inactive" id="color-inactive-status" name="active_status"/>&nbsp; Inactive
-                        </li>
-                        <li class="field hidden">
-                            <label>Visibility</label>
-                            <input type="radio" class="input-radio" value="yes" id="color-visible-status" name="visibility_status" checked="checked"/>&nbsp; Yes
-                            <input type="radio" class="input-radio" value="no" id="color-invisible-status" name="visibility_status"/>&nbsp; No
-                        </li>            
-                            <input type="hidden" name="col_id" value="" id="col-id">           
-                        <li class="field clearfix">
-                            <label>Color Thumbnail</label>
-                            <div class="fl color-thumb edit" id="picture" onclick="openBrowser()">
-                               <img id="upload-image" src="" width="25px">
-                            </div>
-                            <p class="field-message fl" style="padding-left: 10px">Recommended dimensions of 24 x 24 px.</p>
-                            <input type="file" name="color_image" id="color" onchange="readURL(this,'1')" class="hidden"/>
-                            
-                        </li>
-                        <li class="field clearfix">
-                            <label>Color name</label>
-                            <input type="text" class="form-control" value="" id="color-name" name="color_name">
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="overlay_bg70"></div>
-        </div>
 
    <script>
    function readURL(input) {
@@ -109,17 +37,18 @@ $(document).ready(function(){
                 <div class="container clearfix">
                     <h1><span class="glyphicon glyphicon-tint"></span> &nbsp; Color Groups</h1>
                     <div class="btn-placeholder">
-                        <a href="http://<?php echo $_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/add-color"?>"><input type="button" class="btn btn-success btn-sm" value="Add Color" name="btn-index-color" id="btn-add-color"></a>
+                        <a href="<?php echo $prefix_url."add-color"?>"><input type="button" class="btn btn-success btn-sm" value="Add Color" name="btn-index-color" id="btn-add-color"></a>
                     </div>
                 </div>
             </div>
-
-             <?php if(!empty($_SESSION['alert'])){?>
-                    <div class="alert-message <?php echo $_SESSION['alert'];?>">
-                     <div class="container"><?php echo $_SESSION['msg'];?></div>
-                    </div>
-                    <?php 
-            }
+            
+			<?php if(!empty($_SESSION['alert'])){?>
+            <div class="alert <?php echo $_SESSION['alert'];?>">
+            <div class="container"><?php echo $_SESSION['msg'];?></div>
+            </div>
+            <?php 
+			}
+			
             if($_POST['btn-index-color'] == ""){
              $_SESSION['alert'] = "";
              $_SESSION['msg']   = "";
@@ -159,6 +88,8 @@ $(document).ready(function(){
                   <p>Actions</p>
                   <select class="form-control" name="category-action" id="news-action" onchange="changeOption()"> 
                     <option value="delete">Delete</option>
+                    <option value="change">Set Visibility</option>
+                    <option value="order">Set Order</option>
                   </select>
                   <p id="lbl-news-option" class="hidden">to</p>
                   <select class="form-control" name="category-option" id="news-option" disabled="disabled" class="hidden">
@@ -169,64 +100,7 @@ $(document).ready(function(){
                 </div>
               </div><!--actions-->
 
-                <!--<div class="table-wrapper">
-                    <table cellpadding="0" cellspacing="0" class="actions">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="fl">
-                                    
-                                       <div class="custom-select-all" onclick="selectAllToggle()">
-                                          <input type="checkbox" id="select_all">
-                                       </div>
-                                       
-                                        <div class="divider"></div>
-                                        <div class="page">
-                                            <p>Page</p>
-                                            <select class="form-control" id="page-option" onchange="pageOption()">
-                                               
-                                               <?php
-                                               for($i=1;$i<=$total_page;$i++){
-                      											      echo "<option value=\"".$i."\">".$i."</option> \n";
-                      											   }
-                      											   ?>
-                                               
-                                            </select>
-                                            <p>of <strong><?php echo $total_page;?></strong> pages</p>
-                                        </div>
-                                        <div class="divider" style="margin-left: 10px"></div>
-                                        <div class="page">
-                                            <p>Show</p>
-                                            <select class="form-control" name="query_per_page" id="query_per_page_input" onchange="changeQueryPerPage()">
-                                                <option></option>
-                                                <option value="25"<?php if($query_per_page =="25"){ echo "selected=\"selected\"";}?>>25</option>
-                                                <option value="50" <?php if($query_per_page == "50"){ echo "selected=\"selected\"";}?>>50</option>
-                                                <option value="100" <?php if($query_per_page == "100"){ echo "selected=\"selected\"";}?>>100</option>
-                                            </select>
-                                            <p>of <strong><?php echo $total_query;?></strong> records</p>
-                                        </div>
-                                    </div>
-                                    <div class="fr">
-                                        <p>Actions</p>
-                                        <select class="form-control" name="color-action">
-                                            <option value="delete">Delete</option>
-                                        </select>
-                                        
-                                        <div class="hidden">
-                                        <p>to</p>
-                                        <select class="form-control" name="color-option">
-                                            <option value="yes">Yes</option>
-                                            <option value="no">No</option>
-                                        </select>
-                                        </div>
-                                        
-                                        <input type="submit" class="btn green main go" value="GO" name="btn-index-color">
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>-->
-                    <table class="table">
+                    <table class="table" id="tbl_color">
                         <thead>
                             <tr class="headings">
                                 <th width="20"><span id="eyeopen" class="glyphicon glyphicon-eye-open" onclick="showEye()"></span></th>
@@ -264,49 +138,37 @@ $(document).ready(function(){
 							$row=0;
 							foreach($listing_order as $all_color){
 							   $row++;
-							   $total_product = get_all_color_total_product($all_color['color_id'], 0);
+							   $total_product = get_all_color_total_product($all_color['color_id']);
 							?>
                             <tr class="" id="<?php echo "row_".$row?>" onclick="selectRow('<?php echo $row;?>')">
                             
                                 <td><input type="checkbox" name="color_id[]" value="<?php echo $all_color['color_id'];?>" id="<?php echo "check_".$row?>" onmouseover="downCheck()" onmouseout="upCheck()" onclick="selectRowCheck('<?php echo $row;?>')"></td>
-                                <td><div class="color-thumb"><img src="http://<?php echo $_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/".$all_color['color_image'];?>" alt="<?php echo $all_color['color_name'];?>" width="100%"></div></td>
-                                <td><a href="#" onclick="editColor('<?php echo $all_color['color_id'];?>','<?php echo $all_color['color_name'];?>','<?php echo $all_color['color_active_status']?>','<?php echo $all_color['color_visibility_status']?>', '<?php echo "http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/".$all_color['color_image'];?>')"><?php echo $all_color['color_name'];?></a></td>
-                                <td class="tr"><a href="<?php echo $prefix_url."product-view/1/top/25/product_name/color_id-".$all_color['color_id'];?>" target="_new"><?php echo $total_product['total_products'];?></a></td>
+                                <td>
+                                  <div class="color-thumb">
+                                    <img src="<?php echo $prefix_url."static/thimthumb.php?src=../".$all_color['color_image'].'&h=23&w=23&q=80';?>" alt="<?php echo $all_color['color_name'];?>">
+                                  </div>
+                                </td>
+                                <td><a href="<?php echo $prefix_url.'color-detail/'.$all_color['color_id'].'/'.cleanurl($all_color['color_name']);?>"><?php echo $all_color['color_name'];?></a></td>
+                                <td class="tr">
+                                  <a href="<?php echo $prefix_url."product-view/1/top/25/product_name/color_id-".$all_color['color_id'];?>" target="_new">
+								    <?php echo $total_product['total_products'];?>
+                                  </a>
+                                </td>
                                 <!--<td><?php echo ucwords(strtolower($all_color['color_active_status']));?></td>-->
-                                <td><?php echo ucwords(strtolower($all_color['color_visibility_status']));?></td>
+                                <td>
+								<?php 
+								echo ucwords(strtolower($all_color['color_visibility_status']));
+								
+								// INPUT HIDDEN FOR ORDERING
+								echo '<input type="hidden" name="color_order[]" value="'.$all_color['color_order'].'">';
+								echo '<input type="hidden" name="hidden_color_id[]" value="'.$all_color['color_id'].'">';								
+								?></td>
                             </tr>
 
                             
-                            <?php }?>
-                            
-                            <script>
-							function editColor(col_id, col_name, col_active, col_visibility, col_img){
-							   $("#add-color-popup").fadeIn("fast");
-							   
-							   //Color ID
-							   $("#col-id").val(col_id);
-							   
-							   // Color Name
-							   $("#color-name").val(col_name);
-							   
-							   if(col_active == "inactive"){
-							      $("#color-inactive-status").attr('checked', 'checked');
-							   }else if(col_active == "active"){
-							      $("#color-active-status").attr('checked', 'checked');
-							   }
-							   
-							   if(col_visibility == "no"){
-							      $("#color-invisible-status").attr('checked', 'checked');
-							   }else if(col_visibility == "yes"){
-							      $("#color-visible-status").attr('checked', 'checked');
-							   }
-							   
-							   $("#upload-image").attr('src',col_img);
-							   $("#upload-image").attr('style','display=block');
-							   
-							   $("#header-name").text("Edit Color");
+                            <?php 
 							}
-							</script>
+							?>
                         </tbody>
                     </table>
 
@@ -318,10 +180,6 @@ $(document).ready(function(){
 </form>
 
 <script>
-$('#color_active_status_search option[value=<?php echo $search_value?>]').attr('selected', 'selected');
-$('#color_visibility_status_search option[value=<?php echo $search_value?>]').attr('selected', 'selected');
-
-
 function changeOption(){
    var action = $('#news-action option:selected').val();
    
@@ -339,6 +197,9 @@ function changeOption(){
 
 $(document).ready(function(e) {
    changeOption();
+   
+   // DRAGTABLE
+   $("#tbl_color").tableDnD();
 });
 </script>
 

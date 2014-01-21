@@ -129,11 +129,12 @@ $type = $_POST['prod_id'];
    
    if($_POST['btn_index_stock'] == "GO"){
    
-   if($_POST['stock_action'] == "save" and $_POST['stock_option'] == "yes"){
+   //if($_POST['stock_action'] == "save" and $_POST['stock_option'] == "yes"){
+   if($_POST['stock_action'] == "save"){
 	  
 	  $i = 1;
 	  foreach($type as $type_id){
-		 $qty  = $_POST['stock_quantity_'.$i];
+		 $qty  = $_POST['stock_quantity_'.$type_id];
 	     yeast($qty,$type_id);
 		 
 		 $i++;

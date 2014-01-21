@@ -8,7 +8,7 @@ include("update.php");
 */
 
 $equal_search    = array('user_status', 'user_created_date', 'last_order');
-$default_sort_by = "user_fullname";
+$default_sort_by = "user_created_date DESC";
 
 $pgdata = page_init($equal_search,$default_sort_by); // static/general.php
 
@@ -97,13 +97,13 @@ if(isset($_POST['btn-index-customer'])){
 			
 			if($delete_validation['rows'] > 0){
 			   $_SESSION['alert'] = "error";
-			   $_SESSION['msg']   = "Can't delete customer because the customer has been placed an order.";
+			   $_SESSION['msg']   = "Can't delete because the customer has placed one or more order(s).";
 			   $_SESSION['page']  = $act;
 			}else{
                deleteCustomers($user_id);
 			
 			   $_SESSION['alert'] = "success";
-			   $_SESSION['msg']   = "Success delete customer(s)";
+			   $_SESSION['msg']   = "Successfully deleted customer(s).";
 			   $_SESSION['page']  = $act;
 			}
 	     }

@@ -6,6 +6,8 @@ $detail_refresh = detail_order($order_number);
 
 $pay_stat = control_get_payment_status($detail['payment_status']);
 $ful_stat = control_fulfillment_status($detail_refresh['fulfillment_status']);
+
+var_dump($_POST);
 ?>
 
 <form method="post">
@@ -167,7 +169,7 @@ $ful_stat = control_fulfillment_status($detail_refresh['fulfillment_status']);
               <?php if($detail['payment_status'] != "Paid"){?>
               <input type="submit" class="btn btn-success btn-sm" value="Mark as Paid" name="btn-order-detailing">
               <input type="hidden" name="mark_as_paid" value="<?php echo $detail['order_id']?>">
-              </form>
+              <!--</form>-->
               <?php 
               }
               ?>
@@ -398,12 +400,15 @@ $ful_stat = control_fulfillment_status($detail_refresh['fulfillment_status']);
                    -->
                    
                    
-              <tr class="<?php echo $tr_class;?>" id="<?php echo "row_".$row?>" <?php if($product['fulfillment_date'] == "0000-00-00 00:00:00"){?>onclick="selectRow('<?php echo $row;?>')"<?php }?>>
+<!--<tr class="<?php echo $tr_class;?>" id="<?php echo "row_".$row?>" <?php if($product['fulfillment_date'] == "0000-00-00 00:00:00"){?>onclick="selectRow('<?php echo $row;?>')"<?php }?>>-->
+              
+              <tr class="<?php echo $tr_class;?>" id="<?php echo "row_".$row?>">
+              
                 <td><input type="checkbox" checked="checked" disabled="disabled" name="item_id[]" value="<?php echo $product['type_id']?>" id="<?php echo "check_".$row?>" onmouseover="downCheck()" onmouseout="upCheck()" onclick="selectRowCheck('<?php echo $row;?>')">
                 
                 <?php 
 				/* BACKUP DISBALED CHECKBOX */
-				echo "<input type=\"hidden\" name=\"backup_item_id[]\" class=\"hidden\" value=\"".$product['type_id']."\">";
+				echo "<input type=\"hidden\" name=\"backup_item_id[]\" value=\"".$product['type_id']."\">";
 				?>
                 </td>
                                       
@@ -507,6 +512,8 @@ $ful_stat = control_fulfillment_status($detail_refresh['fulfillment_status']);
 
       </div><!--container main-->
 
+</form>
+
 
         
 <script>
@@ -559,8 +566,8 @@ function validShippingOrder(){
 <?php
 /* RESET ALERT */
 if($_POST['deliver-validation'] == ""){
-   unset($_SESSION['alert']);
-   unset($_SESSION['msg']);
+   //unset($_SESSION['alert']);
+   //unset($_SESSION['msg']);
 }
 ?>
 

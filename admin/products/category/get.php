@@ -1,63 +1,31 @@
 <?php
-function get_all_category($one, $two, $three, $four){
-   $conn = connDB();
+/* -- FUNCTION -- */
+function count_category($search, $sort_by, $qpp){
+   $conn  = connDB();
    
-   $sql   = "SELECT 
-             cat.category_id, cat.category_name, cat.category_level, cat.category_order, cat.category_active_status, cat.category_visibility_status, cat.category_level,
-			 rel.category_child,
-			 COUNT( prod.id ) AS total_product, prod.product_name
-			 
-			 FROM tbl_category AS cat LEFT JOIN tbl_product AS prod ON cat.category_id = prod.product_category
-			                          INNER JOIN tbl_category_relation AS rel ON cat.category_id = rel.category_child
-			 WHERE $one
+   $sql   = "SELECT * FROM tbl_category AS cat INNER JOIN tbl_category_relation AS rel ON cat.category_id = rel.category_child
+			 WHERE $search AND `category_level` = '0'
 			 GROUP BY category_id
-			 ORDER BY $two 
-			 LIMIT  $three, $four
-			";
-   $query = mysql_query($sql, $conn);
-   $row   = array();
-   
-   while($result = mysql_fetch_array($query)){
-      array_push($row, $result);
-   }
-   
-   return $row;
-}
-
-
-function get_full_all_category($one, $two, $three, $four){
-   $conn = connDB();
-   
-   $sql   = "SELECT 
-             cat.category_id, cat.category_name, cat.category_level, cat.category_order, cat.category_active_status, cat.category_visibility_status, cat.category_level,
-			 
-			 COUNT( prod.id ) AS total_product, prod.product_name
-			 
-			 FROM tbl_category AS cat LEFT JOIN tbl_product AS prod ON cat.category_id = prod.product_category
-			 WHERE $one
-			 GROUP BY category_id
-			 ORDER BY $two 
-			 LIMIT  $three, $four
+			 ORDER BY $sort_by 
 			";
    $query = mysql_query($sql, $conn);
    
    $full_order['total_query'] = mysql_num_rows($query);
-   $full_order['total_page']  = ceil($full_order['total_query'] / $four); 
+   $full_order['total_page']  = ceil($full_order['total_query'] / $qpp); 
 
    return $full_order;
 }
 
 
-function get_all_category_by_id($one){
+function get_categories($search, $sort_by, $first_record, $qpp){
    $conn = connDB();
    
-   $sql   = "SELECT 
-             cat.category_id, cat.category_name, cat.category_level, cat.category_order,
-			 COUNT(prod.id) AS total_product, prod.product_name
-			 
-			 FROM tbl_category AS cat INNER JOIN tbl_product AS prod ON cat.category_id = prod.product_category
-			 
-			 WHERE prod.product_category = '$one'";
+   $sql   = "SELECT * FROM tbl_category AS cat INNER JOIN tbl_category_relation AS rel ON cat.category_id = rel.category_child
+			 WHERE $search AND `category_level` = '0'
+			 GROUP BY category_id
+			 ORDER BY $sort_by 
+			 LIMIT  $first_record, $qpp
+			";
    $query = mysql_query($sql, $conn);
    $row   = array();
    
@@ -68,52 +36,11 @@ function get_all_category_by_id($one){
    return $row;
 }
 
-function count_category(){
-   $conn = connDB();
-   
-   $sql    = "SELECT count(*) rows FROM `tbl_category`";
-   $query  = mysql_query($sql, $conn) or die('Query failed: ' . mysql_error());
-   $result = mysql_fetch_array($query);
-   
-   return $result;
-}
 
-
-
-// Detail Category
-function detail_category($one){
-   $conn = connDB();
-   
-   $sql    = "SELECT
-              cat.category_id, cat.category_name, cat.category_active_status, cat.category_visibility_status,
-			  child.relation_id, child.category_child, child.category_parent, child.relation_level
-			  FROM `tbl_category` AS cat LEFT JOIN `tbl_category_relation` AS child ON cat.category_id = child.category_child
-			  WHERE cat.category_name = '$one'
-			  ";
-   
-   $query  = mysql_query($sql, $conn) or die('Query failed: ' . mysql_error());
-   $result = mysql_fetch_array($query);
-   
-   return $result;
-}
-
-function check_delete($post_category_id){
+function count_products($post_product_category){
    $conn   = connDB();
    
-   $sql    = "SELECT COUNT(*) AS rows FROM tbl_category AS cat INNER JOIN tbl_product AS prod ON cat.category_id = prod.product_category
-              WHERE product_category = '$post_category_id'
-			 ";
-   $query  = mysql_query($sql, $conn);
-   $result = mysql_fetch_array($query);
-   
-   return $result;
-}
-
-function check_delete_get_category_name($post_category_id){
-   $conn   = connDB();
-   
-   $sql    = "SELECT * AS rows FROM tbl_category WHERE category_id = '$post_category_id'
-			 ";
+   $sql    = "SELECT COUNT(*) AS rows FROM tbl_product WHERE `product_category`  = '$post_product_category'";
    $query  = mysql_query($sql, $conn);
    $result = mysql_fetch_array($query);
    
@@ -121,39 +48,35 @@ function check_delete_get_category_name($post_category_id){
 }
 
 
-function getChildID(){
+
+function get_total_product($category_id){
    $conn   = connDB();
    
-   $sql    = "SELECT DISTINCT(category_child) FROM `tbl_category_relation` WHERE category_parent != 'top'";
+   $sql    = "SELECT IFNULL(total_product_main,0)+IFNULL(total_product_child,0) AS total_product
+			 
+			 FROM tbl_category AS cat 
+			 LEFT JOIN (SELECT product_category, COUNT(tbl_product.id) AS total_product_main FROM tbl_product
+			 WHERE product_delete!='1'
+			 GROUP BY product_category) AS prod
+			 ON cat.category_id = prod.product_category
+			 
+			 LEFT JOIN (SELECT COUNT(x.id) AS total_product_child, category_parent FROM tbl_product AS x LEFT JOIN tbl_category_relation AS y
+			 ON x.product_category = y.category_child
+			 WHERE product_delete!='1'
+			 GROUP BY category_parent) AS prod2
+			 ON cat.category_id = prod2.category_parent
+			 
+			 LEFT JOIN (SELECT * from tbl_category_relation WHERE relation_level = '1') AS relation
+			 ON cat.category_id = relation.category_child
+			 WHERE (category_id = '$category_id')";
+   
    $query  = mysql_query($sql, $conn);
-   $row    = array();
+   $row    = array();	 
    
    while($result = mysql_fetch_array($query)){
       array_push($row, $result);
    }
    
-   return $row;
-}
-
-function getParent($post_category_child){
-   $conn   = connDB();
-   
-   $sql     = "SELECT * FROM tbl_category_relation WHERE category_child =  '$post_category_child' AND  `relation_level` ='1'";
-   $query   = mysql_query($sql, $conn);
-   $result  = mysql_fetch_array($query);
-   
-   return $result;
-}
-
-function getTotal($post_category_id){
-   $conn   = connDB();
-   
-   $sql    = "SELECT COUNT( type_id ) AS total_product FROM tbl_category AS cat INNER JOIN tbl_product AS prod ON cat.category_id = prod.product_category
-                                                               LEFT JOIN tbl_product_type AS TYPE ON prod.id = type.product_id
-			  WHERE product_category =  '$post_category_id' AND type_delete =  '0'";
-   $query  = mysql_query($sql, $conn);
-   $result = mysql_fetch_array($query);
-   
-   return $result;
+   return $row[0]['total_product'];
 }
 ?>

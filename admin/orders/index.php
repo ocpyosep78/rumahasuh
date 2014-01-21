@@ -52,7 +52,6 @@ include("custom/orders/control.php");
             </select>
             <p id="lbl-news-option" class="hidden">to</p>
             <select class="form-control" name="option-status" id="news-option" disabled="disabled" class="hidden">
-              <option></option>
               <option disabled>Payment</option>
               <option value="Unpaid">&nbsp;Unpaid</option>
               <option value="Confirmed" disabled="disabled">&nbsp;Confirmed</option>

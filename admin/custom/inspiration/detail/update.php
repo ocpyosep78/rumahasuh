@@ -9,10 +9,16 @@ function insert_inspiration($post_name, $post_description, $post_date_created, $
 }
 
 
-function update_inspiration($post_name, $post_category, $post_inspiration_id){
+function update_inspiration($post_name, $post_category, $post_description, $post_history, $post_donor, $post_inspiration_id){
    $conn  = connDB();
    
-   $sql   = "UPDATE tbl_inspiration SET `name` = '$post_name', `category` = '$post_category' WHERE `inspiration_id` = '$post_inspiration_id'";
+   $sql   = "UPDATE tbl_inspiration SET `name` = '$post_name', 
+                                    `category` = '$post_category',
+									`description` = '$post_description',
+									`history` = '$post_history',
+									`donor` = '$post_donor' 
+			 WHERE `inspiration_id` = '$post_inspiration_id'
+			";
    $query = mysql_query($sql, $conn) or die(mysql_error());
 }
 

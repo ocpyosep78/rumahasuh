@@ -1,11 +1,11 @@
 <?php
-function insert_inspiration($post_name, $post_description, $post_date_created, $post_active, $post_visibility, $post_category){
+function insert_inspiration($post_name, $post_place, $post_description, $post_history, $post_donor, $post_date_created, $post_active, $post_visibility, $post_category){
    $conn  = connDB();
    
-   $sql   = "INSERT INTO tbl_inspiration (`name`, `description`, `date_created`, `active`, `inspiration_visibility`, `category`)
-                                   VALUES('$post_name', '$post_description', '$post_date_created', '$post_active', '$post_visibility', '$post_category')
+   $sql   = "INSERT INTO tbl_inspiration (`name`, `place`, `description`, `history`, `donor`, `date_created`, `active`, `inspiration_visibility`, `category`)
+                                   VALUES('$post_name', '$post_place', '$post_description', '$post_history', '$post_donor','$post_date_created', '$post_active', '$post_visibility', '$post_category')
 			";
-   $query = mysql_query($sql, $conn);
+   $query = mysql_query($sql, $conn) or die(mysql_error());
 }
 
 
@@ -24,7 +24,7 @@ function insert_inspiration_image($post_param_inspiration_id, $post_image, $post
 
 
 /* INSPIRATION FEATURED */
-
+/*
 function insert_inspiration_featured($post_param_inspiration_id, $post_product_type_id, $post_active, $post_visibility){
    $conn  = connDB();
    
@@ -33,4 +33,5 @@ function insert_inspiration_featured($post_param_inspiration_id, $post_product_t
 			";
    $query = mysql_query($sql, $conn);
 }
+*/
 ?>

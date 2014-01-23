@@ -563,17 +563,17 @@ RewriteRule ^item/(.*)/(.*)/(.*)$                index.php?act=shop_/details&pro
 
 # --- BLOG --- #
 RewriteRule ^news-events$                        index.php?act=news-events_/index
-RewriteRule ^read$                               index.php?act=news-events_/details
+#RewriteRule ^read$                              index.php?act=news-events_/details
 # RewriteRule ^news-events-cat/(.*)/(.*)$        index.php?act=news-events_/index&category=$1&record=$2
 # RewriteRule ^news-events-arc/(.*)/(.*)$        index.php?act=news-events_/index&date=$1&record=$2
 # RewriteRule ^news-events-view/(.*)/(.*)/(.*)$  index.php?act=news-events_/index&category=$1&date=$2&record=$3
-# RewriteRule ^read/(.*)$                        index.php?act=news-events_/details&nt=$1
+RewriteRule ^read/(.*)/(.*)/(.*)$                index.php?act=news-events_/details&news_cat=$1&news_id=$2&news_title=$3
 
 RewriteRule ^ajax-add$                           index.php?act=shop_/ajax_add_bag
 
 # --- PROJECTS --- #
 RewriteRule ^projects$                           index.php?act=projects_/index
-RewriteRule ^project-detail$                     index.php?act=projects_/details
+RewriteRule ^project-detail/(.*)/(.*)$           index.php?act=projects_/details&pro_name=$1&pro_id=$2
 
 # --- ORDER --- #
 RewriteRule ^bag$                                index.php?act=order_/bag

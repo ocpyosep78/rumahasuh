@@ -1,11 +1,20 @@
 <?php
 /* -- FUNCTIONS -- */
 
-function count_news($search_param, $search_op, $search_value){
+function count_project($post_inspiration_id){
    $conn   = connDB();
-   $sql    = "SELECT COUNT(*) AS rows FROM tbl_news_category AS cat_ INNER JOIN tbl_news AS news_ ON cat_.category_id = news_.news_category
-              WHERE $search_param $search_op '$search_value'
-			  ORDER BY `news_date`
+   $sql    = "SELECT COUNT(*) AS rows FROM tbl_inspiration WHERE `inspiration_id` = '$post_inspiration_id' AND `inspiration_visibility` = '1'";
+   $query  = mysql_query($sql, $conn);
+   $result = mysql_fetch_array($query);
+   
+   return $result;
+}
+
+
+function get_project($post_inspiration_id){
+   $conn   = connDB();
+   $sql    = "SELECT * FROM tbl_inspiration AS main_ LEFT JOIN tbl_inspiration_image AS img_ ON main_.inspiration_id = img_.param_inspiration_id 
+              WHERE `inspiration_id` = '$post_inspiration_id' AND `inspiration_visibility` = '1'
 			 ";
    $query  = mysql_query($sql, $conn);
    $result = mysql_fetch_array($query);
@@ -14,45 +23,12 @@ function count_news($search_param, $search_op, $search_value){
 }
 
 
-function get_news($search_param, $search_op, $search_value, $start_record, $query_per_page){
-   $conn   = connDB();
-   $sql    = "SELECT * FROM tbl_news_category AS cat_ INNER JOIN tbl_news AS news_ ON cat_.category_id = news_.news_category
-              WHERE $search_param $search_op '$search_value'
-			  ORDER BY `news_date`
-			  LIMIT $start_record, $query_per_page
-			 ";
-   $query  = mysql_query($sql, $conn);
-   $row    = array();
-   
-   while($result = mysql_fetch_array($query)){
-      array_push($row, $result);
-   }
-   
-   return $row;
-}
-
-
-function get_category(){
-   $conn   = connDB();
-   $sql    = "SELECT * FROM tbl_news_category ORDER BY `category_name`";
-   $query  = mysql_query($sql, $conn);
-   $row    = array();
-   
-   while($result = mysql_fetch_array($query)){
-      array_push($row, $result);
-   }
-   
-   return $row;
-}
-
-
 /* -- DEFINED VARIABLE -- */
 
 // REQUEST
-$category = $_REQUEST['cat_news'];
-$page     = $_REQUEST['cat_record'];
+$pro_id = $_REQUEST['pro_id'];
 
-
+/*
 // CONTROL 
 if(empty($_REQUEST['cat_news']) || $_REQUEST['cat_news'] == 'all' || empty($_REQUEST['cat_record'])){
    
@@ -101,6 +77,7 @@ if(empty($_REQUEST['cat_news']) || $_REQUEST['cat_news'] == 'all' || empty($_REQ
 
 
 /* -- PAGINATION -- */
+/*
 function view_pagination($post_total_record, $post_qpp, $post_req_cat, $post_req_filter, $post_req_sort, $post_req_page){
 	
    // DEFINED VARIABLE
@@ -120,12 +97,13 @@ function view_pagination($post_total_record, $post_qpp, $post_req_cat, $post_req
    echo '</ul>';
    
 }
+*/
 
 
 
 // CALL FUNCTIONS
-$news          = get_news($category, $operator, $src_val, $start_record, $query_per_page);
-$news_category = get_category();
+$count   = count_project($pro_id);
+$project = get_project($pro_id);
 ?>
 
 
@@ -138,10 +116,12 @@ $news_category = get_category();
 
       <div class="col-xs-10 m_t_20 project-detail">
 
-        <h2>Project Title</h2>
-        <p class="sub">Wairebo, 2012</p>
+        <h2><?php echo $project['name'];?></h2>
+        <p class="sub"><?php echo $project['place'];?>, <?php echo date('Y',strtotime($project['date_created']));?></p>
 
-      	<img src="<?php echo $prefix_url?>script/holder.js/100%x300" style="margin-bottom: 20px">
+      	<img src="<?php echo $prefix_img.$project['image'].'&h=300&w=945&q=100';?>" style="margin-bottom: 20px">
+        
+        <!--945 x 300-->
 
         <ul class="nav-project nav-tabs nav-justified" id="myTab">
           <li class="active"><a href="#progress" data-toggle="tab">PROGRESS</a></li>
@@ -151,28 +131,13 @@ $news_category = get_category();
 
         <div class="tab-content">
           <div class="tab-pane active" id="progress">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              <br><br>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-              <br>
-            </p>
+            <p><?php echo $project['description'];?></p>
           </div>
           <div class="tab-pane" id="history">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              <br><br>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-              <br>
-            </p>
+            <p><?php echo $project['history'];?></p>
           </div>
           <div class="tab-pane" id="donors">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              <br><br>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-              <br>
-            </p>
+            <p><?php echo $project['donor'];?></p>
           </div>
         </div>
 

@@ -1,12 +1,9 @@
 <?php
 /* -- FUNCTIONS -- */
 
-function count_news($search_param, $search_op, $search_value){
+function count_project(){
    $conn   = connDB();
-   $sql    = "SELECT COUNT(*) AS rows FROM tbl_news_category AS cat_ INNER JOIN tbl_news AS news_ ON cat_.category_id = news_.news_category
-              WHERE $search_param $search_op '$search_value'
-			  ORDER BY `news_date`
-			 ";
+   $sql    = "SELECT COUNT(*) AS rows FROM tbl_inspiration WHERE `inspiration_visibility` = '1'";
    $query  = mysql_query($sql, $conn);
    $result = mysql_fetch_array($query);
    
@@ -14,13 +11,9 @@ function count_news($search_param, $search_op, $search_value){
 }
 
 
-function get_news($search_param, $search_op, $search_value, $start_record, $query_per_page){
+function get_project(){
    $conn   = connDB();
-   $sql    = "SELECT * FROM tbl_news_category AS cat_ INNER JOIN tbl_news AS news_ ON cat_.category_id = news_.news_category
-              WHERE $search_param $search_op '$search_value'
-			  ORDER BY `news_date`
-			  LIMIT $start_record, $query_per_page
-			 ";
+   $sql    = "SELECT * FROM tbl_inspiration AS main_ LEFT JOIN tbl_inspiration_image AS img_ ON main_.inspiration_id = img_.param_inspiration_id WHERE `inspiration_visibility` = '1'";
    $query  = mysql_query($sql, $conn);
    $row    = array();
    
@@ -32,6 +25,7 @@ function get_news($search_param, $search_op, $search_value, $start_record, $quer
 }
 
 
+/*
 function get_category(){
    $conn   = connDB();
    $sql    = "SELECT * FROM tbl_news_category ORDER BY `category_name`";
@@ -44,11 +38,13 @@ function get_category(){
    
    return $row;
 }
+*/
 
 
 /* -- DEFINED VARIABLE -- */
 
 // REQUEST
+/*
 $category = $_REQUEST['cat_news'];
 $page     = $_REQUEST['cat_record'];
 
@@ -97,10 +93,12 @@ if(empty($_REQUEST['cat_news']) || $_REQUEST['cat_news'] == 'all' || empty($_REQ
    $record = count_news($category, $operator, $src_val);
    
 }
+*/
 
 
 
 /* -- PAGINATION -- */
+/*
 function view_pagination($post_total_record, $post_qpp, $post_req_cat, $post_req_filter, $post_req_sort, $post_req_page){
 	
    // DEFINED VARIABLE
@@ -120,12 +118,16 @@ function view_pagination($post_total_record, $post_qpp, $post_req_cat, $post_req
    echo '</ul>';
    
 }
+*/
 
 
 
 // CALL FUNCTIONS
-$news          = get_news($category, $operator, $src_val, $start_record, $query_per_page);
-$news_category = get_category();
+//$news          = get_news($category, $operator, $src_val, $start_record, $query_per_page);
+//$news_category = get_category();
+
+$check_projects = count_project();
+$projects       = get_project();
 ?>
 
     <div class="container main">
@@ -135,7 +137,7 @@ $news_category = get_category();
         
         <div class="row blog">
 
-          <?php include("static/navbar-2.php"); ?>
+          <?php include("static/navbar-2.php");?>
   
           <div class="col-xs-10 m_t_20">
 
@@ -149,15 +151,15 @@ $news_category = get_category();
             <!--BLOG INDEX 1-->
             <div class="post row" style="margin-left: -10px; margin-right: -10px">
             <?php 
-            //for($i=0;$i<1;$i++){
-			       foreach($news as $news){
+			foreach($projects as $projects){
             ?>
-              <a href="<?php echo $prefix_url?>project-detail">
+            
+              <a href="<?php echo $prefix_url.'project-detail/'.cleanurl($projects['name']).'/'.$projects['inspiration_id'];?>">
               <div class="col-xs-4" style="padding-left: 10px; padding-right: 10px">
-                <!--<img class="m_b_10" src="<?php echo $prefix_url.'admin/static/thimthumb.php?src=../'.$news['news_image'].'&h=300&w=100%&q=100';?>">-->
-                <img src="<?php echo $prefix_url?>script/holder.js/100%x200" class="m_b_20">
+                <img class="m_b_10" src="<?php echo $prefix_url.'admin/static/thimthumb.php?src=../'.$projects['image'].'&h=100&w=300%&q=100';?>">
+                <!--<img src="<?php echo $prefix_url?>script/holder.js/100%x200" class="m_b_20">-->
                 <h2><?php echo $news['news_title'];?></h2>
-                <p class="timestamp">Wairebo, <?php echo date('j F Y',strtotime($news['news_date']));?></p>
+                <p class="timestamp"><?php echo $projects['place'];?>, <?php echo date('j F Y',strtotime($projects['date_created']));?></p>
                 <!--<p class="m_b_10"><?php echo substr(preg_replace("/\n/","\n<br>",$news['news_content']),0,300);?></p>
                 <a class="read-more" href="<?php echo $prefix_url.cleanurl($news['category_name']).'/'.$news['news_alias'];?>">Read More</a>-->
               </div>
@@ -191,10 +193,10 @@ $news_category = get_category();
               <p>Categories</p>
               <ul>
                 <?php
-        				foreach($news_category as $news_category){
-                           echo '<li><a href="'.$prefix_url.'blog-view/'.$news_category['category_id'].'/all">'.$news_category['category_name'].'</a></li>';
-        				}
-        				?>
+				foreach($news_category as $news_category){
+				   echo '<li><a href="'.$prefix_url.'blog-view/'.$news_category['category_id'].'/all">'.$news_category['category_name'].'</a></li>';
+				}
+				?>
               </ul>
             </div>
           </div>

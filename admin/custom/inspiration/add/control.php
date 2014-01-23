@@ -7,8 +7,11 @@ if(isset($_POST['btn_add_inspiration'])){
    /* -- INSPIRATION -- */
    
    // PREDEFINED VALUE
-   $name         = addslashes($_POST['inspiration_name']);
-   $description  = '';
+   $name         = $_POST['inspiration_name'];
+   $place        = $_POST['inspiration_place'];
+   $description  = $_POST['progress'];
+   $history      = $_POST['history'];
+   $donor        = $_POST['donor'];
    $date_created = current_date_sql();
    $active       = 1;
    $visibility   = 1;
@@ -16,7 +19,7 @@ if(isset($_POST['btn_add_inspiration'])){
    $category     = $_POST['inspiration_category'];
    
    // DATABASE
-   insert_inspiration($name, $description, $date_created, $active, $visibility, $category);
+   insert_inspiration($name, $place, $description, $history, $donor, $date_created, $active, $visibility, $category);
    
    
    

@@ -52,14 +52,14 @@ include("control.php");
                 
                 <div class="content col-xs-9">
                   <ul class="form-set">
-                    <li class="form-group row">
+                    <li class="form-group row hidden">
                       <label for="brand" class="control-label col-xs-3">Project Category <span>*</span></label>
                       <div class="content col-xs-9">
                         <select class="form-control" name="inspiration_category" id="id_inspiration_category">
-                         
+                          <option value="0">default</option>
                           <?php
                           foreach($category as $category){
-						     echo '<option value="'.$category['category_id'].'">'.$category['name'].'</option>';
+						    //echo '<option value="'.$category['category_id'].'">'.$category['name'].'</option>';
 						  }
 						  ?>
                          
@@ -157,13 +157,13 @@ include("control.php");
               </div><!--content col-xs-9-->
             </div><!--box-->
             
-            <div class="box row">
+            <div class="box row hidden">
               <div class="desc col-xs-3">
                 <h3>Featured Products</h3>
                 <p>Edit project featured products.</p>
               </div>
               
-              <div class="content col-xs-9">
+              <div class="content col-xs-9 hidden">
                 <ul class="form-set">
                 
 				  <?php
@@ -181,6 +181,64 @@ include("control.php");
 				  }
 				  ?>
                   
+                  </ul>
+                </div>
+              </div><!--box-->
+              
+              <div class="box row">
+                <div class="desc col-xs-3">
+                  <h3>Description Project</h3>
+                  <p>Edit project description.</p>
+                </div>
+              
+                <div class="content col-xs-9">
+                  <ul class="form-set">
+                  
+                    <li class="form-group row ">
+                      <label class="control-label col-xs-12">Progress</label><br /><br />
+                      <div class="col-xs-12">
+                      
+					    <?php
+						include_once("xeditor/ckeditor_php5.php");
+						
+						$CKEditor     = new CKEditor();
+						$initialValue = $inspiration['description'];
+						$code         = $CKEditor->editor("progress", $initialValue);
+						?>
+                        
+                      </div>
+                    </li>
+                    
+                    <li class="form-group row">
+                      <label class="control-label col-xs-12">History</label><br /><br />
+                      <div class="col-xs-12">
+                      
+					    <?php
+						include_once("xeditor/ckeditor_php5.php");
+						
+						$CKEditor     = new CKEditor();
+						$initialValue = $inspiration['history'];
+						$code         = $CKEditor->editor("history", $initialValue);
+						?>
+                        
+                      </div>
+                    </li>
+                    
+                    <li class="form-group row">
+                      <label class="control-label col-xs-12">Donors</label><br /><br />
+                      <div class="col-xs-12">
+                      
+					    <?php
+						include_once("xeditor/ckeditor_php5.php");
+						
+						$CKEditor     = new CKEditor();
+						$initialValue = $inspiration['donor'];
+						$code         = $CKEditor->editor("donor", $initialValue);
+						?>
+                        
+                      </div>
+                    </li>
+                    
                   </ul>
                 </div>
               </div><!--box-->
@@ -249,7 +307,7 @@ function openBrowser(i){
 
 
 function removeButton(i){
-   $('#wrap_remove_'+i).html('<img class="hidden" src="" id="img_banner_'+i+'"><input type="file" name="upload_slider_'+i+'" id="file_'+i+'" onchange="readURL(this,'+i+')" class="hidden"/><input type="checkbox" name="check_banner[]" id="id_check_'+i+'" class="hidden"/>');
+   $('#wrap_remove_'+i).html('<img class="hidden" src="" id="img_banner_'+i+'"><input type="file" name="upload_slider_'+i+'" id="file_'+i+'" onchange="readURL(this,'+i+')" class="hidden"/><input type="checkbox" name="check_banner[]" id="id_check_'+i+'" value="'+i+'" class="hidden" checked="checked"/>');
    
    $('#wrapper_btn_'+i).html('<div class="image-overlay" onclick="openBrowser('+i+')"></div>');
    ajaxDeleteBanner(i);

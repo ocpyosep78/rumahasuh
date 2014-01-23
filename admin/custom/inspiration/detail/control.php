@@ -22,8 +22,10 @@ if(isset($_POST['btn_edit_inspiration'])){
    /* -- INSPIRATION -- */
    
    // PREDEFINED VALUE
-   $name         = addslashes($_POST['inspiration_name']);
-   $description  = '';
+   $name         = $_POST['inspiration_name'];
+   $description  = $_POST['progress'];
+   $history      = $_POST['history'];
+   $donor        = $_POST['donor'];
    $date_created = current_date_sql();
    $active       = 1;
    $visibility   = 1;
@@ -31,7 +33,7 @@ if(isset($_POST['btn_edit_inspiration'])){
    $category     = $_POST['inspiration_category'];
    
    // DATABASE
-   update_inspiration($name, $category, $inspiration_id);
+   update_inspiration($name, $category, $description, $history, $donor, $inspiration_id);
    
    
    /* -- INSPIRATION IMAGE -- */
@@ -62,7 +64,14 @@ if(isset($_POST['btn_edit_inspiration'])){
 	  
 	  // PREDEFINED VALUE
 	  $param      = $max_id;
-	  $image      = 'files/uploads/inspiration_image/'.$prefix.$userfile_name;
+	  
+	  if(!empty($image_name)){
+	     $image      = 'files/uploads/inspiration_image/'.$prefix.$userfile_name;
+	  }else{
+	     $image      = '';
+	  }
+	  
+	  //$image      = 'files/uploads/inspiration_image/'.$prefix.$userfile_name;
 	  $active     = 1;
 	  $visibility = 1;
 	  

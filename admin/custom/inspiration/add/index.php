@@ -46,14 +46,15 @@ include("control.php");
                 
                 <div class="content col-xs-9">
                   <ul class="form-set">
-                    <li class="form-group row">
+                    <li class="form-group row hidden">
                       <label for="brand" class="control-label col-xs-3">Project Category <span>*</span></label>
                       <div class="content col-xs-9">
                         <select class="form-control" name="inspiration_category" id="id_inspiration_category">
-                         
+                          <option value="0">default</option>
+                          
                           <?php
                           foreach($category as $category){
-						     echo '<option value="'.$category['category_id'].'">'.$category['name'].'</option>';
+						     //echo '<option value="'.$category['category_id'].'">'.$category['name'].'</option>';
 						  }
 						  ?>
                          
@@ -65,6 +66,13 @@ include("control.php");
                       <label for="brand" class="control-label col-xs-3">Project Name <span>*</span></label>
                       <div class="content col-xs-9">
                         <input type="text" class="form-control" name="inspiration_name" id="id_inspiration_name">
+                      </div>
+                    </li>
+                    
+                    <li class="form-group row" id="lbl_inspiration_name">
+                      <label for="brand" class="control-label col-xs-3">Place <span>*</span></label>
+                      <div class="content col-xs-9">
+                        <input type="text" class="form-control" name="inspiration_place" id="id_inspiration_place">
                       </div>
                     </li>
                   </ul>
@@ -118,7 +126,7 @@ include("control.php");
                 </div>
               </div>
               
-              <div class="box row">
+              <div class="box row hidden">
                 <div class="desc col-xs-3">
                   <h3>Featured Products</h3>
                   <p>Edit project featured products.</p>
@@ -140,6 +148,64 @@ include("control.php");
 					<?php
 					}
 					?>
+                    
+                  </ul>
+                </div>
+              </div><!--box-->
+              
+              <div class="box row">
+                <div class="desc col-xs-3">
+                  <h3>Description Project</h3>
+                  <p>Edit project description.</p>
+                </div>
+              
+                <div class="content col-xs-9">
+                  <ul class="form-set">
+                  
+                    <li class="form-group row ">
+                      <label class="control-label col-xs-12">Progress</label><br /><br />
+                      <div class="col-xs-12">
+                      
+					    <?php
+						include_once("xeditor/ckeditor_php5.php");
+						
+						$CKEditor     = new CKEditor();
+						$initialValue = '';
+						$code         = $CKEditor->editor("progress", $initialValue);
+						?>
+                        
+                      </div>
+                    </li>
+                    
+                    <li class="form-group row">
+                      <label class="control-label col-xs-12">History</label><br /><br />
+                      <div class="col-xs-12">
+                      
+					    <?php
+						include_once("xeditor/ckeditor_php5.php");
+						
+						$CKEditor     = new CKEditor();
+						$initialValue = '';
+						$code         = $CKEditor->editor("history", $initialValue);
+						?>
+                        
+                      </div>
+                    </li>
+                    
+                    <li class="form-group row">
+                      <label class="control-label col-xs-12">Donors</label><br /><br />
+                      <div class="col-xs-12">
+                      
+					    <?php
+						include_once("xeditor/ckeditor_php5.php");
+						
+						$CKEditor     = new CKEditor();
+						$initialValue = '';
+						$code         = $CKEditor->editor("donor", $initialValue);
+						?>
+                        
+                      </div>
+                    </li>
                     
                   </ul>
                 </div>

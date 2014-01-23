@@ -72,6 +72,13 @@ include("control.php");
                         <input type="text" class="form-control"name="inspiration_name" id="id_inspiration_name" value="<?php echo $inspiration['name'];?>">
                       </div>
                     </li>
+                    
+                    <li class="form-group row" id="lbl_inspiration_name">
+                      <label for="brand" class="control-label col-xs-3">Place <span>*</span></label>
+                      <div class="content col-xs-9">
+                        <input type="text" class="form-control" name="inspiration_place" id="id_inspiration_place" value="<?php echo $inspiration['place'];?>">
+                      </div>
+                    </li>
                   </ul>
                 </div>
               </div><!--box-->

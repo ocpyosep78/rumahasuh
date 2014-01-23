@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 21, 2014 at 10:51 AM
+-- Generation Time: Jan 23, 2014 at 06:42 AM
 -- Server version: 5.1.44
 -- PHP Version: 5.3.1
 
@@ -4920,28 +4920,23 @@ INSERT INTO `tbl_infos` (`info_id`, `email`, `email_warehouse`, `email_display`,
 CREATE TABLE IF NOT EXISTS `tbl_inspiration` (
   `inspiration_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
+  `place` varchar(100) NOT NULL,
   `description` text NOT NULL,
+  `history` text NOT NULL,
+  `donor` text NOT NULL,
   `date_created` date NOT NULL,
   `active` int(11) NOT NULL,
   `inspiration_visibility` int(11) NOT NULL,
   `category` int(11) NOT NULL,
   PRIMARY KEY (`inspiration_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `tbl_inspiration`
 --
 
-INSERT INTO `tbl_inspiration` (`inspiration_id`, `name`, `description`, `date_created`, `active`, `inspiration_visibility`, `category`) VALUES
-(1, 'Pullman Hotel Bali', '', '2013-12-12', 1, 1, 1),
-(2, 'Jakarta Garden City', '', '2013-12-12', 1, 1, 1),
-(3, 'Phoenix Hotel Yoyakarta', '', '2013-12-12', 1, 1, 1),
-(5, 'Club House Wisata Bukit Mas', '', '2013-12-18', 1, 1, 1),
-(6, 'Hardrock Hotel Bali', '', '2013-12-18', 1, 1, 1),
-(7, 'Garden Bali Hotel', '', '2013-12-18', 1, 1, 1),
-(8, 'Eco Holiday Haruna Bali', '', '2013-12-18', 1, 1, 1),
-(9, 'Eco Pakuwon Surabaya', '', '2013-12-18', 1, 1, 1),
-(10, 'Eco Royal Tower Bali', '', '2013-12-18', 1, 1, 1);
+INSERT INTO `tbl_inspiration` (`inspiration_id`, `name`, `place`, `description`, `history`, `donor`, `date_created`, `active`, `inspiration_visibility`, `category`) VALUES
+(12, 'Rumah Asuh Jakarta', 'Jakarta', '<p class="p1">\r\n	&quot;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&quot;</p>\r\n', '<p class="p1">\r\n	&quot;Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?&quot;</p>\r\n', '<p class="p1">\r\n	&quot;At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.&quot;</p>\r\n', '2014-01-22', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -4979,19 +4974,12 @@ CREATE TABLE IF NOT EXISTS `tbl_inspiration_featured` (
   `active` int(11) NOT NULL,
   `visibility` int(11) NOT NULL,
   PRIMARY KEY (`inspiration_featured_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Dumping data for table `tbl_inspiration_featured`
 --
 
-INSERT INTO `tbl_inspiration_featured` (`inspiration_featured_id`, `param_inspiration_id`, `product_type_id`, `active`, `visibility`) VALUES
-(33, 7, 87, 1, 1),
-(31, 1, 89, 1, 1),
-(32, 6, 87, 1, 1),
-(29, 5, 89, 1, 1),
-(30, 2, 89, 1, 1),
-(28, 3, 87, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5007,22 +4995,15 @@ CREATE TABLE IF NOT EXISTS `tbl_inspiration_image` (
   `active` int(11) NOT NULL,
   `visibility` int(11) NOT NULL,
   PRIMARY KEY (`inspiration_image_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `tbl_inspiration_image`
 --
 
 INSERT INTO `tbl_inspiration_image` (`inspiration_image_id`, `param_inspiration_id`, `image`, `order`, `active`, `visibility`) VALUES
-(1, 1, 'files/uploads/inspiration_image/inspiration-1-img-pro-pullman-hotel-bali.JPG', 1, 1, 1),
-(2, 2, 'files/uploads/inspiration_image/inspiration-2-img-pro-jakarta-garden-city-cluster-lantana.JPG', 1, 1, 1),
-(3, 3, 'files/uploads/inspiration_image/inspiration-3-img-pro-phoenix-hotel-yogyakarta.JPG', 1, 1, 1),
-(4, 5, 'files/uploads/inspiration_image/inspiration-4-img-pro-club-house-wisata-bukit-mas-urabaya.JPG', 1, 1, 1),
-(5, 6, 'files/uploads/inspiration_image/inspiration-0-img-pro-hardrock-bali-decorcryl.jpg', 0, 1, 1),
-(6, 7, 'files/uploads/inspiration_image/inspiration-0-img-pro-hotel-bali-garden-decorcryl.jpg', 0, 1, 1),
-(7, 8, 'files/uploads/inspiration_image/inspiration-0-img-pro-eco-holiday-haruna-bali.jpg', 0, 1, 1),
-(8, 9, 'files/uploads/inspiration_image/inspiration-0-img-pro-club-house-wisata-bukit-mas-urabaya.JPG', 0, 1, 1),
-(9, 10, 'files/uploads/inspiration_image/inspiration-0-img-pro-eco-royal-tower-bali.jpg', 0, 1, 1);
+(4, 13, 'files/uploads/inspiration_image/inspiration-0-asuh.jpg', 0, 1, 1),
+(3, 12, 'files/uploads/inspiration_image/inspiration-3-japanesesun.png', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -5089,7 +5070,7 @@ CREATE TABLE IF NOT EXISTS `tbl_news` (
 --
 
 INSERT INTO `tbl_news` (`news_id`, `news_category`, `news_title`, `news_alias`, `news_date`, `news_image`, `news_content`, `news_created_date`, `news_visibility`) VALUES
-(1, '8', 'Arsitektur Nusantara', 'subversive-design', '2013-08-14', 'files/uploads/news_image/news_image-sweetdream.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ', '2013-08-23', 'yes'),
+(1, '8', 'Arsitektur Nusantara', 'subversive-design', '2013-08-14', 'files/uploads/news_image/news_image-sweetdream.jpg', '<img alt="" src="http://localhost/antikode/rumahasuh/upload/images/japanesesun.png" /><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ', '2013-08-23', 'yes'),
 (3, '8', 'Propan Green Coating', 'second-branded-furniture-show', '2013-09-12', 'files/uploads/news_image/news_image-152pix.jpg', '<p align=\\"\\\\&quot;JUSTIFY\\\\&quot;\\" color=\\"\\\\&quot;#00ae00\\\\&quot;\\" face=\\"\\\\&quot;Arial,\\" font=\\"\\" style=\\"\\\\&quot;margin-bottom:\\">\r\n	<font size=\\"\\\\&quot;5\\\\&quot;\\"><b>PROPAN GREEN COATINGS</b></font><br /><br />Saat ini kebutuhan akan kehidupan yang lebih sehat secara fisik dan suasana lingkungan hidup yang lebih ramah secara emosional sudah menjadi suatu kebutuhan di masyarakat.<br /><br /><font align=\\"\\\\&quot;JUSTIFY\\\\&quot;\\" aspek=\\"\\" dan=\\"\\" ekonomi=\\"\\" gedung=\\"\\" kali=\\"\\" kecepatan=\\"\\" kesehatan=\\"\\" laju=\\"\\" lingkungan=\\"\\" memberikan=\\"\\" p=\\"\\" pada=\\"\\" pembangunan=\\"\\" perhatian=\\"\\" pertumbuhan=\\"\\" saat=\\"\\" sama=\\"\\" sempat=\\"\\" sering=\\"\\" terhadap=\\"\\" tidak=\\"\\" yang=\\"\\"><font face=\\"\\\\&quot;Arial,\\" font=\\"\\" size=\\"\\\\&quot;2\\\\&quot;\\">Kebutuhan akan bangunan yang dirancang dengan memperhatikan aspek lingkungan dan kesehatan akhir-akhir ini sudah menjadi perhatian para pelaku </font></font><font font=\\"\\"><span span=\\"\\">bangunan</span></font><font font=\\"\\"> sejalan dengan kebutuhan masyarakat yang mulai sadar akan kehidupan yang lebih sehat dan ramah lingkungan.</font><br /><br />1. Appropriate Site Development<br />3. Water Conservation<br />5. Material resources &amp; cycle<br /><br />Arsitek dan didisain interior bangunan perlu mempertimbangkan pemakaian bangunan termaksuk cat yang akan dipakai untuk menunjang bangunan hijau yang telah dirancang agar mencapai manfaat yang optimal untuk pengguna bangunan yaitu bangunan yang ramah lingkungan dan aman untuk kesehatan dan juga hemat energi.</p>\r\n', '2013-07-23', 'yes'),
 (4, '8', 'Lombok Bamboo Festival', '', '2013-12-18', 'files/uploads/news_image/news_image-wecare.jpg', 'Lombok akan menjadi tuan rumah festival internasional tentang arsitektur bambu dengan nama:<br /><br />&ldquo;LOMBOK INTERNATIONAL BAMBOO ARCHITECTURE FESTIVAL&rdquo; yang diselenggarakan oleh Ikatan Arsitek Indonesia &ndash; Nusa Tenggara Barat dan Budi Pradono Architects pada tanggal 1-8 Desember 2013 di Pantai Senggigi, Lombok.<br /><br />Dalam festival ini, akan ditampilkan 50 instalasi karya arsitektur dengan menggunakan bambu sebagai material utama. Instalasi merupakan karya dari 50 kelompok yang berasal dari berbagai negara. Karya-karya tersebut adalah karya terbaik yang dipilih melalui proses kuratorial oleh tim kurator yang terdiri dari: Budi Pradono, IAI, Jay Subiakto, Asmudjo Jono Irianto.<br /><br />Acara ini diselenggarakan oleh IAI-NTB bekerjasama dengan Budi Pradono Architects, Kementerian Pariwisata dan Ekonomi Kreatif Republik Indonesia, Pemerintah Propinsi Nusa Tenggara Barat, dan Pemerintah Kabupaten Lombok Barat. Festival bertema &ldquo;Re-Design the World with Bamboo&rdquo; ini bertujuan mengembangkan ekonomi kreatif di Pulau Lombok melalui desain arsitektur dengan memanfaatkan dan meningkatkan nilai bahan lokal namun tetap menjaga lingkungan yang berkelanjutan. ', '2013-12-18', 'yes');
 

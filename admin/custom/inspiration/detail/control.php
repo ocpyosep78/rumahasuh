@@ -23,6 +23,7 @@ if(isset($_POST['btn_edit_inspiration'])){
    
    // PREDEFINED VALUE
    $name         = $_POST['inspiration_name'];
+   $place        = $_POST['inspiration_place'];
    $description  = $_POST['progress'];
    $history      = $_POST['history'];
    $donor        = $_POST['donor'];
@@ -33,7 +34,7 @@ if(isset($_POST['btn_edit_inspiration'])){
    $category     = $_POST['inspiration_category'];
    
    // DATABASE
-   update_inspiration($name, $category, $description, $history, $donor, $inspiration_id);
+   update_inspiration($name, $place, $category, $description, $history, $donor, $inspiration_id);
    
    
    /* -- INSPIRATION IMAGE -- */

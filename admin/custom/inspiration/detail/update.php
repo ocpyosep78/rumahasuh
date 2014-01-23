@@ -9,10 +9,11 @@ function insert_inspiration($post_name, $post_description, $post_date_created, $
 }
 
 
-function update_inspiration($post_name, $post_category, $post_description, $post_history, $post_donor, $post_inspiration_id){
+function update_inspiration($post_name, $post_place, $post_category, $post_description, $post_history, $post_donor, $post_inspiration_id){
    $conn  = connDB();
    
    $sql   = "UPDATE tbl_inspiration SET `name` = '$post_name', 
+                                    `place` = '$post_place', 
                                     `category` = '$post_category',
 									`description` = '$post_description',
 									`history` = '$post_history',

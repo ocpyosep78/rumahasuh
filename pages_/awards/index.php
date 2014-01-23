@@ -131,41 +131,10 @@ $news_category = get_category();
     <div class="container main">
       <div class="content">
 
-        <div class="row">
-
-          <?php include("static/navbar-2.php");?>
-
-          <div class="col-xs-10 m_t_10">
-            <h2 class="m_b_20">Contact</h2>
-            <form role="form">
-              <div class="form-group row">
-                <label class="col-xs-3">Name</label>
-                <div class="col-xs-9">
-                  <input type="text" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-xs-3">Email</label>
-                <div class="col-xs-9">
-                  <input type="email" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-xs-3">Subject</label>
-                <div class="col-xs-9">
-                  <input type="text" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-xs-3">Message</label>
-                <div class="col-xs-9">
-                  <textarea class="form-control" rows="5"></textarea>
-                </div>
-              </div>
-              <input type="submit" class="btn btn-default pull-right " value="Submit">
-            </form>
-          </div>
-        </div><!--.row-->
+        <ul class="">
+          <a href=""><div class="award-list"><span>2012</span> Award Name</div></a>
+          <a href=""><div class="award-list"><span>2012</span> Award Name</div></a>
+        </ul>
 
       </div><!--.content-->
     </div><!--.container.main-->

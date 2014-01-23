@@ -149,8 +149,8 @@ $news_category = get_category();
             <!--BLOG INDEX 1-->
             
             <style>
-			.content-news-custom img{ display:none;}
-			</style>
+      			.content-news-custom img{ display:none;}
+      			</style>
             
             <?php 
             //for($i=0;$i<1;$i++){
@@ -176,15 +176,15 @@ $news_category = get_category();
             <?php
             // PAGINATION
 			
-			/*
-			echo "Total Record: ".$total_record."<br>";
-			echo "Query Per Page: ".$query_per_page.'<br>';
-			echo "Category: ".$src_val.'<br>';
-			echo "Page: ".$page.'<br>';
-			*/
-			
-			view_pagination($total_record, $query_per_page, $paging_cat, $page);
-			?>
+      			/*
+      			echo "Total Record: ".$total_record."<br>";
+      			echo "Query Per Page: ".$query_per_page.'<br>';
+      			echo "Category: ".$src_val.'<br>';
+      			echo "Page: ".$page.'<br>';
+      			*/
+      			
+      			view_pagination($total_record, $query_per_page, $paging_cat, $page);
+      			?>
 
           </div><!--.col-->
 

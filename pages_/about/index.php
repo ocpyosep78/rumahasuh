@@ -136,34 +136,11 @@ $news_category = get_category();
           <?php include("static/navbar-2.php");?>
 
           <div class="col-xs-10 m_t_10">
-            <h2 class="m_b_20">Contact</h2>
-            <form role="form">
-              <div class="form-group row">
-                <label class="col-xs-3">Name</label>
-                <div class="col-xs-9">
-                  <input type="text" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-xs-3">Email</label>
-                <div class="col-xs-9">
-                  <input type="email" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-xs-3">Subject</label>
-                <div class="col-xs-9">
-                  <input type="text" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-xs-3">Message</label>
-                <div class="col-xs-9">
-                  <textarea class="form-control" rows="5"></textarea>
-                </div>
-              </div>
-              <input type="submit" class="btn btn-default pull-right " value="Submit">
-            </form>
+            <h2 class="m_b_20">About Rumah Asuh</h2>
+            <img src="<?php echo $prefix_url;?>script/holder.js/100%x300" style="margin-bottom: 20px">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
           </div>
         </div><!--.row-->
 

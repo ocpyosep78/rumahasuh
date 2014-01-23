@@ -403,12 +403,16 @@ body {
 .footer {
   position: absolute;
   bottom: 9px;
-  color: #fff;
+  color: #999;
   text-align: center;
   font-size: 11px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 200;
   width: 100%;
+}
+
+.footer.footer-home {
+  color: #777;
 }
 
 .footer > .container {
@@ -417,7 +421,7 @@ body {
 }
 
 .footer a {
-  color: #fff;
+  color: #777;
   padding: 0 4px;
   opacity: 0.7;
   filter: alpha(opacity=70);
@@ -1117,10 +1121,10 @@ label.radio-inline input[type="radio"] {
   color: #555555;
   border: 1px solid #cccccc;
   background: #fff;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  -o-border-radius: 2px;
-  border-radius: 2px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -o-border-radius: 0px;
+  border-radius: 0px;
   -webkit-box-shadow: none;
           box-shadow: none;
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;

@@ -5,8 +5,8 @@ function count_news($search_param, $search_op, $search_value){
    $conn   = connDB();
    $sql    = "SELECT COUNT(*) AS rows FROM tbl_news_category AS cat_ INNER JOIN tbl_news AS news_ ON cat_.category_id = news_.news_category
               WHERE $search_param $search_op '$search_value'
-			  ORDER BY `news_date`
-			 ";
+        ORDER BY `news_date`
+       ";
    $query  = mysql_query($sql, $conn);
    $result = mysql_fetch_array($query);
    
@@ -18,9 +18,9 @@ function get_news($search_param, $search_op, $search_value, $start_record, $quer
    $conn   = connDB();
    $sql    = "SELECT * FROM tbl_news_category AS cat_ INNER JOIN tbl_news AS news_ ON cat_.category_id = news_.news_category
               WHERE $search_param $search_op '$search_value'
-			  ORDER BY `news_date`
-			  LIMIT $start_record, $query_per_page
-			 ";
+        ORDER BY `news_date`
+        LIMIT $start_record, $query_per_page
+       ";
    $query  = mysql_query($sql, $conn);
    $row    = array();
    
@@ -71,13 +71,13 @@ if(empty($_REQUEST['cat_news']) || $_REQUEST['cat_news'] == 'all' || empty($_REQ
    
    if($page == 'all'){
       
-	  $start_record   = '0';
-	  $query_per_page = $record['rows'];
-	  
+    $start_record   = '0';
+    $query_per_page = $record['rows'];
+    
    }else{
-	   
+     
       $start_record   = ($page - 1) * $qpp;
-	  $query_per_page = $page * $qpp;
+    $query_per_page = $page * $qpp;
    }
    
 }else{
@@ -102,7 +102,7 @@ if(empty($_REQUEST['cat_news']) || $_REQUEST['cat_news'] == 'all' || empty($_REQ
 
 /* -- PAGINATION -- */
 function view_pagination($post_total_record, $post_qpp, $post_req_cat, $post_req_filter, $post_req_sort, $post_req_page){
-	
+  
    // DEFINED VARIABLE
    $paging['total_record'] = $post_total_record;
    $paging['qpp']          = $post_qpp;
@@ -135,36 +135,14 @@ $news_category = get_category();
 
           <?php include("static/navbar-2.php");?>
 
-          <div class="col-xs-10 m_t_10">
-            <h2 class="m_b_20">Contact</h2>
-            <form role="form">
-              <div class="form-group row">
-                <label class="col-xs-3">Name</label>
-                <div class="col-xs-9">
-                  <input type="text" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-xs-3">Email</label>
-                <div class="col-xs-9">
-                  <input type="email" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-xs-3">Subject</label>
-                <div class="col-xs-9">
-                  <input type="text" class="form-control">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-xs-3">Message</label>
-                <div class="col-xs-9">
-                  <textarea class="form-control" rows="5"></textarea>
-                </div>
-              </div>
-              <input type="submit" class="btn btn-default pull-right " value="Submit">
-            </form>
-          </div>
+          <ul class="col-xs-10" style="margin-top: 10px">
+            <h2 class="m_b_20 text-right">Publications</h2>
+            <a href=""><div class="award-list"><span>2012</span> Publication Name</div></a>
+            <a href=""><div class="award-list"><span>2012</span> Publication Name</div></a>
+            <a href=""><div class="award-list"><span>2012</span> Publication Name</div></a>
+            <a href=""><div class="award-list"><span>2012</span> Publication Name</div></a>
+          </ul>
+
         </div><!--.row-->
 
       </div><!--.content-->

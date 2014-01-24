@@ -131,10 +131,19 @@ $news_category = get_category();
     <div class="container main">
       <div class="content">
 
-        <ul class="">
-          <a href=""><div class="award-list"><span>2012</span> Award Name</div></a>
-          <a href=""><div class="award-list"><span>2012</span> Award Name</div></a>
-        </ul>
+        <div class="row">
+
+          <?php include("static/navbar-2.php");?>
+
+          <ul class="col-xs-10" style="margin-top: 10px">
+            <h2 class="m_b_20 text-right">Awards</h2>
+            <a href=""><div class="award-list"><span>2012</span> Award Name</div></a>
+            <a href=""><div class="award-list"><span>2012</span> Award Name</div></a>
+            <a href=""><div class="award-list"><span>2012</span> Award Name</div></a>
+            <a href=""><div class="award-list"><span>2012</span> Award Name</div></a>
+          </ul>
+
+        </div><!--.row-->
 
       </div><!--.content-->
     </div><!--.container.main-->

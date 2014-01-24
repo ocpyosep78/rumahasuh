@@ -575,6 +575,12 @@ RewriteRule ^ajax-add$                           index.php?act=shop_/ajax_add_ba
 RewriteRule ^projects$                           index.php?act=projects_/index
 RewriteRule ^project-detail/(.*)/(.*)$           index.php?act=projects_/details&pro_name=$1&pro_id=$2
 
+# --- AWARDS --- #
+RewriteRule ^awards$                             index.php?act=pages_/awards/index
+
+# --- PUBLICATIONS --- #
+RewriteRule ^publications$                        index.php?act=pages_/publications/index
+
 # --- ORDER --- #
 RewriteRule ^bag$                                index.php?act=order_/bag
 RewriteRule ^order-login$                        index.php?act=order_/order-login

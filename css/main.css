@@ -457,6 +457,32 @@ body {
   text-decoration: underline;
 }
 
+/* ==========================================================================
+   Award
+   ========================================================================== */
+
+.award-list {
+  background: #fff;
+  padding: 15px 10px 10px;
+  color: #999;
+  border-bottom: 1px solid #ccc;
+  transition: background .25s ease-in-out;
+  -moz-transition: background .25s ease-in-out;
+  -webkit-transition: background .25s ease-in-out;
+  -o-transition: background .25s ease-in-out;
+}
+
+.award-list:hover {
+  background: #fafafa;
+}
+
+.award-list span {
+  font-size: 20px;
+  margin-right: 10px;
+  margin-left: 5px;
+  color: #000;
+}
+
 
 /* ==========================================================================
    Price

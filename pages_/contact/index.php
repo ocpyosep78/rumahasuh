@@ -136,7 +136,7 @@ $news_category = get_category();
           <?php include("static/navbar-2.php");?>
 
           <div class="col-xs-10 m_t_10">
-            <h2 class="m_b_20">Contact</h2>
+            <h2 class="m_b_20 text-right">Contact</h2>
             <form role="form">
               <div class="form-group row">
                 <label class="col-xs-3">Name</label>

@@ -1,12 +1,9 @@
 <?php
 /* -- FUNCTIONS -- */
 
-function count_news($search_param, $search_op, $search_value){
+function count_about(){
    $conn   = connDB();
-   $sql    = "SELECT COUNT(*) AS rows FROM tbl_news_category AS cat_ INNER JOIN tbl_news AS news_ ON cat_.category_id = news_.news_category
-              WHERE $search_param $search_op '$search_value'
-			  ORDER BY `news_date`
-			 ";
+   $sql    = "SELECT COUNT(*) AS rows FROM tbl_about WHERE `type` = 'about'";
    $query  = mysql_query($sql, $conn);
    $result = mysql_fetch_array($query);
    
@@ -14,119 +11,49 @@ function count_news($search_param, $search_op, $search_value){
 }
 
 
-function get_news($search_param, $search_op, $search_value, $start_record, $query_per_page){
+function get_about(){
    $conn   = connDB();
-   $sql    = "SELECT * FROM tbl_news_category AS cat_ INNER JOIN tbl_news AS news_ ON cat_.category_id = news_.news_category
-              WHERE $search_param $search_op '$search_value'
-			  ORDER BY `news_date`
-			  LIMIT $start_record, $query_per_page
-			 ";
+   $sql    = "SELECT * FROM tbl_about WHERE `type` = 'about'";
    $query  = mysql_query($sql, $conn);
-   $row    = array();
+   $result = mysql_fetch_array($query);
    
-   while($result = mysql_fetch_array($query)){
-      array_push($row, $result);
-   }
-   
-   return $row;
+   return $result;
 }
 
 
-function get_category(){
+function count_banner(){
    $conn   = connDB();
-   $sql    = "SELECT * FROM tbl_news_category ORDER BY `category_name`";
+   $sql    = "SELECT COUNT(*) AS rows FROM tbl_about WHERE `type` = 'facilities'";
    $query  = mysql_query($sql, $conn);
-   $row    = array();
+   $result = mysql_fetch_array($query);
    
-   while($result = mysql_fetch_array($query)){
-      array_push($row, $result);
-   }
-   
-   return $row;
+   return $result;
 }
 
 
-/* -- DEFINED VARIABLE -- */
-
-// REQUEST
-$category = $_REQUEST['cat_news'];
-$page     = $_REQUEST['cat_record'];
-
-
-// CONTROL 
-if(empty($_REQUEST['cat_news']) || $_REQUEST['cat_news'] == 'all' || empty($_REQUEST['cat_record'])){
+function get_banner(){
+   $conn   = connDB();
+   $sql    = "SELECT * FROM tbl_about WHERE `type` = 'facilities'";
+   $query  = mysql_query($sql, $conn);
+   $result = mysql_fetch_array($query);
    
-   $category = '';
-   $operator = '';
-   $src_val  = '1';
-   
-   $paging_cat = 'all';
-   
-   $record = count_news($category, $operator, $src_val);
-   
-   $total_record = $record['rows'];
-   
-   $qpp  = 3;
-   $page = 1;
-   
-   if($page == 'all'){
-      
-	  $start_record   = '0';
-	  $query_per_page = $record['rows'];
-	  
-   }else{
-	   
-      $start_record   = ($page - 1) * $qpp;
-	  $query_per_page = $page * $qpp;
-   }
-   
-}else{
-   
-   $category = 'category_id';
-   $operator = ' = ';
-   $src_val  = $_REQUEST['cat_news'];
-   
-   $paging_cat = $_REQUEST['cat_news'];
-   
-   $qpp      = 3;
-   $page     = $_REQUEST['cat_record'];
-   
-   $start_record   = ($page - 1) * $qpp;
-   $query_per_page = $page * ($qpp - 1);
-   
-   $record = count_news($category, $operator, $src_val);
-   
-}
-
-
-
-/* -- PAGINATION -- */
-function view_pagination($post_total_record, $post_qpp, $post_req_cat, $post_req_filter, $post_req_sort, $post_req_page){
-	
-   // DEFINED VARIABLE
-   $paging['total_record'] = $post_total_record;
-   $paging['qpp']          = $post_qpp;
-   $paging['total_page']   = ceil($post_total_record / $post_qpp);
-   
-   //$paging['first']        = 
-   
-   echo '<ul class="pagination pull-right">';
-   echo "<li><a href=\"http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/blog\">&laquo;</a></li>";
-   
-   for($i=1; $i <= $paging['total_page']; $i++){
-      echo "<li><a href=\"http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/blog-view/".$post_req_cat."/".$i."\">".$i."</a></li>";
-   }
-   echo "<li><a href=\"http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/blog-view/".$post_req_cat.'/'.$paging['total_page']."\">&raquo;</a></li>";
-   echo '</ul>';
-   
+   return $result;
 }
 
 
 
 // CALL FUNCTIONS
-$news          = get_news($category, $operator, $src_val, $start_record, $query_per_page);
-$news_category = get_category();
+$count = count_about();
+$about = get_about();
+
+$count_banner = count_banner();
+$banner       = get_banner();
 ?>
+
+<style>
+.ct-main-img-page img{ width:945px; margin-bottom:20px;}
+.ct-content-page img{ max-width:945px;}
+</style>
 
     <div class="container main">
       <div class="content">
@@ -136,11 +63,32 @@ $news_category = get_category();
           <?php include("static/navbar-2.php");?>
 
           <div class="col-xs-10 m_t_10">
-            <h2 class="m_b_20 text-right">About Rumah Asuh</h2>
+
+            <!--<h2 class="m_b_20 text-right">About Rumah Asuh</h2>
             <img src="<?php echo $prefix_url;?>script/holder.js/100%x300" style="margin-bottom: 20px">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+            </p>-->
+            <h2 class="m_b_20">About Rumah Asuh</h2>
+            
+            <?php
+            preg_match_all('/<img[^>]+>/i',$banner['fill'], $result); 
+			
+      			foreach ($result as $result_img) {
+      						     
+      			   if(!empty($result_img[0])) {
+      			      $img = explode("style",$result_img[0]);
+      				  echo '<div class="ct-main-img-page">';
+      				  echo $img['0'];
+      				  echo '</div>';
+      			   }
+						  
+      			}
+      			?>
+            
+            <!--<img src="<?php echo $prefix_url;?>script/holder.js/100%x300" style="margin-bottom: 20px">-->
+            <div class="ct-content-page"><?php echo $about['fill'];?></div>
+
           </div>
         </div><!--.row-->
 

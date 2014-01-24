@@ -1,6 +1,8 @@
 <?php
 include("admin/custom/static/general.php");
 include("admin/static/general.php");
+
+include("static/redirect.php");
 ?>
 
 <!DOCTYPE html>

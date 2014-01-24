@@ -39,24 +39,9 @@ include("custom/pages/about/control.php");
         </div>
         <div class="content col-xs-9">
           <ul class="form-set">
-            <li class="form-group row underlined">
-              <label class="control-label col-xs-12">History</label><br /><br />
-              <div class="col-xs-12">
-                
-				<?php
-				$get_about = get_about('about');
-				$path = get_dirname($_SERVER['PHP_SELF']);
-				$CKEditor = new CKEditor();
-				$CKEditor->basePath = $path.'/xeditor/';
-				$initialValue = $get_about['fill'];
-				$code = $CKEditor->editor("about", $initialValue);
-				?>
-                
-              </div>
-            </li>
                             
             <li class="form-group row underlined">
-              <label class="control-label col-xs-12">Vision &amp; Mission</label><br /><br />
+              <label class="control-label col-xs-12">Banner For About Rumah Asuh</label><br /><br />
               <div class="col-xs-12">
                 
 				<?php
@@ -70,8 +55,24 @@ include("custom/pages/about/control.php");
                 
               </div>
             </li>
-
+            
             <li class="form-group row">
+              <label class="control-label col-xs-12">About Rumah Asuh</label><br /><br />
+              <div class="col-xs-12">
+                
+				<?php
+				$get_about = get_about('about');
+				$path = get_dirname($_SERVER['PHP_SELF']);
+				$CKEditor = new CKEditor();
+				$CKEditor->basePath = $path.'/xeditor/';
+				$initialValue = $get_about['fill'];
+				$code = $CKEditor->editor("about", $initialValue);
+				?>
+                
+              </div>
+            </li>
+
+            <li class="form-group row hidden">
               <label class="control-label col-xs-12">Quality Policy</label><br /><br />
               <div class="col-xs-12">
               
@@ -87,7 +88,7 @@ include("custom/pages/about/control.php");
               </div>
             </li>
 
-            <li class="form-group row">
+            <li class="form-group row hidden">
               <label class="control-label col-xs-12">Activities</label><br /><br />
               <div class="col-xs-12">
               
@@ -103,7 +104,7 @@ include("custom/pages/about/control.php");
               </div>
             </li>
 
-            <li class="form-group row">
+            <li class="form-group row hidden">
               <label class="control-label col-xs-12">FAQ</label><br /><br />
               <div class="col-xs-12">
               

@@ -10,13 +10,13 @@ include('control.php');
       <div class="container clearfix">
         <h1>
           <span class="glyphicon glyphicon-list"></span> &nbsp; 
-          <a href="<?php echo $prefix_url."career"?>">Career</a> 
+          <a href="<?php echo $prefix_url."awards"?>">Awards</a> 
           <span class="info">/</span> 
-          Add Store
+          Add Awards
         </h1>
         <div class="btn-placeholder">
           <input type="hidden" name="cat_id" id="category_id"/>
-          <a href="<?php echo $prefix_url."service";?>">
+          <a href="<?php echo $prefix_url."awards";?>">
             <input type="button" class="btn btn-default btn-sm" value="Cancel" id="btn-add-category-cancel">
           </a>
           <input type="button" class="btn btn-success btn-sm" value="Save Changes" id="btn_alias">
@@ -42,8 +42,8 @@ include('control.php');
 
       <div class="box row">
         <div class="desc col-xs-3">
-          <h3>Position Details</h3>
-          <p>Your position details.</p>
+          <h3>Award Details</h3>
+          <p>Your award details.</p>
         </div>
         <div class="content col-xs-9">
           <ul class="form-set" id="custom_product_category">
@@ -71,7 +71,7 @@ include('control.php');
               </div>
             </li>
             
-            <li class="form-group row" id="lbl_category_department">
+            <li class="form-group row hidden" id="lbl_category_department">
               <label class="control-label col-xs-3">Department</label>
               <div class="col-xs-9">
                 <select class="form-control" name="category_department" id="category_department">
@@ -84,21 +84,50 @@ include('control.php');
               </div>
             </li>
             
-            <li class="form-group row" id="lbl_category_name">
-              <label class="control-label col-xs-3">Store Name</label>
-              <div class="col-xs-9">
-                <input type="text" class="form-control" name="category_name" id="id_category_name">
-              </div>
-            </li>
-            
-            <li class="form-group row" id="lbl_category_name">
-              <label class="control-label col-xs-3">Google Maps</label>
+            <li class="form-group row" id="lbl_category_year">
+              <label class="control-label col-xs-3">Year</label>
               <div class="col-xs-9">
                 <input type="text" class="form-control" name="category_maps" id="id_category_maps">
               </div>
             </li>
             
-            <li class="form-group row" id="lbl_career_description">
+            <li class="form-group row" id="lbl_category_name">
+              <label class="control-label col-xs-3">Awards Name</label>
+              <div class="col-xs-9">
+                <input type="text" class="form-control" name="category_name" id="id_category_name">
+              </div>
+            </li>
+            
+            <li class="form-group row image-placeholder input-file" style="position:relative; z-index:1;">
+              <label class="control-label col-xs-3">Image</label>
+              <div class="col-xs-9">
+                <div class="row">
+                
+                  <div class="col-xs-4 image">
+                    <div class="content image-prod-size" id="newer-1" style="height:105px;">
+                      <div id="remove-news-1">
+                        <div class="image-delete hidden" id="btn-slider-1" onClick="clearImage('1')">
+                          <span class="glyphicon glyphicon-remove"></span>
+                        </div>
+                      
+                        <div class="image-overlay" onClick="openBrowser('1')"></div>
+                      </div>
+                    
+                      <img class="" id="upload-news-1">
+                    
+                      <div id="img_replacer_1">
+                        <input type="file" name="upload_news_1" id="news-1" onchange="readURL(this,'1')" class="hidden"/>
+                      </div><!--img_replacer--> 
+                      
+                      <input type="checkbox" class="hidden" name="check_banner[]" value="1" id="id_hidden_project_1">   
+                    </div>
+                  </div>
+                </div>
+                <p class="help-block" style="padding-top: 10px">Recommended dimensions of 228 x 152 px.</p>
+              </div>
+            </li>
+            
+            <li class="form-group row hidden" id="lbl_career_description">
               <label class="control-label col-xs-3">Description</label>
               <div class="col-xs-9">
                 <!--<input type="text" class="form-control" name="category_name" placeholder="ex: Jakarta" id="category_name">-->
@@ -123,14 +152,16 @@ border-color: #b94a48;
 function initial(){
    $('#category_active_status_active').attr('checked', true);
    $('#category_visibility_status_visible').attr('checked', true);
-   $('#id_category_name').focus();
+   //$('#id_category_name').focus();
 }
 
 function validation(){
   
-  var dept = $('#category_department option:selected').val();
-  var job  = $('#id_category_name').val();
-  var desc = $('#id_career_description').val();
+  var dept  = $('#category_department option:selected').val();
+  var job   = $('#id_category_name').val();
+  var desc  = $('#id_career_description').val();
+  var year  = $('#id_category_maps').val(); 
+  var nonum = /^\d*[0-9](|.\d*[0-9]|,\d*[0-9])?$/
   
   $('#lbl_category_department').removeClass('has-error');
   $('#lbl_category_name').removeClass('has-error');
@@ -138,10 +169,10 @@ function validation(){
   
   if(dept == 'empty'){
      $('#lbl_category_department').addClass('has-error');
+  }else if(year == '' || !nonum.test(year) || year.length>4){
+     $('#lbl_category_year').addClass('has-error');
   }else if(job == ''){
      $('#lbl_category_name').addClass('has-error');
-  }else if(desc == ''){
-     $('#lbl_career_description').addClass('has-error');
   }else{
      $('#btn_save').click();
   }
@@ -156,4 +187,65 @@ $(document).ready(function(e) {
       validation()
    });
 });
+
+
+
+function readURL(input,i) {
+   
+   if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+		 
+	     $("#upload-news-"+i).attr('src', e.target.result).fadeOut("fast").removeClass("hidden").fadeIn("fast");
+	     $('#id_hidden_project_'+i).attr('checked',true);
+		 $('#btn-slider-'+i).removeClass("hidden");
+		 $('#newer-'+i).attr('onmouseout','removeButton('+i+')');
+		 $('#newer-'+i).attr('onmouseover','showDelete('+i+')');
+	  }
+		 
+      reader.readAsDataURL(input.files[0]);
+   }
+	  
+}
+
+function showDelete(i){
+   $('#btn-slider-'+i).removeClass('hidden');
+}
+
+function removeButton(i){
+   $('#btn-slider-'+i).addClass('hidden');
+}
+
+function openBrowser(i){
+   document.getElementById("news-"+i).click();
+}
+
+function clearImage(i){
+   $('#img_replacer_'+i).html('<input type="file" name="upload_news_'+i+'" id="news-'+i+'" onchange="readURL(this,'+i+')" class="hidden"/>');
+   $('#upload-news-'+i).attr('src', '');
+   $('#btn-slider-'+i).addClass('hidden');
+   $('#id_hidden_project_'+i).attr('checked',false);
+   $('#newer-'+i).removeAttr('onmouseout','removeButton('+i+')');
+   $('#newer-'+i).removeAttr('onmouseover','showDelete('+i+')');
+}
+
+
+function validate(i){
+   
+   var name     = $('#id_inspiration_name').val();
+   
+   if(name == ""){
+      $('#lbl_inspiration_name').addClass("has-error");
+   }else{
+      $('#lbl_inspiration_name').removeClass("has-error");
+	  
+	  if(i == "save"){
+	     $('#id_btn_save').click();
+	  }else if(i == "exit"){
+		 $('#id_btn_exit').click();
+	  }
+	  
+   }
+   
+}
 </script>

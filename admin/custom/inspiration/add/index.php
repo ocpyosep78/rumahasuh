@@ -240,13 +240,12 @@ function showDelete(i){
    $('#btn-slider-'+i).removeClass('hidden');
 }
 
-function openBrowser(i){
-   document.getElementById("news-"+i).click();
-}
-
-
 function removeButton(i){
    $('#btn-slider-'+i).addClass('hidden');
+}
+
+function openBrowser(i){
+   document.getElementById("news-"+i).click();
 }
 
 function clearImage(i){

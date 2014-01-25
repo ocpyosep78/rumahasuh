@@ -847,7 +847,7 @@ RewriteRule ^admin/store-detail/(.*)/(.*)$                                      
 
 
 # ----------------------------------------------------------------------
-# SERVICE CENTER
+# AWARDS
 # ----------------------------------------------------------------------
 
 RewriteRule ^admin/service-city$                                                admin/index.php?act=custom/service/index
@@ -856,11 +856,11 @@ RewriteRule ^admin/service-city-view/(.*)/(.*)/(.*)/(.*)-(.*)$                  
 RewriteRule ^admin/add-service-city$                                            admin/index.php?act=custom/service/add/index
 RewriteRule ^admin/service-city-detail/(.*)/(.*)$                               admin/index.php?act=custom/service/details/index&cat_id=$1&cat_name=$2
 
-RewriteRule ^admin/service$                                                     admin/index.php?act=custom/service/jobs/index
-RewriteRule ^admin/service-view/(.*)/(.*)/(.*)/(.*)/(.*)-(.*)$                  admin/index.php?act=custom/service/jobs/index&pg=$1&cat=$2&qpp=$3&srt=$4&src=$5&srcval=$6
+RewriteRule ^admin/awards$                                                      admin/index.php?act=custom/service/jobs/index
+RewriteRule ^admin/awards-view/(.*)/(.*)/(.*)/(.*)/(.*)-(.*)$                   admin/index.php?act=custom/service/jobs/index&pg=$1&cat=$2&qpp=$3&srt=$4&src=$5&srcval=$6
 
-RewriteRule ^admin/add-service$                                                 admin/index.php?act=custom/service/jobs/add/index
-RewriteRule ^admin/service-detail/(.*)/(.*)$                                    admin/index.php?act=custom/service/jobs/details/index&cat_id=$1&cat_name=$2
+RewriteRule ^admin/add-awards$                                                  admin/index.php?act=custom/service/jobs/add/index
+RewriteRule ^admin/awards-detail/(.*)/(.*)$                                     admin/index.php?act=custom/service/jobs/details/index&cat_id=$1&cat_name=$2
 
 
 # ----------------------------------------------------------------------

@@ -8,8 +8,8 @@ include('control.php');
           <form method="post">
             <div class="subnav clearfix">
               <div class="container clearfix">
-                <h1><span class="glyphicon glyphicon-list"></span> &nbsp; Service</h1>
-                <select class="form-control" id="category_name_search" onchange="selectCategory()" style="width:125px;">
+                <h1><span class="glyphicon glyphicon-list"></span> &nbsp; Awards</h1>
+                <select class="form-control hidden" id="category_name_search" onchange="selectCategory()" style="width:125px;">
                   <option value="all">All City</option>
                   
 				  <?php
@@ -20,8 +20,8 @@ include('control.php');
                   
                 </select>
                 <div class="btn-placeholder">
-                  <a href="<?php echo $prefix_url."add-service"?>">
-                    <input type="button" class="btn btn-success btn-sm" value="Add Store">
+                  <a href="<?php echo $prefix_url."add-awards"?>">
+                    <input type="button" class="btn btn-success btn-sm" value="Add Award">
                   </a>
                 </div>
               </div>
@@ -88,15 +88,15 @@ include('control.php');
                    <thead>
                      <tr class="headings">
                        <th width="20"><span id="eyeopen" class="glyphicon glyphicon-eye-open" onclick="showEye()"></span></th>
-                       <th class="sort" width="85%" onclick="sortBy('career_name')">Store Name<?php echo $arr_order_number;?></th>
+                       <th class="sort" width="85%" onclick="sortBy('career_name')">Award Name<?php echo $arr_order_number;?></th>
                        <!--<th class="sort" width="10%" onclick="sortBy('total_product')">Jobs</th>-->
-                       <th class="sort" width="10%">City</th>
+                       <th class="sort" width="10%"  onclick="sortBy('category_maps')">Year</th>
                        <th class="sort" width="5%" onclick="sortBy('visibility')">Visibility</th>
                      </tr>
                      
                      <tr class="filter hidden" id="filter">
                        <th>
-                         <a href="<?php echo $prefix_url."service-view"?>">
+                         <a href="<?php echo $prefix_url."awards"?>">
                            <button type="button" style="width: 100%;" class="btn btn-danger btn-xs <?php echo $reset;?>">
                              <span class="glyphicon glyphicon-remove"></span>
                            </button>
@@ -137,11 +137,11 @@ include('control.php');
                        <input type="checkbox" name="category_id[]" value="<?php echo $all_category['career_id'];?>" id="<?php echo "check_".$row?>" onmouseover="downCheck()" onmouseout="upCheck()" onclick="selectRowCheck('<?php echo $row;?>')">
                      </td>
                      <td>
-					   <a href="<?php echo $prefix_url.'service-detail/'.$all_category['career_id'].'/'.cleanurl($all_category['career_name']);?>">
+					   <a href="<?php echo $prefix_url.'awards-detail/'.$all_category['career_id'].'/'.cleanurl($all_category['career_name']);?>">
                          <?php echo $all_category['career_name'];?>
                        </a>
                      </td>
-                     <td><?php echo $all_category['category_name'];?></td>
+                     <td><?php echo $all_category['category_maps'];?></td>
                      <td>
                      
 					   <?php 

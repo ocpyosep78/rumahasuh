@@ -187,15 +187,15 @@ else if(isset($_POST['btn_index_service_city'])){
 }else if(isset($_POST['btn_detail_service_city'])){
    header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/service-city-detail/".$_POST['cat_id']."/".$_POST['hidden_department']);
 }else if(isset($_POST['btn_index_service_job'])){
-   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/service");
+   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/awards");
 }else if(isset($_POST['btn_add_service_job'])){
-   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/add-service");
+   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/add-awards");
 }else if(isset($_POST['btn_detail_service_job'])){
    
    if($_POST['btn_detail_service_job'] == 'Delete'){
-      header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/service");
+      header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/awards");
    }else{
-      header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/service-detail/".$_POST['cat_id']."/".$_POST['hidden_name']);
+      header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/awards-detail/".$_POST['cat_id']."/".$_POST['hidden_name']);
    }
    
 }

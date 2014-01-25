@@ -9,7 +9,7 @@ include("control.php");
             <div class="subnav">
               <div class="container clearfix">
                 <h1><span class="glyphicon glyphicon-list"></span> &nbsp; Manage Project</h1>
-                <select class="form-control" id="category_name_search" onchange="selectCategory()" style="width: 150px;">
+                <select class="form-control hidden" id="category_name_search" onchange="selectCategory()" style="width: 150px;">
                   <option value="top">All Category</option>
                   
                   <?php

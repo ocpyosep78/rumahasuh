@@ -138,12 +138,7 @@ if(empty($act)){
         <li><a href="<?php echo $prefix;?>reporting">Reports</a></li>
         -->
          
-        <li <?php echo $header_servicecenter;?>><a data-toggle="dropdown" href="#">Service Center</a>
-          <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-            <li><a href="<?php echo $prefix_url.'service-city';?>">City</a></li>
-            <li><a href="<?php echo $prefix_url.'service';?>">Service Center</a></li>
-          </ul>
-        </li>
+        <li <?php echo $header_servicecenter;?>><a href="<?php echo $prefix_url.'awards';?>">Awards</a></li>
         
         <li <?php echo $header_wheretobuy;?>><a data-toggle="dropdown" href="#">Where to Buy</a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
@@ -162,12 +157,14 @@ if(empty($act)){
             <li class="hidden"><a href="<?php echo $prefix_url;?>faq">FAQ</a></li>
             
             <li class="disabled"><a>News &amp; Events</a></li>
-            <li><a href="<?php echo $prefix_url.'news-category';?>">Category</a></li>
+            <li><a href="<?php echo $prefix_url.'news-category';?>" class="hidden">Category</a></li>
             <li><a href="<?php echo $prefix_url.'news';?>">News</a></li>
-
+            
+            <!--
             <li class="disabled"><a>Careers</a></li>
             <li><a href="<?php echo $prefix_url.'career-department';?>">Department</a></li>
             <li><a href="<?php echo $prefix_url.'career';?>">Career</a></li>
+            -->
           </ul>
         </li>
         

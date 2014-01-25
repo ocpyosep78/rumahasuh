@@ -10,13 +10,12 @@ include('control.php');
       <div class="container clearfix">
         <h1>
           <span class="glyphicon glyphicon-list"></span> &nbsp; 
-          <a href="<?php echo $prefix_url."service"?>">Store</a> 
+          <a href="<?php echo $prefix_url."awards"?>">Awards</a> 
           <span class="info">/</span> 
 		  <?php echo $category['career_name'];?>
         </h1>
         <div class="btn-placeholder">
-          <input type="hidden" name="cat_id" id="category_id"/>
-          <a href="<?php echo $prefix_url."service";?>">
+          <a href="<?php echo $prefix_url."awards";?>">
             <input type="button" class="btn btn-default btn-sm" value="Cancel" id="btn-add-category-cancel">
           </a>
           <input type="submit" class="btn btn-danger btn-sm" value="Delete" name="btn_detail_service_job">
@@ -43,8 +42,8 @@ include('control.php');
 
       <div class="box row">
         <div class="desc col-xs-3">
-          <h3>Career Details</h3>
-          <p>Your career details.</p>
+          <h3>Award Details</h3>
+          <p>Your award details.</p>
         </div>
         <div class="content col-xs-9">
           <ul class="form-set" id="custom_product_category">
@@ -72,7 +71,7 @@ include('control.php');
               </div>
             </li>
             
-            <li class="form-group row" id="lbl_category_department">
+            <li class="form-group row hidden" id="lbl_category_department">
               <label class="control-label col-xs-3">Department</label>
               <div class="col-xs-9">
                 <select class="form-control" name="category_department" id="category_department">
@@ -85,24 +84,47 @@ include('control.php');
               </div>
             </li>
             
-            <li class="form-group row" id="lbl_category_name">
-              <label class="control-label col-xs-3">Position Name</label>
-              <div class="col-xs-9">
-                <input type="text" class="form-control" name="category_name" placeholder="ex: Jakarta" id="category_name" value="<?php echo $category['career_name'];?>">
-              </div>
-            </li>
-            
-            <li class="form-group row" id="lbl_category_name">
-              <label class="control-label col-xs-3">Google Maps</label>
+            <li class="form-group row" id="lbl_category_year">
+              <label class="control-label col-xs-3">Year</label>
               <div class="col-xs-9">
                 <input type="text" class="form-control" name="category_maps" id="id_category_maps" value="<?php echo $category['category_maps'];?>">
               </div>
             </li>
             
-            <li class="form-group row" id="lbl_career_description">
-              <label class="control-label col-xs-3">Description</label>
+            <li class="form-group row" id="lbl_category_name">
+              <label class="control-label col-xs-3">Awards Name</label>
               <div class="col-xs-9">
-                <textarea class="form-control" name="career_description" id="id_career_description" rows="5"><?php echo $category['description'];?></textarea>
+                <input type="text" class="form-control" name="category_name" placeholder="ex: Jakarta" id="category_name" value="<?php echo $category['career_name'];?>">
+              </div>
+            </li>
+            
+            <li class="form-group row image-placeholder input-file" style="position:relative; z-index:1;">
+              <label class="control-label col-xs-3">Image</label>
+              <div class="col-xs-9">
+                <div class="row">
+                
+                  <div class="col-xs-4 image">
+                    <div class="" id="fl_banner_1" onmouseover="showDelete(1)" onmouseout="hideDelete(1)">
+                      <div class="content img-about-size">
+                        <div class="" id="wrapper_btn_1">
+                          <div class="image-delete hidden" id="delete_btn_1" onclick="removeButton(1)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                          </div>
+                          
+                          <div class="image-overlay" onclick="openBrowser(1)"></div>
+                        </div>
+                        
+                        <span id="wrap_remove_1">
+                          <img class="" src="<?php echo $prefix_url."static/thimthumb.php?src=../".$category['description']."&h=105&w=208&q=100";?>" id="img_banner_1">
+                          <input type="file" name="upload_image_1" id="file_1" onchange="readURL(this,'1')" class="hidden"/>
+                          <input type="checkbox" name="check_banner[]" id="id_check_1" value="1" class="hidden"/>
+                          <input type="hidden" name="order_banner[]" value="1"/>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="help-block" style="padding-top: 10px">Recommended dimensions of 228 x 152 px.</p>
               </div>
             </li>
             
@@ -125,16 +147,10 @@ include('control.php');
     echo "<input type=\"hidden\" name=\"jobs\" value=\"".$check['rows']."\">";
     echo "<input type=\"hidden\" name=\"cat_id\" value=\"".$category_id."\">";
     echo "<input type=\"hidden\" name=\"hidden_name\" value=\"".cleanurl($category['career_name'])."\">";
+    echo "<input type=\"hidden\" name=\"hidden_description\" value=\"".$category['description']."\">";
 	?>
     
 </form>
-
-<?php
-if($_POST['btn_detail_city'] == ""){
-   unset($_SESSION['alert']);
-   unset($_SESSION['msg']);
-}
-?>
 
 <style>
 .has-error {
@@ -151,18 +167,22 @@ function initial(x){
    }else{
 	  $('#category_visibility_status_invisible').attr('checked', true);
    }
-   $('#category_name').focus();
+   //$('#category_name').focus();
 }
 
 function validation(){
+	
   var category_name = $('#category_name').val();
+  var year          = $('#id_category_maps').val(); 
+  var nonum         = /^\d*[0-9](|.\d*[0-9]|,\d*[0-9])?$/;
   
   $('#category_name').val();
-  
   $('#lbl_category_name').removeClass('has-error');
   
-  if(category_name == ""){
+  if(category_name == ''){
      $('#lbl_category_name').addClass('has-error');
+  }else if(year == '' || !nonum.test(year) || year.length>4){
+     $('#lbl_category_year').addClass('has-error');
   }else{
      $('#btn_save').click();
   }
@@ -184,4 +204,64 @@ $(document).ready(function(e) {
    
    selectCity('<?php echo $category['category'];?>');
 });
+
+
+/*
+function ajaxDeleteBanner(i){
+   var bid = i;
+   
+   var ajx   = $.ajax({
+	           type: "POST",
+			   url: "../custom/inspiration/detail/ajax/delete.php",
+			   data: {bid:bid},
+			   error: function(jqXHR, textStatus, errorThrown) {
+					   
+					  }
+						 
+			   }).done(function(data) {	
+			      
+			   });
+}
+*/
+
+
+function readURL(input,i) {
+   
+   if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+		 
+	     $("#img_banner_"+i).attr('src', e.target.result).fadeOut("fast").removeClass("hidden").fadeIn("fast");
+	     $('#id_check_'+i).attr('checked',true);
+		 $('#wrapper_btn_'+i).removeClass("hidden");
+		 $('#wrapper_btn_'+i).html('<div class="image-delete hidden" id="delete_btn_'+i+'" onclick="removeButton('+i+')"></div>'+$('#wrapper_btn_'+i).html());
+	  }
+		 
+      reader.readAsDataURL(input.files[0]);
+   }
+	  
+}
+
+function showDelete(i){
+   $('#delete_btn_'+i).removeClass("hidden");
+   $('#delete_btn_'+i).fadeIn("fast");
+}
+
+function hideDelete(i){
+   $('#delete_btn_'+i).fadeOut("fast");
+   $('#delete_btn_'+i).addClass("hidden");
+}
+
+
+function openBrowser(i){
+   document.getElementById("file_"+i).click();
+}
+
+
+function removeButton(i){
+   $('#wrap_remove_'+i).html('<img class="hidden" src="" id="img_banner_'+i+'"><input type="file" name="upload_slider_'+i+'" id="file_'+i+'" onchange="readURL(this,'+i+')" class="hidden"/><input type="checkbox" name="check_banner[]" id="id_check_'+i+'" value="'+i+'" class="hidden" checked="checked"/>');
+   
+   $('#wrapper_btn_'+i).html('<div class="image-overlay" onclick="openBrowser('+i+')"></div>');
+   //ajaxDeleteBanner(i);
+}
 </script>

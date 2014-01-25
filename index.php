@@ -15,7 +15,7 @@ include("static/redirect.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Rumah Asuh</title>
-    <meta name="description" content="">
+    <meta name="description" content="<?php echo $general['website_description'];?>">
     <meta name="author" content="">
     <link href="<?php echo $prefix_url;?>css/bootstrap.css" rel="stylesheet">
     <link href="<?php echo $prefix_url;?>css/main.css" rel="stylesheet">

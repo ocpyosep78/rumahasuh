@@ -65,7 +65,7 @@ include("custom/pages/home/control.php");
         </div>
         <div class="content col-xs-9">
           <ul class="field-set">
-            <li class="form-group row image-placeholder underlined">
+            <li class="form-group row image-placeholder">
               <label class="control-label col-xs-3">Main Banners</label>
               <div class="col-xs-9">
                 <div class="row" id="row_slide">

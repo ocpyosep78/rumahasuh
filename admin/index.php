@@ -20,7 +20,7 @@ $_SESSION['KCFINDER']['disabled'] = false;
  	<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Propan Admin</title>
+    <title>Rumah Asuh Admin</title>
     <meta name="description" content="Propan Admin">
     <meta name="format-detection" content="telephone=no">
     <!--<link rel="stylesheet" href="<?php echo $prefix_url;?>css/normalize.css"> obsolete-->

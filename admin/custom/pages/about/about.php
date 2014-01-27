@@ -24,7 +24,7 @@ function selectOptionLanguage(x){
    
 
 $(document).ready(function(e) {
-   getLanguage('custom/language/select.php');
+   //getLanguage('custom/language/select.php');
    selectOptionLanguage('<?php echo $_SESSION['lang_admin'];?>');
 });
 </script>

@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	$.ajax({
+	/*$.ajax({
 		type: "POST",
 		url: "custom/pages/home/promo/index.php",
 		error: function(jqXHR, textStatus, errorThrown) {
@@ -13,7 +13,7 @@ $(document).ready(function(){
 			
 			
 		});
-/*
+
 	$.ajax({
 			type: "POST",
 			url: "custom/pages/home/featured/index.php",

@@ -179,7 +179,7 @@ else if(isset($_POST['btn_index_store_city'])){
 }
 
 
-// SERVICE
+// AWARDS
 else if(isset($_POST['btn_index_service_city'])){
    header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/service-city");
 }else if(isset($_POST['btn_add_service_city'])){
@@ -196,6 +196,21 @@ else if(isset($_POST['btn_index_service_city'])){
       header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/awards");
    }else{
       header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/awards-detail/".$_POST['cat_id']."/".$_POST['hidden_name']);
+   }
+   
+}
+
+// PUBLICATIONS
+else if(isset($_POST['btn_index_publication'])){
+   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/publications");
+}else if(isset($_POST['btn_add_publication'])){
+   header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/add-publications");
+}else if(isset($_POST['btn_detail_publication'])){
+   
+   if($_POST['btn_detail_publication'] == 'Delete'){
+      header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/publications");
+   }else{
+      header("location:http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/publications-detail/".$_POST['cat_id']."/".$_POST['hidden_name']);
    }
    
 }

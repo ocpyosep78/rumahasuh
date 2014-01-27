@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 24, 2014 at 05:34 AM
+-- Generation Time: Jan 27, 2014 at 08:37 AM
 -- Server version: 5.1.44
 -- PHP Version: 5.3.1
 
@@ -5070,7 +5070,7 @@ CREATE TABLE IF NOT EXISTS `tbl_news` (
 --
 
 INSERT INTO `tbl_news` (`news_id`, `news_category`, `news_title`, `news_alias`, `news_date`, `news_image`, `news_content`, `news_created_date`, `news_visibility`) VALUES
-(1, '8', 'Arsitektur Nusantara', 'subversive-design', '2013-08-14', 'files/uploads/news_image/news_image-sweetdream.jpg', '<img alt="" src="http://localhost/antikode/rumahasuh/upload/images/japanesesun.png" /><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ', '2013-08-23', 'yes'),
+(1, '8', 'Arsitektur Nusantara', 'subversive-design', '2013-08-14', 'files/uploads/news_image/news_image-sweetdream.jpg', '<img alt="" src="http://localhost/antikode/rumahasuh/upload/images/japanesesun.png" /><br /><br />Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ', '2013-08-23', 'yes'),
 (3, '8', 'Propan Green Coating', 'second-branded-furniture-show', '2013-09-12', 'files/uploads/news_image/news_image-152pix.jpg', '<p align=\\"\\\\&quot;JUSTIFY\\\\&quot;\\" color=\\"\\\\&quot;#00ae00\\\\&quot;\\" face=\\"\\\\&quot;Arial,\\" font=\\"\\" style=\\"\\\\&quot;margin-bottom:\\">\r\n	<font size=\\"\\\\&quot;5\\\\&quot;\\"><b>PROPAN GREEN COATINGS</b></font><br /><br />Saat ini kebutuhan akan kehidupan yang lebih sehat secara fisik dan suasana lingkungan hidup yang lebih ramah secara emosional sudah menjadi suatu kebutuhan di masyarakat.<br /><br /><font align=\\"\\\\&quot;JUSTIFY\\\\&quot;\\" aspek=\\"\\" dan=\\"\\" ekonomi=\\"\\" gedung=\\"\\" kali=\\"\\" kecepatan=\\"\\" kesehatan=\\"\\" laju=\\"\\" lingkungan=\\"\\" memberikan=\\"\\" p=\\"\\" pada=\\"\\" pembangunan=\\"\\" perhatian=\\"\\" pertumbuhan=\\"\\" saat=\\"\\" sama=\\"\\" sempat=\\"\\" sering=\\"\\" terhadap=\\"\\" tidak=\\"\\" yang=\\"\\"><font face=\\"\\\\&quot;Arial,\\" font=\\"\\" size=\\"\\\\&quot;2\\\\&quot;\\">Kebutuhan akan bangunan yang dirancang dengan memperhatikan aspek lingkungan dan kesehatan akhir-akhir ini sudah menjadi perhatian para pelaku </font></font><font font=\\"\\"><span span=\\"\\">bangunan</span></font><font font=\\"\\"> sejalan dengan kebutuhan masyarakat yang mulai sadar akan kehidupan yang lebih sehat dan ramah lingkungan.</font><br /><br />1. Appropriate Site Development<br />3. Water Conservation<br />5. Material resources &amp; cycle<br /><br />Arsitek dan didisain interior bangunan perlu mempertimbangkan pemakaian bangunan termaksuk cat yang akan dipakai untuk menunjang bangunan hijau yang telah dirancang agar mencapai manfaat yang optimal untuk pengguna bangunan yaitu bangunan yang ramah lingkungan dan aman untuk kesehatan dan juga hemat energi.</p>\r\n', '2013-07-23', 'yes'),
 (4, '8', 'Lombok Bamboo Festival', '', '2013-12-18', 'files/uploads/news_image/news_image-wecare.jpg', 'Lombok akan menjadi tuan rumah festival internasional tentang arsitektur bambu dengan nama:<br /><br />&ldquo;LOMBOK INTERNATIONAL BAMBOO ARCHITECTURE FESTIVAL&rdquo; yang diselenggarakan oleh Ikatan Arsitek Indonesia &ndash; Nusa Tenggara Barat dan Budi Pradono Architects pada tanggal 1-8 Desember 2013 di Pantai Senggigi, Lombok.<br /><br />Dalam festival ini, akan ditampilkan 50 instalasi karya arsitektur dengan menggunakan bambu sebagai material utama. Instalasi merupakan karya dari 50 kelompok yang berasal dari berbagai negara. Karya-karya tersebut adalah karya terbaik yang dipilih melalui proses kuratorial oleh tim kurator yang terdiri dari: Budi Pradono, IAI, Jay Subiakto, Asmudjo Jono Irianto.<br /><br />Acara ini diselenggarakan oleh IAI-NTB bekerjasama dengan Budi Pradono Architects, Kementerian Pariwisata dan Ekonomi Kreatif Republik Indonesia, Pemerintah Propinsi Nusa Tenggara Barat, dan Pemerintah Kabupaten Lombok Barat. Festival bertema &ldquo;Re-Design the World with Bamboo&rdquo; ini bertujuan mengembangkan ekonomi kreatif di Pulau Lombok melalui desain arsitektur dengan memanfaatkan dan meningkatkan nilai bahan lokal namun tetap menjaga lingkungan yang berkelanjutan. ', '2013-12-18', 'yes');
 
@@ -5765,6 +5765,30 @@ INSERT INTO `tbl_promo_item` (`promo_item_id`, `promo_id`, `product_type_id`, `p
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_publication`
+--
+
+CREATE TABLE IF NOT EXISTS `tbl_publication` (
+  `career_id` int(11) NOT NULL AUTO_INCREMENT,
+  `career_name` varchar(50) NOT NULL,
+  `category` int(11) NOT NULL,
+  `active` int(11) NOT NULL,
+  `visibility` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `category_maps` text NOT NULL,
+  PRIMARY KEY (`career_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `tbl_publication`
+--
+
+INSERT INTO `tbl_publication` (`career_id`, `career_name`, `category`, `active`, `visibility`, `description`, `category_maps`) VALUES
+(4, 'Publication 2003', 7, 1, 1, 'files/uploads/publications_image/award-image-asuh-1.jpg', '2002');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_service`
 --
 
@@ -5777,20 +5801,21 @@ CREATE TABLE IF NOT EXISTS `tbl_service` (
   `description` text NOT NULL,
   `category_maps` text NOT NULL,
   PRIMARY KEY (`career_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `tbl_service`
 --
 
 INSERT INTO `tbl_service` (`career_id`, `career_name`, `category`, `active`, `visibility`, `description`, `category_maps`) VALUES
-(1, 'Kyai Tapa', 1, 1, 1, 'Komplek Apartemen & Ruko Taman Gloria\r\nJl. Kyai Tapa No. 215 I\r\nGrogol - Jakarta Barat\r\nTelp : (021) 5680081-82\r\nFax : (021) 5680153 ', ''),
-(2, 'Kelapa Gading', 1, 1, 1, 'Kelapa Gading Permai Blok CN 3/12\r\nJakarta Utara 14240 \r\nTelp : (021) 4516377-79\r\nFax : (021) 4517007 ', ''),
-(3, 'Fatmawati', 7, 1, 1, 'Duta Mas Fatmawati Blok B 2 No. 1-2\r\nJakarta Selatan 12150\r\nTelp : (021) 7237851-54\r\nFax : (021) 7237855 ', ''),
-(4, 'Soekarno Hatta', 8, 1, 1, 'Jl. Soekarno Hatta No. 480\r\nBandung 40265\r\nTelp : (022) 7507776\r\nFax : (022) 7500775', ''),
-(5, 'Cirebon', 8, 1, 1, 'Jl. Tuparev No. 110\r\nCirebon 45153\r\nTelp : (0231) 231825\r\nFax : (0231) 237616', ''),
-(6, 'Jepara', 9, 1, 1, 'Jl. Raya Senenan 16 (depan gudang PLN)\r\nJepara\r\nTelp : (0291) 594372, 3319372\r\nFax : (0291) 594372', ''),
-(7, 'Semarang', 9, 1, 1, 'Jl. MT. Haryono 259, \r\nTelp & Fax : (024) 3545489\r\nemail : pscsemarang@propanraya.com', '');
+(6, 'Award 2000', 7, 1, 1, 'files/uploads/awards_image/award-image-japanesesun.png', '2000'),
+(7, 'Award 2001', 7, 1, 1, 'files/uploads/awards_image/award-image-marvin.jpg', '2001'),
+(8, 'Award 2002', 7, 1, 0, 'files/uploads/awards_image/award-image-screen-shot-2013-11-28-at-3-49-57-am.png', '2002'),
+(9, 'Award 2003', 7, 1, 1, 'files/uploads/awards_image/award-image-marvin.jpg', '2003'),
+(10, 'Award 2004', 7, 1, 1, 'files/uploads/awards_image/award-image-asuh.jpg', '2004'),
+(11, 'Award 2005', 7, 1, 1, 'files/uploads/awards_image/award-image-asuh-2.jpg', '2005'),
+(12, 'Award 2006', 7, 1, 1, 'files/uploads/awards_image/award-image-japanesesun.png', '2006'),
+(13, 'Award 2011', 7, 1, 1, 'files/uploads/awards_image/award-image-japanesesun.png', '2011');
 
 -- --------------------------------------------------------
 

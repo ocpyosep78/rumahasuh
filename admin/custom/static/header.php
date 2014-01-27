@@ -110,7 +110,7 @@ if(empty($act)){
         <li <?php echo $header_dashboard;?> class="hidden"><a href="#">Dashboard</a></li>
         <!--<li <?php echo $header_order;?>><a href="<?php echo $prefix_url;?>order">Orders</a></li>-->
         <!--<li <?php echo $header_customer;?>><a href="<?php echo $prefix_url;?>customer">Customers</a></li>-->
-        <li <?php echo $header_products;?>><a data-toggle="dropdown" href="#">Products</a>
+        <li <?php echo $header_products;?> class="hidden"><a data-toggle="dropdown" href="#">Products</a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
             <li><a href="<?php echo $prefix_url;?>product">Products</a></li>
             <!--<li><a href="<?php echo $prefix_url;?>stock-manager">Stock Control</a></li>-->
@@ -139,14 +139,15 @@ if(empty($act)){
         -->
          
         <li <?php echo $header_servicecenter;?>><a href="<?php echo $prefix_url.'awards';?>">Awards</a></li>
-        
+        <li <?php echo $header_servicecenter;?>><a href="<?php echo $prefix_url.'publications';?>">Publications</a></li>
+        <!--
         <li <?php echo $header_wheretobuy;?>><a data-toggle="dropdown" href="#">Where to Buy</a>
           <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
             <li><a href="<?php echo $prefix_url.'store-city';?>">City</a></li>
             <li><a href="<?php echo $prefix_url.'store';?>">Store</a></li>
           </ul>
         </li>
-        
+        -->
         <li <?php echo $header_projects;?>><a href="<?php echo $prefix_url.'project';?>">Projects</a></li>
 
         <li <?php echo $header_pages;?>><a data-toggle="dropdown" href="#">Pages</a>

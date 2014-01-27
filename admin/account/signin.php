@@ -77,7 +77,7 @@ if($_POST['btn-admin-login'] == ""){
               <div class="box row login">
                 <div class="navbar-login clearfix">
                   <div class="navbar-brand"><img src="<?php echo $prefix_url;?>files/common/logo.png" alt="logo"></div>
-                  <h1>Propanraya Admin</h1>
+                  <h1>Rumah Asuh Admin</h1>
                 </div>
                 
                 <div class="content">

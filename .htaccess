@@ -914,6 +914,17 @@ RewriteRule ^admin/products-substrat$                    					    admin/index.ph
 RewriteRule ^admin/products-substrat-view/(.*)/(.*)/(.*)/(.*)/(.*)-(.*)$        admin/index.php?act=custom/substrat/index&pg=$1&cat=$2&qpp=$3&srt=$4&src=$5&srcval=$6 [B]
 
 
+# ----------------------------------------------------------------------
+# PUBLICATIONS
+# ----------------------------------------------------------------------
+
+RewriteRule ^admin/publications$                                                admin/index.php?act=custom/publication/index
+RewriteRule ^admin/publications-view/(.*)/(.*)/(.*)/(.*)/(.*)-(.*)$             admin/index.php?act=custom/publication/index&pg=$1&cat=$2&qpp=$3&srt=$4&src=$5&srcval=$6
+
+RewriteRule ^admin/add-publications$                                            admin/index.php?act=custom/publication/add/index
+RewriteRule ^admin/publications-detail/(.*)/(.*)$                               admin/index.php?act=custom/publication/details/index&cat_id=$1&cat_name=$2
+
+
 
 
 # ----------------------------------------------------------------------

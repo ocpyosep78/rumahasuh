@@ -1,12 +1,9 @@
 <?php
 /* -- FUNCTIONS -- */
 
-function count_news($search_param, $search_op, $search_value){
+function count_awards(){
    $conn   = connDB();
-   $sql    = "SELECT COUNT(*) AS rows FROM tbl_news_category AS cat_ INNER JOIN tbl_news AS news_ ON cat_.category_id = news_.news_category
-              WHERE $search_param $search_op '$search_value'
-        ORDER BY `news_date`
-       ";
+   $sql    = "SELECT COUNT(*) AS rows FROM tbl_publication WHERE `visibility` = '1'";
    $query  = mysql_query($sql, $conn);
    $result = mysql_fetch_array($query);
    
@@ -14,13 +11,9 @@ function count_news($search_param, $search_op, $search_value){
 }
 
 
-function get_news($search_param, $search_op, $search_value, $start_record, $query_per_page){
+function get_awards(){
    $conn   = connDB();
-   $sql    = "SELECT * FROM tbl_news_category AS cat_ INNER JOIN tbl_news AS news_ ON cat_.category_id = news_.news_category
-              WHERE $search_param $search_op '$search_value'
-        ORDER BY `news_date`
-        LIMIT $start_record, $query_per_page
-       ";
+   $sql    = "SELECT * FROM tbl_publication  WHERE `visibility` = '1' ORDER BY `category_maps`";
    $query  = mysql_query($sql, $conn);
    $row    = array();
    
@@ -29,104 +22,19 @@ function get_news($search_param, $search_op, $search_value, $start_record, $quer
    }
    
    return $row;
-}
-
-
-function get_category(){
-   $conn   = connDB();
-   $sql    = "SELECT * FROM tbl_news_category ORDER BY `category_name`";
-   $query  = mysql_query($sql, $conn);
-   $row    = array();
-   
-   while($result = mysql_fetch_array($query)){
-      array_push($row, $result);
-   }
-   
-   return $row;
-}
-
-
-/* -- DEFINED VARIABLE -- */
-
-// REQUEST
-$category = $_REQUEST['cat_news'];
-$page     = $_REQUEST['cat_record'];
-
-
-// CONTROL 
-if(empty($_REQUEST['cat_news']) || $_REQUEST['cat_news'] == 'all' || empty($_REQUEST['cat_record'])){
-   
-   $category = '';
-   $operator = '';
-   $src_val  = '1';
-   
-   $paging_cat = 'all';
-   
-   $record = count_news($category, $operator, $src_val);
-   
-   $total_record = $record['rows'];
-   
-   $qpp  = 3;
-   $page = 1;
-   
-   if($page == 'all'){
-      
-    $start_record   = '0';
-    $query_per_page = $record['rows'];
-    
-   }else{
-     
-      $start_record   = ($page - 1) * $qpp;
-    $query_per_page = $page * $qpp;
-   }
-   
-}else{
-   
-   $category = 'category_id';
-   $operator = ' = ';
-   $src_val  = $_REQUEST['cat_news'];
-   
-   $paging_cat = $_REQUEST['cat_news'];
-   
-   $qpp      = 3;
-   $page     = $_REQUEST['cat_record'];
-   
-   $start_record   = ($page - 1) * $qpp;
-   $query_per_page = $page * ($qpp - 1);
-   
-   $record = count_news($category, $operator, $src_val);
-   
-}
-
-
-
-/* -- PAGINATION -- */
-function view_pagination($post_total_record, $post_qpp, $post_req_cat, $post_req_filter, $post_req_sort, $post_req_page){
-  
-   // DEFINED VARIABLE
-   $paging['total_record'] = $post_total_record;
-   $paging['qpp']          = $post_qpp;
-   $paging['total_page']   = ceil($post_total_record / $post_qpp);
-   
-   //$paging['first']        = 
-   
-   echo '<ul class="pagination pull-right">';
-   echo "<li><a href=\"http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/blog\">&laquo;</a></li>";
-   
-   for($i=1; $i <= $paging['total_page']; $i++){
-      echo "<li><a href=\"http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/blog-view/".$post_req_cat."/".$i."\">".$i."</a></li>";
-   }
-   echo "<li><a href=\"http://".$_SERVER['HTTP_HOST'].get_dirname($_SERVER['PHP_SELF'])."/blog-view/".$post_req_cat.'/'.$paging['total_page']."\">&raquo;</a></li>";
-   echo '</ul>';
-   
 }
 
 
 
 // CALL FUNCTIONS
-$news          = get_news($category, $operator, $src_val, $start_record, $query_per_page);
-$news_category = get_category();
+$count  = count_awards();
+$awards = get_awards();
 ?>
+
+<!-- JQUERY BEGIN-->
+<link rel="stylesheet" href="<?php echo $prefix_url;?>script/prettyphoto/css/prettyPhoto.css" type="text/css" media="screen" charset="utf-8" />
+<script src="<?php echo $prefix_url;?>script/prettyphoto/js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+
 
     <div class="container main">
       <div class="content">
@@ -137,13 +45,58 @@ $news_category = get_category();
 
           <ul class="col-xs-10" style="margin-top: 10px">
             <h2 class="m_b_20 text-right">Publications</h2>
-            <a href=""><div class="award-list"><span>2012</span> Publication Name</div></a>
-            <a href=""><div class="award-list"><span>2012</span> Publication Name</div></a>
-            <a href=""><div class="award-list"><span>2012</span> Publication Name</div></a>
-            <a href=""><div class="award-list"><span>2012</span> Publication Name</div></a>
+            
+            
+            <?php
+            // PRETTYPHOTO
+			echo '<ul class="gallery">';
+			?>
+            
+            <?php
+            foreach($awards as $awards){
+			   
+			   // PRETYPHOTO
+			   echo '<li>';
+			   
+			   echo '<a href="'.$prefix_url.$awards['description'].'"  rel="prettyPhoto[gallery1]">
+			   <div class="award-list"><span>'.$awards['category_maps'].'</span> '.$awards['career_name'].'</div></a>';
+			   
+			   echo '</li>';
+			}
+			?>
+            
+            <?php
+            // PRETTYPHOTO
+			echo '</ul>';
+			?>
+            
           </ul>
 
         </div><!--.row-->
 
       </div><!--.content-->
     </div><!--.container.main-->
+    
+    
+    
+<!-- JQUERY CALL -->                            
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function(){
+   $("area[rel^='prettyPhoto']").prettyPhoto();
+   
+   $(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: false});
+   $(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+   
+   $("#custom_content a[rel^='prettyPhoto']:first").prettyPhoto({
+      custom_markup: '<div id="map_canvas" style="width:260px; height:265px"></div>',
+	  changepicturecallback: function(){ initialize(); }
+   });
+   
+   $("#custom_content a[rel^='prettyPhoto']:last").prettyPhoto({
+      custom_markup: '<div id="bsap_1259344" class="bsarocks bsap_d49a0984d0f377271ccbf01a33f2b6d6"></div><div id="bsap_1237859" class="bsarocks bsap_d49a0984d0f377271ccbf01a33f2b6d6" style="height:260px"></div><div id="bsap_1251710" class="bsarocks bsap_d49a0984d0f377271ccbf01a33f2b6d6"></div>',
+      changepicturecallback: function(){ _bsap.exec(); }
+   });
+   
+});
+</script>                            
+<!-- JQUERY END-->

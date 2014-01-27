@@ -187,7 +187,7 @@ body {
 }
 
 .container.main {
-  background: #fff;
+  min-height: 600px;
 }
 
 
@@ -401,7 +401,6 @@ body {
    ========================================================================== */
 
 .footer {
-  position: absolute;
   bottom: 9px;
   color: #999;
   text-align: center;

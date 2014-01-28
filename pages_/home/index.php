@@ -152,13 +152,13 @@ $get_featured    = get_featured();
 	  slides 				  : [			// Slideshow Images
 	  
 	                            {
-									image : '<?php echo $prefix_url;?>files/common/img_banner-1.jpg'},
+									image : '<?php echo $prefix_url;?>files/common/slider-3-bg-cover-1.jpg'},
 									
 								{
-									image : '<?php echo $prefix_url;?>files/common/img_banner-2.jpg'},
+									image : '<?php echo $prefix_url;?>files/common/slider-2-bg-cover-3.jpg'},
 									
 								{
-									image : '<?php echo $prefix_url;?>files/common/img_banner-3.jpg'}
+									image : '<?php echo $prefix_url;?>files/common/slider-1-bg-cover-2.jpg'}
 								],
       // Theme Options	
 	  progress_bar			 :	1,			// Timer for each slide	

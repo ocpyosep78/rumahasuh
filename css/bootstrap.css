@@ -5015,10 +5015,10 @@ a.thumbnail:focus {
 }
 
 .alert {
-  padding: 15px;
+  padding: 10px;
   margin-bottom: 20px;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 .alert h4 {

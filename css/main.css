@@ -408,6 +408,7 @@ body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 200;
   width: 100%;
+  margin-top: 30px;
 }
 
 .footer.footer-home {
@@ -1266,8 +1267,11 @@ fieldset[disabled] .btn {
 
 .btn-default {
   color: #333333;
-  background-color: #ebebeb;
-  border-color: #ddd;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  border-right: none;
+  border-top: none;
+  border-left: none;
 }
 
 .btn-default:hover,
@@ -1276,7 +1280,7 @@ fieldset[disabled] .btn {
 .btn-default.active,
 .open .dropdown-toggle.btn-default {
   color: #333333;
-  background-color: #ddd;
+  background-color: #fff;
   border-color: #ccc;
 }
 

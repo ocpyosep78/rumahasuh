@@ -156,14 +156,14 @@ $news_category = get_category();
             //for($i=0;$i<1;$i++){
       foreach($news as $news){
             ?>
-            <div class="post-2 row">
+            <div class="post-2 row m_t_10">
               <div class="col-xs-3">
                 <h2><?php echo $news['news_title'];?></h2>
                 <p class="timestamp"><?php echo date('j F Y',strtotime($news['news_date']));?></p>
               </div>
               <div class="col-xs-9">
-                <img class="m_b_10" src="<?php echo $prefix_img.$news['news_image'].'&h=300&w=705&q=100';?>">
-                <p class="m_b_10 content-news-custom"><?php echo substr(preg_replace("/\n/","\n<br>",$news['news_content']),0,300);?></p>
+                <a class="read-more" href="<?php echo $prefix_url.'read/'.cleanurl($news['category_name']).'/'.$news['news_id'].'/'.cleanurl($news['news_title']);?>"><img class="m_b_10" src="<?php echo $prefix_img.$news['news_image'].'&h=300&w=705&q=100';?>"></a>
+                <p class="m_b_10 content-news-custom"><?php echo substr(preg_replace("/\n/","\n",$news['news_content']),0,300);?></p>
                 <a class="read-more" href="<?php echo $prefix_url.'read/'.cleanurl($news['category_name']).'/'.$news['news_id'].'/'.cleanurl($news['news_title']);?>">Read More</a>
                 <!--<a class="read-more" href="<?php echo $prefix_url.cleanurl($news['category_name']).'/'.$news['news_alias'];?>">Read More</a>-->
               </div>

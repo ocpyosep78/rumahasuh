@@ -132,8 +132,6 @@ $projects       = get_project();
 
     <div class="container main">
       <div class="content">
-
-
         
         <div class="row blog">
 
@@ -149,16 +147,16 @@ $projects       = get_project();
             </ul>-->
 
             <!--BLOG INDEX 1-->
-            <div class="post row" style="margin-left: -10px; margin-right: -10px">
+            <div class="post row" style="margin-left: -10px; margin-right: -10px; margin-bottom: 0; padding-bottom: 0">
             <?php 
 			foreach($projects as $projects){
             ?>
             
               <a href="<?php echo $prefix_url.'project-detail/'.cleanurl($projects['name']).'/'.$projects['inspiration_id'];?>">
-              <div class="col-xs-4" style="padding-left: 10px; padding-right: 10px">
+              <div class="col-xs-4" style="padding-left: 10px; padding-right: 10px; margin-bottom: 20px">
                 <img class="m_b_10" src="<?php echo $prefix_url.'admin/static/thimthumb.php?src=../'.$projects['image'].'&h=200&w=300%&q=100';?>">
                 <!--<img src="<?php echo $prefix_url?>script/holder.js/100%x200" class="m_b_20">-->
-                <h2><?php echo $projects['name'];?></h2>
+                <h2 style="margin-top: 0"><?php echo $projects['name'];?></h2>
                 <p class="timestamp"><?php echo $projects['place'];?>, <?php echo date('Y',strtotime($projects['date_created']));?></p>
                 <!--<p class="m_b_10"><?php echo substr(preg_replace("/\n/","\n<br>",$news['news_content']),0,300);?></p>
                 <a class="read-more" href="<?php echo $prefix_url.cleanurl($news['category_name']).'/'.$news['news_alias'];?>">Read More</a>-->

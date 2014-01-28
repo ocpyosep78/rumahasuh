@@ -24,7 +24,7 @@ if(isset($_POST['btn_contact'])){
 ?>
 
 <style>
-.has-error { border:1px solid #f00;}
+.has-error { border:1px solid #d15656;}
 </style>
 
 
@@ -41,25 +41,33 @@ if(isset($_POST['btn_contact'])){
             <h2 class="m_b_20 text-right">Contact</h2>
 
             <div class="row">
-            
-        			<?php 
-        			// ALERT NOTIFICATION
-        			
-        			if(!empty($_SESSION['alert'])){
-        			   echo '<div class="alert-'.$_SESSION['alert'].'">'.$_SESSION['msg'].'</div>';
-        			}
-        			
-        			if($_POST['btn_contact'] == ""){
-        			   unset($_SESSION['alert']);
-        			   unset($_SESSION['msg']);
-        			}
-        			?>
+          
 
               <div class="col-xs-4">
-                asdasd
+                <strong>Rumah Asuh</strong><br>
+                Jl. Palem Puri No. 7 RT 003/006<br>
+                Serua Poncol - Sawah Baru<br>
+                Bintaro Sektor IX Tangerang 15413<br>
+                <br>
+                p/ (62-21) 7457797, 7456697<br>
+                f/ (62--21) 7458922<br>
+                e/ rumahasuh@gmail.com
               </div>
               
               <div class="col-xs-8">
+
+                <?php 
+                // ALERT NOTIFICATION
+                
+                if(!empty($_SESSION['alert'])){
+                   echo '<div class="alert alert-'.$_SESSION['alert'].'">'.$_SESSION['msg'].'</div>';
+                }
+                
+                if($_POST['btn_contact'] == ""){
+                   unset($_SESSION['alert']);
+                   unset($_SESSION['msg']);
+                }
+                ?>
 
                 <form role="form" method="post">
                   <div class="form-group row">
